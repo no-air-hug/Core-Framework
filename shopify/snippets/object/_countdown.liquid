@@ -1,0 +1,118 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Countdown
+  -------------------------------------------------------------------------------
+  Accepts
+  - text: {String/Object} the text that contains the countdown pattern.
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_countdown', text: 'Black Friday is coming in // text //' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Inserts a countdown based on a supplied start date and a end date. This relys
+  on a countdown metaobject to be available on the store, and it requires the
+  follow metafields inside of it:
+
+  Countdown Metaobject Layout:
+
+  * indicates that it's a input that needs to be set as required
+
+  * countdown.countdown_name (label:Countdown Name) (single line text input)
+    - Display Name: true
+    - Description: The countdown module will work on most text theme settings.
+  * countdown.start_date (label:Start Date) (date/time input)
+    - Description: When the countdown started. This does not support future dates.
+  * countdown.end_date (label:End Date) (date/time input)
+    - Description: When the countdown should end. When it ends, it'll be replaced by the 'Resolution Text' setting
+  * countdown.pattern (label:Pattern) (single line text input)
+    - Description: i.e. If a theme text setting has 'x' in it, then a countdown will replace every 'x' in the string.
+  * countdown.resolution_text (label:Resolution Text) (richtext input)
+    - Description: This text will be displayed once the countdown ends.
+  * countdown.type (label:Type) (single line text input) (three options: 'Clock', 'Text', 'Clock & Text')
+    - Description: The visual style of the countdown: just text, just a clock, or both.
+  * countdown.colour_background (label: Colour - Background) (color input)
+    - Description: The colour used for the background of the clock.
+  * countdown.colour_safe (label: Colour - Safe) (color input)
+    - Description: The colour used for the time path when the clock is inside the safe threshold (> 50% time left).
+  * countdown.colour_warning (label: Colour - Warning) (color input)
+    - Description: The colour used for the time path when the clock is inside the warning threshold (< 50% time left).
+  * countdown.colour_alert (label: Colour - Alert) (color input)
+    - Description: The colour used for the time path when the clock is inside the alert threshold (< 25% time left).
+{%- endcomment -%}
+
+{%- liquid
+  assign has_pattern = false
+  for countdown in shop.metaobjects.countdown.values
+    assign pattern = countdown.pattern.value
+    if text contains pattern
+      assign has_pattern = true
+    endif
+  endfor
+-%}
+
+{%- if has_pattern -%}
+  {%- for countdown in shop.metaobjects.countdown.values -%}
+    {%- liquid
+      assign resolution_text = countdown.resolution_text | metafield_text
+      assign start_date = countdown.start_date.value
+      assign end_date = countdown.end_date.value
+      assign pattern = countdown.pattern.value
+      assign type = countdown.type.value | downcase
+      assign colour_background = countdown.colour_background.value
+      assign colour_safe = countdown.colour_safe.value
+      assign colour_warning = countdown.colour_warning.value
+      assign colour_alert = countdown.colour_alert.value
+
+      case type
+        when 'text'
+          assign tag = 'text-countdown'
+        when 'clock'
+          assign tag = 'clock-countdown'
+          assign text_class = 'sr-only'
+        else
+          assign tag = 'clock-countdown'
+      endcase
+    -%}
+
+    {%- if text contains pattern -%}
+      {%- assign has_countdown = true -%}
+      {% capture countdown_module %}
+        <{{ tag }}
+          class="inline-flex items-center gap-x-3"
+          {% if start_date != blank %}
+            data-start-date-uts="{{ start_date }}"
+          {% endif %}
+          data-end-date-uts="{{ end_date }}"
+          {%- liquid
+            if tag == 'clock-countdown'
+              echo 'data-colour-background="#"' | replace: '#', colour_background
+              echo 'data-colour-safe="#"' | replace: '#', colour_safe
+              echo 'data-colour-warning="#"' | replace: '#', colour_warning
+              echo 'data-colour-alert="#"' | replace: '#', colour_alert
+            endif
+          -%}
+        >
+          {%- if tag == 'clock-countdown' -%}
+            <span class="js-countdown-clock"></span>
+          {%- endif -%}
+          <span class="js-countdown-text -mt-[3%] {{ text_class }}"></span>
+        </{{ tag }}>
+      {% endcapture %}
+
+      {%- liquid
+        assign date_end = end_date | date: '%s'
+        assign date_now = 'now' | date: '%s'
+        if date_end < date_now
+          # The end date has passed.
+          echo resolution_text
+        else
+          # The end date is in the future or it's the current date.
+          assign text = text | replace: pattern, countdown_module
+          echo text
+        endif
+      -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {{ text }}
+{%- endif -%}

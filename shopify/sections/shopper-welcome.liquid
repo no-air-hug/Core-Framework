@@ -1,0 +1,33 @@
+<div class="grid h-screen-d w-full">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'text' %}
+        <div
+          class="isolate col-start-1 row-start-1 m-auto translate-y-full p-4"
+          style="color:{{ block.settings.color }};"
+        >
+          <h1 class="text-center text-5xl font-medium leading-1 lg:text-7xl">
+            {{ block.settings.title }}
+          </h1>
+        </div>
+
+      {% when 'media' %}
+        <div class="col-start-1 row-start-1" {{ block.shopify_attributes }}>
+          {% if block.settings.video_file != blank %}
+            {{
+              block.settings.video_file
+              | video_tag:
+                class: 'w-full h-full object-cover',
+                autoplay: true,
+                playsinline: true,
+                muted: true,
+                loop: true,
+                controls: false
+            }}
+          {% else %}
+            {%- render 'section_media', target: block.settings, image_picture_class: 'h-full', video_class: 'h-full' -%}
+          {% endif %}
+        </div>
+    {% endcase %}
+  {% endfor %}
+</div>

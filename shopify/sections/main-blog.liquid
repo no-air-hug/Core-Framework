@@ -1,0 +1,67 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+  assign page_size = section.settings.pagination_amount
+-%}
+
+<div class="js-paginatable">
+  {%- paginate blog.articles by page_size -%}
+    <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-9 lg:gap-y-11 js-paginatable-list">
+      {%- for article in blog.articles -%}
+        {%- liquid
+          capture hr
+            if section.settings.layout == 'collage'
+              cycle '', '', '', '<hr class="col-span-3 o-hr max-lg:hidden">'
+            endif
+          endcapture
+
+          assign card_class = ''
+          assign is_large = false
+          if section.settings.layout == 'collage'
+            assign modulo = forloop.index | modulo: 4
+            if modulo == 0
+              assign is_large = true
+
+              capture card_class
+                cycle '', 'lg:rtl-grid'
+              endcapture
+            endif
+          endif
+        -%}
+
+        {{- hr -}}
+        <li class="blog-articles__article article{% if is_large %} lg:col-span-3{% endif %} js-paginatable-item">
+          {%- render 'card_article',
+            article: article,
+            class: card_class,
+            is_large: is_large,
+            show_image: section.settings.show_image,
+            show_date: section.settings.show_date,
+            show_author: section.settings.show_author,
+            show_excerpt: true,
+            preload: forloop.first
+          -%}
+        </li>
+        {{- hr -}}
+      {%- endfor -%}
+    </ul>
+
+    {%- capture hr -%}
+      <hr class="mb-8 o-hr mt-9">
+    {%- endcapture -%}
+
+    {%- liquid
+      # Converts string to integer
+      assign pagination_visibility = settings.pagination_visibility | plus: 0
+
+      if paginate.pages > pagination_visibility
+        echo hr
+        case section.settings.pagination_style
+          when 'text'
+            render 'pagination_text', paginate: paginate
+          when 'dynamic'
+            render 'pagination_dynamic', paginate: paginate
+        endcase
+      endif
+    -%}
+  {%- endpaginate -%}
+</div>

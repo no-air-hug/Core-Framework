@@ -1,0 +1,171 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Facets - Price Range (Disclosure Element)
+  -------------------------------------------------------------------------------
+  Accepts
+  - filter: {Object} (required)
+  - index: {Integer} (required)
+  - input_scope: {String} used with the Facets.js file, this declares whether
+  the input should be active on mobile or on desktop, possible values are
+  limited to 'desktop' or 'mobile' (required).
+  - start_open: {Boolean} - forces the facets to be open on load (optional)
+  - form_id: {String} - attatches every input to an external form (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'facets_price-range-disclosure',
+  filter: filter,
+  index: index,
+  input_scope: 'input_scope',
+  start_open: start_open,
+  form_id: 'form'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays the price range filter on the collection and search templates.
+{%- endcomment -%}
+
+{%- liquid
+  assign filter = filter
+  assign index = index
+  assign start_open = start_open
+  assign form_id = form_id
+  assign input_scope = input_scope | default: 'desktop'
+  assign input_js_class = input_js_class | default: 'js-facet-input-' | append: input_scope
+
+  assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+  assign uses_comma_decimals = false
+
+  if currencies_using_comma_decimals contains cart.currency.iso_code
+    assign uses_comma_decimals = true
+  endif
+
+  # Attribute to force the details/summary els to be open on load.
+  capture start_open_attr
+    if start_open
+      echo 'open'
+    endif
+  endcapture
+-%}
+
+<details
+  class="js-facet-dropdown relative"
+  data-index="{{ index | default: '1' }}"
+  {{ start_open_attr }}
+>
+  <summary class="flex cursor-pointer items-center gap-2 max-lg:justify-between">
+    <p class="select-none text-sm font-bold transition-opacity hover:opacity-60">
+      {{- 'snippets.facets.price_range_disclosure.title' | t -}}
+    </p>
+
+    {%- render 'theme_icons' with 'chevron-down', width: 16, height: 16, class: 'stroke-current' -%}
+  </summary>
+
+  <div
+    class="lg:up-arrow lg:absolute lg:left-1/2 lg:top-8 lg:z-[11] lg:w-fit lg:min-w-18 lg:-translate-x-1/2 lg:rounded-2 lg:bg-section-bg lg:shadow-2"
+    style="--arrow-color: var(--bg)"
+  >
+    <header class="flex select-none items-center justify-between border-b border-solid border-border-light py-4 text-sm lg:px-5 lg:text-md">
+      <p>
+        {%- assign max_price_amount = filter.range_max | money | escape -%}
+        {{- 'snippets.facets.price_range_disclosure.max_price' | t: price: max_price_amount -}}
+      </p>
+
+      {%- liquid
+        assign has_active_facet = false
+
+        if filter.min_value.value != null or filter.max_value.value != null
+          assign has_active_facet = true
+        endif
+      -%}
+
+      {%- if has_active_facet -%}
+        <a class="js-facet-remove underline underline-offset-4 hover:no-underline" href="{{ filter.url_to_remove }}">
+          {{- 'snippets.facets.price_range_disclosure.reset' | t -}}
+        </a>
+      {%- endif -%}
+    </header>
+
+    <price-range class="js-price-range flex flex-col gap-y-6 py-4 lg:px-5" price-gap="10">
+      {%- liquid
+        # Note: ensure | ceil occurs after replace.
+        assign range_max = filter.range_max | money_without_currency | replace: ',', '.' | ceil
+
+        assign min_val = filter.min_value.value | money_without_currency | replace: ',', '' | floor
+        assign max_val = filter.max_value.value | money_without_currency | default: range_max | replace: ',', '' | ceil
+
+        if uses_comma_decimals
+          assign min_val = filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' | floor
+          assign max_val = filter.max_value.value | money_without_currency | default: range_max | replace: '.', '' | replace: ',', '.' | ceil
+        endif
+
+        # Set Default
+        assign min_val = min_val | default: 0
+      -%}
+
+      <div class="flex w-full gap-2">
+        <div class="flex flex-col items-start">
+          <span class="select-none pb-1 text-sm font-bold">
+            {{- 'snippets.facets.price_range_disclosure.from' | t -}}
+          </span>
+          <input
+            class="js-price-input js-price-input-gte h-8 w-17 rounded-1 border text-center {{ input_js_class }}"
+            data-input="min"
+            type="number"
+            data-facets-identifier="{{ filter.min_value.param_name }}-input-min"
+            min="0"
+            value="{{ min_val | default: 0 }}"
+          >
+        </div>
+
+        <div class="flex w-6 items-end justify-center pb-[6px] text-lg">-</div>
+
+        <div class="flex flex-col items-start">
+          <span class="select-none pb-1 text-sm font-bold">
+            {{- 'snippets.facets.price_range_disclosure.to' | t -}}
+          </span>
+          <input
+            class="js-price-input js-price-input-lte h-8 w-17 rounded-1 border text-center {{ input_js_class }}"
+            data-input="max"
+            type="number"
+            data-facets-identifier="{{ filter.max_value.param_name }}-input-max"
+            max="{{ range_max }}"
+            value="{{ max_val }}"
+          >
+        </div>
+      </div>
+
+      <div class="relative mb-3">
+        <div class="relative h-1 rounded-1 bg-grey-80">
+          <div class="js-price-progress absolute left-0 right-0 h-full rounded-1 bg-highlight"></div>
+        </div>
+
+        <input
+          type="range"
+          class="js-range-input pointer-events-none absolute top-1/2 h-1 w-full -translate-y-1/2 {{ input_js_class }}"
+          data-range="min"
+          data-facets-identifier="{{ filter.min_value.param_name }}-range-min"
+          name="{{ filter.min_value.param_name }}"
+          min="0"
+          max="{{ range_max }}"
+          value="{{ min_val | default: 0 }}"
+          {% if form_id != blank %}
+            form="{{ form_id }}"
+          {% endif %}
+        >
+        <input
+          type="range"
+          class="js-range-input pointer-events-none absolute top-1/2 h-1 w-full -translate-y-1/2 {{ input_js_class }}"
+          data-range="max"
+          data-facets-identifier="{{ filter.max_value.param_name }}-range-max"
+          name="{{ filter.max_value.param_name }}"
+          min="0"
+          max="{{ range_max }}"
+          value="{{ max_val }}"
+          {% if form_id != blank %}
+            form="{{ form_id }}"
+          {% endif %}
+        >
+      </div>
+    </price-range>
+  </div>
+</details>

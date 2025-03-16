@@ -1,0 +1,123 @@
+{%- assign pick_up_availabilities = product_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+
+{%- if pick_up_availabilities.size > 0 -%}
+  <div
+    class="flex items-start gap-1 pr-5 js-availability-preview"
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+  >
+    {%- liquid
+      assign closest_location = pick_up_availabilities.first
+
+      if closest_location.available
+        render 'theme_icons' with 'location', width: 16, height: 16, class: 'mt-[2px]'
+      endif
+    -%}
+
+    <div>
+      {%- if closest_location.available -%}
+        <p class="text-md">
+          {{-
+            'global.products.pickup_availability.pick_up_available_at_html'
+            | t: location_name: closest_location.location.name
+          -}}
+        </p>
+        <p class="text-sm">{{- closest_location.pick_up_time -}}</p>
+
+        <button
+          is="dialog-trigger"
+          dialog-selector="#DrawerPickup"
+          class="mt-4 o-button o-button--underline text-md"
+        >
+          {%- liquid
+            if pick_up_availabilities.size == 1
+              echo 'global.products.pickup_availability.view_store_info' | t
+            else
+              echo 'global.products.pickup_availability.check_other_stores' | t
+            endif
+          -%}
+        </button>
+      {%- else -%}
+        <p class="text-md">
+          {{-
+            'global.products.pickup_availability.pick_up_unavailable_at_html'
+            | t: location_name: closest_location.location.name
+          -}}
+        </p>
+        {%- if pick_up_availabilities.size > 1 -%}
+          <button
+            is="dialog-trigger"
+            dialog-selector="#DrawerPickup"
+            class="mt-4 o-button o-button--underline text-md"
+          >
+            {{- 'global.products.pickup_availability.check_other_stores' | t -}}
+          </button>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="js-availability-drawer-content">
+    {%- unless product_variant.product.has_only_default_variant -%}
+      <ul class="flex flex-wrap mb-4 gap-x-3">
+        {%- for product_option in product_variant.product.options_with_values -%}
+          <li class="py-[0.2rem] select-none px-3 border border-solid text-secondary border-highlight rounded-[1.6rem]">
+            <p class="text-sm">
+              {{- product_option.name | escape -}}:&nbsp;
+              {%- for value in product_option.values -%}
+                {%- if product_option.selected_value == value -%}
+                  <span>{{- value | escape -}}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endunless -%}
+
+    <ul class="flex flex-col gap-y-5">
+      {%- for availability in pick_up_availabilities -%}
+        <li class="rounded-[1.2rem] border border-solid border-border-light px-6 py-3 transition-opacity hover:opacity-50">
+          {%- liquid
+            assign address = availability.location.address
+            assign href = 'https://www.google.com/maps/search/?api=1&query=#'
+            assign query = address | format_address | replace: '<br>', '+' | replace: ' ', '+' | strip_html
+            assign href = href | replace: '#', query
+          -%}
+
+          <a
+            class="flex flex-col"
+            href="{{ href }}"
+          >
+            <p class="text-lg">{{- availability.location.name | escape -}}</p>
+
+            <address class="text-md">
+              {{- address | format_address -}}
+
+              {%- if address.phone.size > 0 -%}
+                <p>{{- address.phone -}}</p>
+              {%- endif -%}
+            </address>
+
+            <p class="pt-3 text-md">
+              {%- if availability.available -%}
+                <span class="flex items-center text-validation-success gap-x-1">
+                  {%- liquid
+                    render 'theme_icons' with 'shopping-bag', width: 16, height: 16, class: 'stroke-current'
+                    echo availability.pick_up_time
+                  -%}
+                </span>
+              {%- else -%}
+                <span class="flex items-center text-validation-error gap-x-1">
+                  {%- liquid
+                    render 'theme_icons' with 'close', width: 16, height: 16, class: 'stroke-current'
+                    echo 'global.products.pickup_availability.sold_out' | t
+                  -%}
+                </span>
+              {%- endif -%}
+            </p>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

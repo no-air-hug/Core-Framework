@@ -1,0 +1,22 @@
+{%- capture content -%}
+  <% if(data.popularSearches && data.popularSearches.length) { %>
+    <div class="kuPopularSearchesBlock kuPreventDocumentClick">
+      <div class="klevuSuggestionHeading kuPopularSearchHeading"><span class="klevuHeadingText"><%=helper.translate("Popular Searches")%></span></div>
+      <div class="kuPopularSearchTerms">
+        <ul>
+          <% helper.each(data.popularSearches,function(key,term){ %>
+            <% if(term && term.length) { %>
+              <li class="kuPopularSearchTerm" data-value="<%= term %>">
+                <a target="_self" href="javascript:void(0)"><%= term %></a>
+              </li>
+            <% } %>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_kuTemplatePopularSearches">
+  {{- content -}}
+</script>

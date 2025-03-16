@@ -1,0 +1,27 @@
+{%- render 'section_spacing-and-color', section: section -%}
+
+<div class="py-3 text-xs">
+  <ul class="flex justify-center max-md:leading-normal">
+    {%- for block in section.blocks -%}
+      <li
+        class="flex items-center justify-center gap-x-2"
+        {{ block.shopify_attributes }}
+      >
+        {% capture text %}
+          {{- block.settings.text -}}
+          {%- render 'theme_icons' with block.settings.icon, width: 14, height: 14, class: 'stroke-current' -%}
+        {% endcapture %}
+
+        {%- liquid
+          if shop.metaobjects.countdown != blank
+            # Countdown
+            render 'object_countdown', text: text
+          else
+            # Standard Text
+            echo text
+          endif
+        -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

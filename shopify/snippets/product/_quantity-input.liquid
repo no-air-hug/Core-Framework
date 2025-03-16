@@ -1,0 +1,61 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Quantity Input
+  -------------------------------------------------------------------------------
+  Accepts
+  - section: {Object} (required)
+  - product: {Object} (required)
+  - product_form_id: {String} the target form id (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_quantity-input',
+  section: section,
+  product: product,
+  product_form_id: product_form_id
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a quantity input, designed to work with product forms.
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class
+  assign input_class = input_class
+  assign product_form_id = product_form_id
+  assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id
+  assign icon_width = icon_width | default: 24
+  assign icon_height = icon_height | default: 24
+-%}
+
+<quantity-input class="quantity-input js-quantity-input {{ class }}">
+  <button name="minus">
+    <span class="sr-only">
+      {{- 'global.accessibility.quantity.decrease' | t: product: product.title | escape -}}
+    </span>
+    {%- render 'theme_icons' with 'minus', class: 'stroke-current', width: icon_width, height: icon_height -%}
+  </button>
+
+  <input
+    type="number"
+    name="quantity"
+    class="{{ input_class }}"
+    id="Quantity-{{ section.id }}"
+    data-cart-quantity="{{ cart_qty }}"
+    data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+    {% endif %}
+    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    form="{{ product_form_id }}"
+  >
+
+  <button name="plus">
+    <span class="sr-only">
+      {{- 'global.accessibility.quantity.increase' | t: product: product.title | escape -}}
+    </span>
+    {%- render 'theme_icons' with 'plus', class: 'stroke-current', width: icon_width, height: icon_height -%}
+  </button>
+</quantity-input>

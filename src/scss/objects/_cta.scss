@@ -1,0 +1,88 @@
+.o-ctas {
+  --cta-gap: theme("spacing.1");
+
+  gap: var(--cta-gap);
+
+  @apply inline-flex w-full flex-wrap;
+
+  /* Content Related Settings */
+  .content & {
+    // CTA Spacing application
+    margin-block-start: calc(var(--content-gap) * -1);
+    padding-block-start: var(--cta-spacing);
+
+    @screen lg {
+      margin-block-start: calc(var(--content-gap-desktop) * -1);
+      padding-block-start: var(--cta-spacing-desktop);
+    }
+
+    // CTA Alignment application
+    &.o-ctas--horizontal-align-mobile {
+      @apply max-lg:flex-row;
+    }
+
+    &.o-ctas--horizontal-align-desktop {
+      @apply lg:flex-row;
+    }
+
+    &.o-ctas--vertical-align-mobile {
+      @apply max-lg:flex-col;
+    }
+
+    &.o-ctas--vertical-align-desktop {
+      @apply lg:flex-col;
+    }
+
+    // Max width applications based on the content's width.
+    &.o-ctas--multiple {
+      &.o-ctas--horizontal-align-mobile {
+        .o-button {
+          @screen max-lg {
+            max-width: calc((100% / 2) - (var(--cta-gap) / 2));
+          }
+        }
+      }
+
+      &.o-ctas--horizontal-align-desktop {
+        .o-button {
+          @screen lg {
+            max-width: calc((var(--content-width) / 2) - (var(--cta-gap) / 2));
+
+            /* The rich-text section does not use content-width */
+            .shopify-section--rich-text & {
+              max-width: calc((100% / 2) - (var(--cta-gap) / 2));
+            }
+          }
+        }
+      }
+
+      &.o-ctas--vertical-align-mobile {
+        .o-button {
+          @screen max-lg {
+            max-width: 100%;
+          }
+        }
+      }
+
+      &.o-ctas--vertical-align-desktop {
+        .o-button {
+          @screen lg {
+            max-width: var(--content-width);
+
+            /* The rich-text section does not use content-width */
+            .shopify-section--rich-text & {
+              max-width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* The gap increases if a '--underline' button is present */
+  &:has(.o-button--underline + .o-button),
+  &:has(.o-button + .o-button--underline),
+  &:has(.o-button--underline + .o-button--underline) {
+    --cta-gap: theme("spacing.3");
+  }
+}

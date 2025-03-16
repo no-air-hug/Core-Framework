@@ -1,0 +1,84 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Inventory
+  -------------------------------------------------------------------------------
+  Accepts
+  - section: {Object} (required)
+  - block: {Object} (required)
+  - product: {Object} (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_inventory',
+    section: section,
+    block: block,
+    product: product
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Generates inventory information about the currently selected variant, is
+  connected to a module that responds to the 'Variant:Changed' event so that
+  the inventory information updates along with each variant change.
+{%- endcomment -%}
+
+<product-inventory
+  {{ block.shopify_attributes }}
+  data-handle="{{ product.handle }}"
+  data-section="{{ section.id }}"
+  role="status"
+  {% if product.selected_or_first_available_variant.inventory_management != 'shopify' %}
+    hidden
+  {% endif %}
+>
+  <div class="flex items-center gap-2 transition-opacity text-md js-inventory-content">
+    {%- capture status_icon -%}
+      <svg width="15" height="15" aria-hidden="true">
+        <circle cx="7.5" cy="7.5" r="7.5" fill="[[color_faded]]"/>
+        <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="[[color]]"/>
+      </svg>
+    {%- endcapture -%}
+
+    {%- liquid
+      # - Colours
+      # Safe (Green)
+      assign color_safe = 'rgb(62, 214, 96)'
+      assign color_safe_faded = color_safe | replace: ')', ', 0.3)'
+
+      # Warning (Orange)
+      assign color_warning = 'rgb(238, 148, 65)'
+      assign color_warning_faded = color_warning | replace: ')', ', 0.3)'
+
+      # Alert (Red)
+      assign color_alert = 'rgb(219, 10, 10)'
+      assign color_alert_faded = color_alert | replace: ')', ', 0.3)'
+
+      # Inventory Indicator
+      if product.selected_or_first_available_variant.inventory_quantity > 0
+        if product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold
+          echo status_icon | replace: '[[color]]', color_warning | replace: '[[color_faded]]', color_warning_faded
+
+          if block.settings.show_inventory_quantity
+            echo 'global.products.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+          else
+            echo 'global.products.inventory_low_stock' | t
+          endif
+        else
+          echo status_icon | replace: '[[color]]', color_safe | replace: '[[color_faded]]', color_safe_faded
+
+          if block.settings.show_inventory_quantity
+            echo 'global.products.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+          else
+            echo 'global.products.inventory_in_stock' | t
+          endif
+        endif
+      else
+        if product.selected_or_first_available_variant.inventory_policy == 'continue'
+          echo status_icon | replace: '[[color]]', color_safe | replace: '[[color_faded]]', color_safe_faded
+          echo 'global.products.inventory_out_of_stock_continue_selling' | t
+        else
+          echo status_icon | replace: '[[color]]', color_alert | replace: '[[color_faded]]', color_alert_faded
+          echo 'global.products.inventory_out_of_stock' | t
+        endif
+      endif
+    -%}
+  </div>
+</product-inventory>

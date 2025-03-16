@@ -1,0 +1,108 @@
+.nav-desktop {
+  @apply text-brand-1;
+
+  &__list {
+    --nav-gap: theme("spacing.9");
+
+    column-gap: var(--nav-gap);
+
+    @apply flex justify-center;
+  }
+
+  &__item {
+    --hover-indicator: 0;
+
+    &.nav-desktop__item--has-submenu {
+      // Overlay
+      &::before {
+        content: "";
+        transition: opacity 300ms;
+
+        @apply pointer-events-none absolute left-0 top-full h-screen-d-minus-header w-full bg-overlay opacity-0;
+      }
+    }
+
+    &:focus-within,
+    &:focus-visible,
+    &:hover {
+      --hover-indicator: 1;
+
+      &::before {
+        @apply opacity-100;
+      }
+
+      > .nav-desktop__link--top {
+        @apply text-primary;
+      }
+    }
+  }
+
+  &__link {
+    @apply relative hover:text-grey-10;
+
+    &::after {
+      content: "";
+      height: 2px;
+      opacity: var(--hover-indicator);
+      transition: opacity 300ms;
+
+      @apply absolute bottom-0 z-2 w-full bg-highlight;
+    }
+
+    &--top {
+      @apply relative pb-4;
+
+      // Adds interactive region around Text
+      &::before {
+        content: "";
+        left: calc((var(--nav-gap) / 2) * -1);
+        width: calc(100% + var(--nav-gap));
+        clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
+
+        @apply absolute top-0 h-full;
+      }
+    }
+  }
+
+  &__submenu {
+    --row-width: 1194;
+
+    top: calc(100% - 1px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 40px;
+    padding-block: 40px;
+    box-shadow: inset 0 1px theme("colors.border.light");
+    transition:
+      opacity 300ms,
+      visibility 0ms;
+    transition-delay: 0ms, 300ms;
+    -webkit-overflow-scrolling: touch;
+
+    @apply pointer-events-none invisible absolute left-0 z-1 grid w-full justify-center gap-y-8 overscroll-contain bg-white px-row opacity-0;
+
+    .nav-desktop__item:focus-within &,
+    .nav-desktop__item:hover & {
+      transition-delay: 0ms, 0ms;
+
+      @apply pointer-events-auto visible opacity-100;
+    }
+
+    &-list {
+      @apply flex flex-col gap-y-2;
+    }
+
+    &-block {
+      @apply relative flex flex-col gap-y-4;
+
+      a {
+        @apply flex items-center justify-between;
+
+        &::before {
+          content: "";
+
+          @apply absolute inset-0;
+        }
+      }
+    }
+  }
+}

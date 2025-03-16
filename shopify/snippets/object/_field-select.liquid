@@ -1,0 +1,104 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Field (Select)
+  -------------------------------------------------------------------------------
+  Accepts
+  - class: {Object/String} additional classes (optional)
+  - form: {Object/String} the form object (required)
+  - form_id: {Object/String} the unique form id (required)
+  - property: {Object/String} the property for the field's input (required)
+  - label_text: {Object/String} the text for the field's label (optional)
+  - initial_value: {Object/String} the first option for the select element,
+    basically functions as a placeholder, this initial option should not
+    be submittable with the form, it must be set to one of it's other remaining
+    values (optional)
+  - options: {Object/Array} the array of options for the select element (required)
+  - dynamic_display: {Object/String} hide or show the element depending on the
+    value of a form select element insid ethe same section. The entry for
+    this input needs to have the following format [property]:[select_option_index].
+    This will also load the conditional-textarea module.
+  - error_scope: {String} the inputs error scope in the context of
+    form_errors (https://shopify.dev/docs/api/liquid/objects/form_errors), this
+    can either be author|body|email|password. General form errors will always
+    produce error styling (required)
+  - required: {Boolean} makes the field required, and displays
+    an asterix (optional)
+  - function: {Function} js to apply to the selects onchange attribute (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_field-select',
+    class: 'text-md',
+    form: 'form,
+    form_id: 'form_id',
+    property: 'name',
+    label_text: 'Label',
+    initial_value: 'Please select a value',
+    dynamic_display: 'dynamic_display',
+    options: options,
+    error_scope: 'form',
+    required: true,
+    function: doThis()
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A typical form select element template.
+{%- endcomment -%}
+
+{%- capture required_asterix -%}
+  <span aria-hidden="true">*</span>
+{%- endcapture -%}
+
+<label
+  class="
+    o-input{% if class != blank %} {{ class }}{% endif %}
+    {% if form.errors contains error_scope or form.errors contains 'form' %}
+      o-input--error
+    {% endif %}
+  "
+  for="{{ form_id }}-{{ property | handleize }}"
+  {% if dynamic_display != blank %}
+    {% # the conditional-select module will reveal this %}
+    hidden
+  {% endif %}
+>
+  {%- if label_text != blank -%}
+    <span class="flex gap-x-1">
+      {%- liquid
+        echo label_text
+        if required
+          echo required_asterix
+        endif
+      -%}
+    </span>
+  {%- endif -%}
+
+  <select
+    id="{{ form_id }}-{{ property | handleize }}"
+    name="contact[{{ property | handleize }}]"
+    autocomplete="on"
+    class="o-input__field"
+    {% if dynamic_display != blank %}
+      is="conditional-select"
+      data-dependency="{{ dynamic_display }}"
+      disabled
+    {% endif %}
+    {% if function != blank %}
+      onchange="{{ function }}"
+    {% endif %}
+    {% if required != false %}
+      required
+      aria-required="true"
+    {% endif %}
+  >
+    {%- if initial_option != blank -%}
+      <option
+        value="{{ initial_option }}"
+        selected
+        disabled
+      >
+        {{- initial_option -}}
+      </option>
+    {%- endif -%}
+    {{- options -}}
+  </select>
+</label>

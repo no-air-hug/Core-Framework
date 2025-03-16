@@ -1,0 +1,24 @@
+{%- # theme-check-disable UnusedSnippet -%}
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Dump
+  -------------------------------------------------------------------------------
+  Accepts
+  - object: {Object} The object to 'dump' data from (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'dump', object: product -%}
+  -------------------------------------------------------------------------------
+  Description
+  Retrieves available variables from a chosen object.
+
+  This is a development tool, which is why the theme-check UnusedSnippet
+  exclusion is present.
+{%- endcomment -%}
+
+{%- assign object = object | default: dump -%}
+
+<script type="text/javascript">
+  console.log("{{ title | default: 'Var Dump' }}", {{ object | json }});
+</script>
+{%- # theme-check-enable UnusedSnippet -%}

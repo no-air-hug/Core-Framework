@@ -1,0 +1,69 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Accordion
+  -------------------------------------------------------------------------------
+  Accepts
+  - title: {Object/String}
+  - content: {Object/String}
+  - mobile_only: {Boolean} The accordion will only function on mobile viewports.
+  - class: {Object/String} a additional parent class (optional)
+  - heading_class: {Object/String} a additional heading class (optional)
+  - icon_class: {Object/String} a additional icon class (optional)
+  - content_class: {Object/String} a additional contentclass (optional)
+  - content_inner_class: {Object/String} a additional content-inner
+    class (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_accordion',
+    title: 'Are your new trainers free of seal meat?',
+    content: 'No.',
+    mobile_only: true
+    class: class,
+    heading_class: heading_class,
+    icon_class: icon_class,
+    content_class: content_class,
+    content_inner_class: content_inner_class
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays a accordion that can be set to work on all screensizes, or just mobile.
+{%- endcomment -%}
+
+{%- liquid
+  # Strings
+  assign title = title
+  assign content = content
+
+  # Data
+  assign mobile_only = mobile_only
+
+  # Classes
+  assign class = class
+
+  assign heading_class = heading_class
+  assign icon_class = icon_class
+  assign content_class = content_class
+  assign content_inner_class = content_inner_class
+
+  capture is_mobile_classes
+    if mobile_only
+      echo 'o-accordion--mobile js-accordion-mobile'
+    endif
+  endcapture
+-%}
+
+<div class="o-accordion {{ is_mobile_classes }} {{ class }} js-accordion">
+  <h3 class="o-accordion__heading {{ heading_class }} js-accordion-trigger {{ is_mobile_classes }}">
+    {{- title -}}
+
+    <span class="o-accordion__heading-icon {{ icon_class }}">
+      {%- render 'theme_icons' with 'chevron-right', class: 'stroke-current' -%}
+    </span>
+  </h3>
+
+  <div class="o-accordion__content {{ content_class }}">
+    <div class="o-accordion__content-inner {{ content_inner_class }}">
+      {{- content -}}
+    </div>
+  </div>
+</div>

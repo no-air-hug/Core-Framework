@@ -1,0 +1,9 @@
+{%- if settings.sitewide_search_method == 'klevu' -%}
+  <div id="klevu-react-root-search-landing">
+    <div class="flex h-full min-h-[460px] w-full items-center justify-center animate-fade-in relative loading-overlay">
+      <div class="loading-overlay__spinner">
+        {%- render 'theme_icons' with 'loading', class: 'stroke-red' -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

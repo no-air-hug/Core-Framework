@@ -1,0 +1,38 @@
+{% liquid
+  render 'theme_assets' with 'section-bundle-hotspots.min.css'
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  case section.settings.layout
+    when 'auto'
+      assign media_class = ''
+    when 'reversed'
+      assign media_class = 'md:col-start-2'
+  endcase
+
+  assign media_block = section.blocks | where: 'type', 'media' | first
+  assign product_blocks = section.blocks | where: 'type', 'product'
+-%}
+
+<div class="grid bundle-hotspots md:grid-cols-2 md:grid-flow-dense gap-auto">
+  <div class="relative {{ media_class }}">
+    {%- render 'section_media', target: media_block.settings -%}
+
+    {%- liquid
+      for block in product_blocks
+        if block.settings.show_marker
+          render 'product_tooltip', product: block.settings.product, block: block
+        endif
+      endfor
+    -%}
+  </div>
+
+  <ul class="grid grid-cols-2 gap-auto place-self-center">
+    {%- for block in product_blocks -%}
+      <li class="border-solid border-[1px] border-border-light" id="tooltip-{{ block.id }}-card">
+        {%- render 'card_product', product: block.settings.product, bottom_class: 'p-4' -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

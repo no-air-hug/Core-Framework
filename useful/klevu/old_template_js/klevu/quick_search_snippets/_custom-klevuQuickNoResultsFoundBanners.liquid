@@ -1,0 +1,50 @@
+{%- capture content -%}
+  <% var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth; %>
+  <%
+    if(data.quickNoResultsFoundBanners && data.quickNoResultsFoundBanners.length) {
+      klevu.each(data.quickNoResultsFoundBanners, function(index, banner){
+  %>
+      <%
+        var imageUrl = banner.bannerImageUrl;
+        var imageAltText = klevu.dom.helpers.getBannerAltTagText(banner);
+        if (screenWidth < 768 && !!banner.mobileBannerImageUrl) {
+          imageUrl = banner.mobileBannerImageUrl;
+          imageAltText = banner.mobileBannerAltTag;
+        }
+      %>
+        <div class="klevu-no-results-banner-ad-quick">
+          <% if(!!banner.redirectUrl) { %>
+              <a
+                  class="kuTrackBannerClick"
+                  target="_self"
+                  data-id="<%= banner.bannerRef %>"
+                  data-image="<%= imageUrl %>"
+                  data-redirect="<%= banner.redirectUrl %>"
+                  href="<%= banner.redirectUrl %>"
+                  alt="<%= imageAltText %>"
+                  title="<%= imageAltText %>"
+              >
+                  <img src="<%= imageUrl %>" alt="<%= imageAltText %>" />
+              </a>
+          <% } else { %>
+              <span
+                  target="_self"
+                  data-id="<%= banner.bannerRef %>"
+                  data-image="<%= imageUrl %>"
+                  data-redirect="<%= banner.redirectUrl %>"
+                  href="<%= banner.redirectUrl %>"
+                  alt="<%= imageAltText %>"
+                  title="<%= imageAltText %>"
+              >
+                  <img src="<%= imageUrl %>" alt="<%= imageAltText %>"  />
+              </span>
+          <% } %>
+        </div>
+      <% }); %>
+    <div class="kuDividerLine"></div>
+  <%  } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickNoResultsFoundBanners">
+  {{- content -}}
+</script>

@@ -1,0 +1,73 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Complementary Products
+  -------------------------------------------------------------------------------
+  Accepts
+  - section: {Object} the section object (required)
+  - complementary_products: {Object} the array object of products we're going
+    to iterate over (optional)
+  - button_style: {String} the add to cart button_style (optional),
+  - limit: {Integer} the amount of products to display (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_complementary',
+    section: section,
+    complementary_products: complementary_products,
+    button_style: button_style,
+    limit: limit
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays complementary products in cahoots with the Search and Discovery App,
+  or through other means.
+{%- endcomment -%}
+
+{%- liquid
+  assign section = section
+  assign complementary_products = complementary_products | default: product.metafields['shopify--discovery--product_recommendation'].complementary_products.value
+  assign button_style = button_style | default: 'primary'
+  assign limit = limit | default: 9
+-%}
+
+<ul role="list">
+  {%- for complementary_product in complementary_products limit: limit -%}
+    <li
+      class="rounded-[6px] p-[20px] {% unless forloop.last %}mb-2{% endunless %}"
+      style="background-color: {{ section.settings.secondary_background_color }}"
+    >
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col">
+          <h3 class="font-bold transition-opacity font-heading hover:opacity-50">
+            <a href="{{ complementary_product.url }}">
+              {{- complementary_product.title -}}
+            </a>
+          </h3>
+          <p class="mb-2">{{- complementary_product.price | money -}}</p>
+
+          {%- form 'product', complementary_product, is: 'product-form', class: 'js-product-ls-exclude-ph' -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ complementary_product.selected_or_first_available_variant.id }}"
+            >
+            <button
+              class="o-button o-button--{{ button_style }}"
+              name="add"
+              type="submit"
+            >
+              {{- 'global.products.add_to_cart' | t -}}
+            </button>
+          {%- endform -%}
+        </div>
+
+        <a href="{{ complementary_product.url }}">
+          {%- render 'object_image' with complementary_product.featured_image,
+            width: 100,
+            height: 100,
+            aspect: '1 / 1'
+          -%}
+        </a>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

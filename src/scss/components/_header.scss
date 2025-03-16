@@ -1,0 +1,154 @@
+.header {
+  @apply bg-white;
+
+  .header__main {
+    grid-template: "left center right" / 1fr 1fr 1fr;
+
+    @apply grid items-center gap-4 px-row py-5;
+
+    @screen lg {
+      grid-template:
+        "left center right"
+        "nav nav nav" / 1fr 1fr 1fr;
+    }
+  }
+
+  .header__language {
+    grid-area: left;
+
+    @apply flex w-fit items-center gap-1 text-sm;
+
+    @screen max-lg {
+      @apply hidden;
+    }
+  }
+
+  .header__burger {
+    @screen max-lg {
+      grid-area: left;
+
+      @apply relative justify-self-start;
+
+      &::before {
+        content: "";
+
+        @apply absolute -left-2 -top-2 h-10 w-10;
+      }
+    }
+
+    @screen lg {
+      @apply hidden;
+    }
+  }
+
+  .header__logo {
+    grid-area: center;
+    width: 133px;
+    height: 26px;
+
+    @apply items-center justify-center justify-self-center;
+  }
+
+  .header__functions {
+    grid-area: right;
+
+    @apply z-2 flex items-center justify-end gap-4;
+
+    @screen lg {
+      @apply gap-2;
+    }
+
+    @screen xl {
+      @apply gap-4;
+    }
+
+    @screen 4xl {
+      @apply gap-8;
+    }
+
+    > form {
+      width: 223px;
+
+      @apply z-2 grid bg-white;
+
+      @screen max-lg {
+        @apply pointer-events-none absolute left-0 top-full w-full px-row opacity-0 transition-opacity;
+
+        &.is-visible {
+          @apply pointer-events-auto opacity-100;
+        }
+      }
+
+      > * {
+        grid-area: 1 / 1;
+      }
+
+      > button {
+        @apply isolate items-center justify-self-end p-2;
+      }
+
+      + a {
+        svg:nth-child(2) {
+          @apply hidden;
+        }
+      }
+
+      &.is-visible + a {
+        svg:nth-child(1) {
+          @apply hidden;
+        }
+
+        svg:nth-child(2) {
+          @apply block;
+        }
+      }
+    }
+  }
+
+  .header__nav {
+    grid-area: nav;
+
+    @screen max-lg {
+      @apply hidden;
+    }
+  }
+
+  // Used on Password template...
+  &.header--minimal {
+    .header__main {
+      grid-template: "left right";
+
+      @screen lg {
+        grid-template: "left center right";
+      }
+    }
+
+    .header__logo {
+      grid-area: left;
+
+      @apply justify-start justify-self-start;
+    }
+
+    .header__ctas {
+      .o-ctas__cta {
+        @screen max-lg {
+          @include button-small;
+        }
+
+        &--2 {
+          @screen max-lg {
+            @apply hidden;
+          }
+        }
+      }
+    }
+  }
+}
+
+.shopify-section-header {
+  .header__main {
+    @screen lg {
+      @apply pb-0;
+    }
+  }
+}

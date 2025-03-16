@@ -1,0 +1,13 @@
+{%- capture content -%}
+  <%if(dataLocal.stickyLabelHead && dataLocal.stickyLabelHead != "") { %>
+    <div class="kuDiscountBadge">
+      <span class="kuDiscountTxt">
+        <%= dataLocal.stickyLabelHead %>
+      </span>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_searchResultProductBadge">
+  {{- content -}}
+</script>

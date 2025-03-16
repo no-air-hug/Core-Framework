@@ -1,0 +1,32 @@
+{%- capture content -%}
+  <div ku-container data-container-id="ku_quick_main_content_container" data-container-role="content">
+    <section ku-container data-container-id="ku_quick_main_content_left" data-container-position="left" data-container-role="left">
+        <div ku-block data-block-id="ku_quick_left_facets"></div>
+        <div ku-block data-block-id="ku_quick_left_call_outs">
+            <%=helper.render('kuTemplatePopularSearches',scope) %>
+            <%=helper.render('kuTemplateRecentSearches',scope) %>
+        </div>
+        <div ku-block data-block-id="ku_quick_left_banner"></div>
+    </section>
+    <section ku-container data-container-id="ku_quick_main_content_center" data-container-position="center" data-container-role="center">
+        <header ku-block data-block-id="ku_quick_result_header"></header>
+        <div ku-block data-block-id="ku_quick_result_items"></div>
+
+        <div ku-block data-block-id="ku_quick_other_items">
+            <%=helper.render('klevuTrendingProducts',scope) %>
+            <%=helper.render('klevuRecentViewedProducts',scope) %>
+        </div>
+
+        <footer ku-block data-block-id="ku_quick_result_footer"></footer>
+    </section>
+    <section ku-container data-container-id="ku_quick_main_content_right" data-container-position="right" data-container-role="right">
+        <div ku-block data-block-id="ku_quick_right_facets"></div>
+        <div ku-block data-block-id="ku_quick_right_call_outs"></div>
+        <div ku-block data-block-id="ku_quick_right_banner"></div>
+    </section>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuSearchPersonalizations">
+  {{- content -}}
+</script>

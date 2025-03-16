@@ -1,0 +1,63 @@
+<form
+  is="predictive-search"
+  id="HeaderSearchForm"
+  isPredictive
+  action="{{ routes.search_url }}"
+  method="get"
+  role="search"
+  class="relative max-lg:pb-3 max-lg:border-solid max-lg:border-b max-lg:border-border-light"
+  data-loading-text="{{ 'global.accessibility.loading' | t }}"
+>
+  <input type="hidden" name="resources[limit]" value="{{ settings.predictive_search_limit }}">
+  <input type="hidden" name="resources[options][prefix]" value="last">
+
+  <label class="text-sm o-input" data-field="input" for="Search-In-Modal-1">
+    <input
+      class="o-input__field o-input__field--narrow"
+      id="Search-In-Modal-1"
+      type="search"
+      name="q"
+      placeholder="{{ 'sections.header.search_form.placeholder' | t }}"
+      value="{{ search.terms | escape }}"
+      role="combobox"
+      aria-expanded="false"
+      aria-owns="predictive-search-results"
+      aria-controls="predictive-search-results"
+      aria-haspopup="listbox"
+      aria-autocomplete="list"
+      autocorrect="off"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+    >
+    <span class="sr-only">
+      {{- 'sections.header.search_form.placeholder' | t -}}
+    </span>
+  </label>
+
+  <button
+    hidden
+    type="reset"
+    class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+    aria-label="{{ 'global.accessibility.reset' | t }}"
+  >
+    <svg class="icon icon-close" aria-hidden="true" focusable="false">
+      <use xlink:href="#icon-reset">
+    </svg>
+  </button>
+
+  <button type="submit">
+    {%- render 'theme_icons' with 'search', width: 18, height: 18 -%}
+    <span class="sr-only">{{- 'sections.header.search_form.submit' | t -}}</span>
+  </button>
+</form>
+
+<a
+  class="lg:hidden"
+  href="{{ routes.search_url }}"
+  onclick="return HeaderSearchForm.mobileToggle();"
+>
+  {%- render 'theme_icons' with 'search' -%}
+  {%- render 'theme_icons' with 'close' -%}
+  <span class="sr-only">{{- 'sections.header.search_form.submit' | t -}}</span>
+</a>

@@ -1,0 +1,6 @@
+.header-group {
+  translate: 0 var(--header-offset, 0);
+  transition: translate 200ms cubic-bezier(0.37, 0, 0.63, 1);
+
+  @apply sticky top-0 z-[100];
+}

@@ -1,0 +1,92 @@
+.predictive-search {
+  position: absolute;
+  z-index: 3;
+  top: calc(100% - 1px);
+  left: calc(var(--row-space) * -1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: none;
+  width: calc(var(--row-space) + 100%);
+  max-height: calc(
+    100 * var(--vh, 1vh) - var(--header-height) - (36px + var(--row-space)) -
+      var(--header-offset, 0px)
+  );
+  background-color: white;
+  -webkit-overflow-scrolling: touch;
+
+  @apply px-7 pb-7;
+
+  @screen lg {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    left: auto;
+    width: min(480px, 100vw);
+
+    @apply rounded-2 shadow-1 p-7;
+
+    &:has(.predictive-search__suggestions-wrapper) {
+      width: min(680px, 100vw);
+    }
+  }
+
+  [is="predictive-search"][open] &,
+  [is="predictive-search"][loading] & {
+    display: block;
+  }
+
+  &__results-groups-wrapper {
+    display: grid;
+    gap: theme("spacing.5");
+  }
+
+  &__item-heading {
+    .predictive-search__list-item[aria-selected="true"] &,
+    .predictive-search__list-item:hover & {
+      text-decoration: underline;
+      text-underline-offset: 0.3rem;
+    }
+  }
+
+  &__loading-state {
+    [is="predictive-search"]:not([loading]) & {
+      display: none;
+    }
+
+    [is="predictive-search"][loading] & {
+      display: flex;
+      justify-content: center;
+    }
+
+    [is="predictive-search"][loading]
+      .predictive-search__results-groups-wrapper
+      ~ & {
+      display: none;
+    }
+  }
+
+  &__search-for-button {
+    [is="predictive-search"][loading] & {
+      display: none;
+    }
+
+    [is="predictive-search"][loading]
+      .predictive-search__results-groups-wrapper
+      ~ & {
+      display: initial;
+    }
+  }
+
+  &__item {
+    &-query-result {
+      *:not(mark) {
+        font-weight: bolder;
+      }
+
+      mark {
+        color: theme("colors.secondary");
+        background-color: transparent;
+      }
+    }
+  }
+}

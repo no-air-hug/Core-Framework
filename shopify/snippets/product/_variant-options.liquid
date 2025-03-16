@@ -1,0 +1,133 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Variant Options
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} product object. (required)
+  - option: {Object} current product_option object. (required)
+  - picker_style: {Object} the option style, swatch or otherwise. (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_variant-options',
+    product: product,
+    option: option,
+    picker_style: picker_style
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  The variant options module
+{%- endcomment -%}
+
+{%- liquid
+  assign option = option
+  assign picker_style = picker_style
+
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+-%}
+
+{%- for value in option.values -%}
+  {%- liquid
+    assign option_disabled = true
+
+    for option1_name in variants_option1_arr
+      case option.position
+        when 1
+          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+        when 2
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+        when 3
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+      endcase
+    endfor
+  -%}
+
+  {%- case picker_style -%}
+    {%- when 'swatch' -%}
+      {%- liquid
+        assign option_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index0
+        assign key = 'option' | append: option.position
+        assign variant_image = product.variants | where: key, value | map: 'featured_image' | first
+        if variant_image
+          assign variant_image = variant_image | image_url
+        endif
+      -%}
+      <label class="flex cursor-pointer js-tooltip" data-tooltip="{{ option_id }}-tooltip" for="{{ option_id }}">
+        <input
+          type="radio"
+          id="{{ option_id }}"
+          name="{{ option.name }}"
+          value="{{ value | escape }}"
+          {% if option.selected_value == value %}
+            checked
+          {% endif %}
+          {% if option_disabled %}
+            class="disabled"
+          {% endif %}
+        >
+        <span
+          class="text-sm font-bold"
+          data-swatch="{{ value | handleize | replace: '-', '_' }}"
+          {%- liquid
+            # Try converting color value to CSS hex, results in valid color or null
+            assign swatch_css_color = value | handleize | color_to_hex
+            if swatch_css_color != null
+              echo 'style="--_fallback: linear-gradient([hex],[hex])"' | replace: '[hex]', swatch_css_color
+            elsif variant_image
+              echo 'style="--_fallback: url([url]);"' | replace: '[url]', variant_image
+            endif
+          -%}
+        >
+          <span class="sr-only">{{ value -}}</span>
+        </span>
+
+        {% # TODO: Move to translations %}
+        {% if option_disabled -%}
+          <span class="sr-only">{{ 'Variant sold out or unavailable' }}</span>
+        {% endif %}
+      </label>
+      <div id="{{ option_id }}-tooltip" role="tooltip" class="absolute px-3 py-1 bg-white shadow-1 rounded-1" hidden>
+        <div id="{{ option_id }}-tooltip-arrow" class="tooltip-arrow"></div>
+        <p class="text-sm font-bold">
+          {{ value }}
+          {% if option_disabled -%}
+            {% # TODO: Move to translations %}
+            {{ '(Sold out)' }}
+          {% endif %}
+        </p>
+      </div>
+
+    {%- when 'button' -%}
+      <label class="flex cursor-pointer" for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+        <input
+          type="radio"
+          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+          name="{{ option.name }}"
+          value="{{ value | escape }}"
+          {% if option.selected_value == value %}
+            checked
+          {% endif %}
+          {% if option_disabled %}
+            class="disabled"
+          {% endif %}
+        >
+
+        <span class="text-sm font-bold variant">
+          {{ value -}}
+        </span>
+
+        {% if option_disabled -%}
+          {% # TODO: Move to translations %}
+          <span class="sr-only">{{ 'Variant sold out or unavailable' }}</span>
+        {% endif %}
+      </label>
+  {%- endcase -%}
+{%- endfor -%}

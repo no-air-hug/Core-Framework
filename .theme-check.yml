@@ -1,0 +1,6 @@
+root: shopify
+
+MissingTemplate:
+  enabled: true
+  ignore_missing:
+    - snippets/*_*.liquid

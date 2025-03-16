@@ -1,0 +1,13 @@
+.o-icon {
+  .content--color-dark & {
+    @apply stroke-primary;
+  }
+
+  .content--color-light & {
+    @apply stroke-primary-inverse;
+  }
+
+  .o-button & {
+    stroke: var(--button-color, theme("colors.primary"));
+  }
+}

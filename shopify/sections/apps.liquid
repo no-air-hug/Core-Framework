@@ -1,0 +1,7 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  for block in section.blocks
+    render block
+  endfor
+-%}

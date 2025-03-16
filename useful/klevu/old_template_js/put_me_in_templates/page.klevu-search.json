@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "klevu-search-landing",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

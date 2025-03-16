@@ -1,0 +1,63 @@
+<nav class="nav-desktop max-lg:text-primary">
+  <ul class="nav-desktop__list js-nav-list">
+    {%- for link in linklists[section.settings.main_menu].links -%}
+      <li class="nav-desktop__item nav-desktop__item--top lg:text-md{%- if link.links.size > 0 %} nav-desktop__item--has-submenu{% endif -%}">
+        {%- if link.links.size > 0 -%}
+          <button class="nav-desktop__link nav-desktop__link--top" type="button">
+            <span>{{ link.title }}</span>
+          </button>
+
+          <div class="o-row nav-desktop__submenu">
+            {%- for child_link in link.links -%}
+              <ul class="nav-desktop__submenu-list max-lg:text-primary text-secondary">
+                <li class="font-bold text-primary">{{ child_link.title }}</li>
+                {%- for grand_child_link in child_link.links -%}
+                  <li class="nav-desktop__item">
+                    <a class="nav-desktop__link" href="{{ grand_child_link.url }}">
+                      <span>{{ grand_child_link.title }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endfor -%}
+
+            {%- for block in section.blocks -%}
+              {%- if block.settings.parent == link.title -%}
+                {%- for n in (1..3) -%}
+                  {%- liquid
+                    assign imageKey = 'image_' | append: n
+                    assign titleKey = 'title_' | append: n
+                    assign linkKey = 'link_' | append: n
+                    # Make sure there is an image added in CMS
+                    unless block.settings[imageKey]
+                      continue
+                    endunless
+                  -%}
+                  <div class="nav-desktop__submenu-block" {{ block.shopify_attributes }}>
+                    {%- render 'object_image' with block.settings[imageKey],
+                      width: 402,
+                      height: 420,
+                      aspect: '1 / 1'
+                    -%}
+
+                    {%- if block.settings[titleKey] != blank -%}
+                      <a class="font-bold text-md text-primary" href="{{ block.settings[linkKey] }}">
+                        {{ block.settings[titleKey] }}
+                        {%- render 'theme_icons' with 'chevron-right', width: 14, height: 14 -%}
+                      </a>
+                    {%- endif -%}
+                  </div>
+                {%- endfor -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <a class="nav-desktop__link nav-desktop__link--top" href="{{ link.url }}">
+            <span>{{ link.title }}</span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

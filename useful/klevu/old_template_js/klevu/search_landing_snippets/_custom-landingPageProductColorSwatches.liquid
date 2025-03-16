@@ -1,0 +1,88 @@
+{%- capture content -%}
+  <%
+    var hasAnyVariantImageAdded = false;
+
+    if(dataLocal.swatchesInfo && dataLocal.swatchesInfo.length) {
+      const splitInfo = dataLocal.swatchesInfo.split(' ;;;; ') // Custom addition, otherwise default template attempts to iterate a string
+
+      helper.each(splitInfo,function(key,item) {
+        if(item.variantImage && item.variantImage.length) {
+          hasAnyVariantImageAdded = true;
+        }
+      });
+    }
+  %>
+
+  <% if(((!dataLocal.swatchesInfo || !dataLocal.swatchesInfo.length) || !hasAnyVariantImageAdded) && dataLocal.totalVariants) { %>
+    <div class="kuSwatches">
+      <span class="kuSwatchesVariantCountText">
+        +<%= dataLocal.totalVariants %> <%= helper.translate("variant(s)") %>
+      </span>
+    </div>
+  <% } %>
+
+  <% if(dataLocal.swatchesInfo && dataLocal.swatchesInfo.length && hasAnyVariantImageAdded) { %>
+    <div class="kuSwatches">
+      <%
+        var totalVariantIndex = dataLocal.swatchesInfo.length; var swatchIndex = 0;
+
+        helper.each(dataLocal.swatchesInfo,function(key,item) {
+          var isSwatchInfoAdded = false;
+
+          if(swatchIndex > 2){
+            return true;
+          }
+
+          if(item.variantImage && item.variantImage.length) {
+      %>
+            <div class="kuSwatchItem">
+              <a
+                target="_self"
+                href="javascript:void(0)"
+                data-variant="<%= item.variantId %>"
+                class="kuSwatchLink klevuLandingSwatchColorGrid"
+                <% if(item.variantColor && item.variantColor.length) { %>
+                  title="<%= item.variantColor %>"
+                <% } %>
+                style="
+                  <% if(item.variantColor && item.variantColor.length) {
+                    isSwatchInfoAdded = true;
+                  %>
+                    background-color:<%= item.variantColor %>;
+                  <% } %>
+
+                  <% if(item.variantSwatchImage && item.variantSwatchImage.length) {
+                    isSwatchInfoAdded = true;
+                  %>
+                    background-image: url('<%= item.variantSwatchImage %>');
+                  <% } %>
+
+                  <% if(!isSwatchInfoAdded) { %>
+                    background-image: url('https://js.klevu.com/klevu-js-v1/img-1-1/default-swatch.jpg');
+                  <% } %>
+                "
+              >
+              </a>
+            </div>
+          <%
+            swatchIndex++;
+          }
+        });
+      %>
+
+      <% if(totalVariantIndex > swatchIndex) { %>
+        <div class="kuSwatchItem kuSwatchMore">
+          <a target="_self" href="<%=dataLocal.url%>" class="kuSwatchLink">
+            <span class="kuSwatchMoreText">
+              +<%= (totalVariantIndex - swatchIndex) %>
+            </span>
+          </a>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_landingPageProductColorSwatches">
+  {{- content -}}
+</script>

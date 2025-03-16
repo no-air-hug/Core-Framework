@@ -1,0 +1,13 @@
+{%- capture content -%}
+  <%  if(
+    typeof dataLocal.ratingCount != "undefined" &&
+    dataLocal.ratingCount !== "" &&
+    dataLocal.ratingCount > 0
+  ) { %>
+    <div class="klevuRatingCount">(<%=dataLocal.ratingCount%>)</div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickProductRatingCount">
+  {{- content -}}
+</script>

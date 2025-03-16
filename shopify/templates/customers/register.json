@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-account-form-register",
+      "blocks": {
+        "b3890e08-df31-415e-9d1e-8f5d671913f8": {
+          "type": "media",
+          "settings": {
+            "mobile_hidden": true,
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "b3890e08-df31-415e-9d1e-8f5d671913f8"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "submit_button_style": "primary",
+        "login_button_style": "secondary"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

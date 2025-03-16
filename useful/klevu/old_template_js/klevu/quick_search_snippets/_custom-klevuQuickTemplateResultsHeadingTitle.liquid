@@ -1,0 +1,19 @@
+{%- capture content -%}
+  <%
+    var totalNumberOfResults = klevu.getObjectPath(data,"query."+dataLocal+".meta.totalResultsFound");
+    var searchedTerm = helper.escapeHTML(data.settings.term);
+  %>
+  <div class="kuContainer">
+    <div class="kuResultsHeadingTitleContainer">
+        <strong class="kuResultsNumber">
+          <%= (totalNumberOfResults) ? totalNumberOfResults : 0 %>
+        </strong>
+        <%= helper.translate((parseInt(totalNumberOfResults) > 1) ? " Results" : " Result") %>
+        <%=helper.translate("found")%> <%= (searchedTerm && searchedTerm.length && searchedTerm != "*") ? helper.translate("for") + " '<span>"+ klevu.dom.helpers.cleanCatogeryPath(searchedTerm) +"</span>'" : "" %>
+    </div>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickTemplateResultsHeadingTitle">
+  {{- content -}}
+</script>

@@ -1,0 +1,48 @@
+{%- liquid
+  render 'theme_assets' with 'section-content-cards.min.css'
+  render 'section_spacing-and-color', section: section
+
+  capture section_header
+    render 'section_header', section: section
+  endcapture
+
+  echo section_header
+-%}
+
+<ul class="flex flex-wrap content-cards content-cards--standard">
+  {%- assign blocks = section.blocks | where: 'type', 'card' -%}
+  {%- for block in blocks -%}
+    <li class="flex-grow {{ block.settings.width }}" {{ block.shopify_attributes }}>
+      <div class="card">
+        {%- liquid
+          case block.settings.width
+            when 'col-span-8'
+              assign aspect = '936 / 444'
+            when 'col-span-6'
+              assign aspect = '692 / 444'
+            when 'col-span-4'
+              assign aspect = '448 / 444'
+            when 'col-span-3'
+              assign aspect = '326 / 444'
+          endcase
+
+          render 'section_media', target: block.settings, aspect: aspect, aspect_mobile: '1 / 1'
+        -%}
+
+        {%- liquid
+          assign heading_tag = 'h2'
+
+          if section_header != blank
+            assign heading_tag = 'h3'
+          endif
+        -%}
+        {%- render 'object_content',
+          block: block.settings,
+          attributes: block.shopify_attributes,
+          class: 'card__content',
+          heading_tag: heading_tag
+        -%}
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "732bc06c-588e-432e-afd9-4a75322fdd58": {
+          "type": "subtotal",
+          "settings": {
+          }
+        },
+        "ae282048-1675-464b-9087-2fef58b27801": {
+          "type": "free_delivery",
+          "settings": {
+          }
+        },
+        "849813f3-122e-4f7a-b13f-0f3ff9732601": {
+          "type": "buttons",
+          "settings": {
+            "checkout_button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "732bc06c-588e-432e-afd9-4a75322fdd58",
+        "ae282048-1675-464b-9087-2fef58b27801",
+        "849813f3-122e-4f7a-b13f-0f3ff9732601"
+      ],
+      "settings": {
+        "spacing": "0",
+        "width": 1180,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "summary_background_color": "#f7f7f7",
+        "summary_text_color": "dark",
+        "cta_1_text": "Continue shopping",
+        "cta_1_icon": "none",
+        "cta_1_icon-position": "right",
+        "cta_1_link": "shopify:\/\/collections",
+        "cta_1_link_style": "primary",
+        "cta_1_target": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

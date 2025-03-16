@@ -1,0 +1,126 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Klevu - Config
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'klevu_config' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Returns JSON that associates Shopify theme settings and translations with a
+  series of objects that can be retrieved by config.ts,
+{%- endcomment -%}
+
+<script>
+  Klevu = {}
+
+  Klevu.settings = {
+    swatches: {
+      utilisation: {{ settings.klevu_swatch_utilisation | json }},
+      limit: {{ settings.klevu_swatch_limit | json | default: 0 }}
+    }
+  };
+
+  Klevu.i18n = {
+    quick_search: {
+      triggers: {
+        open: {
+          accessibility: {{- 'klevu.quick_search.triggers.open.accessibility' | t | json -}},
+          title: {{- 'klevu.quick_search.triggers.open.title' | t | json -}}
+        },
+        close: {
+          accessibility: {{- 'klevu.quick_search.triggers.close.accessibility' | t | json -}}
+        }
+      },
+      input: {
+        accessibility: {{- 'klevu.quick_search.input.accessibility' | t | json -}},
+        placeholder: {{- 'klevu.quick_search.input.placeholder' | t | json -}}
+      },
+      submit: {
+        accessibility: {{- 'klevu.quick_search.submit.accessibility' | t | json -}}
+      },
+      results: {
+        suggestions: {
+          popular_suggestions: {
+            title: {{- 'klevu.quick_search.results.suggestions.popular_suggestions.title' | t | json -}}
+          },
+          query_suggestions: {
+            title: {{- 'klevu.quick_search.results.suggestions.query_suggestions.title' | t | json -}}
+          },
+          no_results: {{- 'klevu.quick_search.results.suggestions.no_results' | t | json -}}
+        },
+        products: {
+          trending_products: {
+            title: {{- 'klevu.quick_search.results.products.trending_products.title' | t | json -}}
+          },
+          query_products: {
+            title: {{- 'klevu.quick_search.results.products.query_products.title' | t | json -}}
+          },
+          no_results: {{- 'klevu.quick_search.results.products.no_results' | t | json -}}
+        },
+        view_all_results: {{- 'klevu.quick_search.results.view_all_results' | t | json -}}
+      }
+    },
+    search_landing: {
+      no_results: {{- 'klevu.search_landing.no_results' | t | json -}},
+      facets: {
+        results: {
+          one: {{- 'klevu.search_landing.facets.results.one' | t | json -}},
+          multiple: {{- 'klevu.search_landing.facets.results.multiple' | t | json -}}
+        },
+        filters: {
+          title: {{- 'klevu.search_landing.facets.filters.title' | t | json -}},
+          clear_filters: {{- 'klevu.search_landing.facets.filters.clear_filters' | t | json -}},
+          dialog: {
+            title: {{- 'klevu.search_landing.facets.filters.dialog.title' | t | json -}},
+            accessibility: {
+              title: {{- 'klevu.search_landing.facets.filters.dialog.accessibility.title' | t | json -}},
+              description: {{- 'klevu.search_landing.facets.filters.dialog.accessibility.description' | t | json -}}
+            }
+          },
+          list: {
+            price: {
+              range: {{- 'klevu.search_landing.facets.filters.list.price.range' | t | json -}}
+            }
+          }
+        },
+        sort_by: {
+          title:  {{- 'klevu.search_landing.facets.sort_by.title' | t | json -}},
+          options: {
+            relevance: {{- 'klevu.search_landing.facets.sort_by.options.relevance' | t | json -}},
+            price_asc: {{- 'klevu.search_landing.facets.sort_by.options.price_asc' | t | json -}},
+            price_desc: {{- 'klevu.search_landing.facets.sort_by.options.price_desc' | t | json -}},
+            name_asc: {{- 'klevu.search_landing.facets.sort_by.options.name_asc' | t | json -}},
+            name_desc: {{- 'klevu.search_landing.facets.sort_by.options.name_desc' | t | json -}},
+            rating_asc: {{- 'klevu.search_landing.facets.sort_by.options.rating_asc' | t | json -}},
+            rating_desc: {{- 'klevu.search_landing.facets.sort_by.options.rating_desc' | t | json -}},
+            new_arrival_asc: {{- 'klevu.search_landing.facets.sort_by.options.new_arrival_asc' | t | json -}},
+            new_arrival_desc: {{- 'klevu.search_landing.facets.sort_by.options.new_arrival_desc' | t | json -}},
+            advanced_sort: {{- 'klevu.search_landing.facets.sort_by.options.advanced_sort' | t | json -}}
+          }
+        }
+      },
+      input: {
+        heading: {{- 'klevu.search_landing.input.heading' | t | json -}},
+        placeholder: {{- 'klevu.search_landing.input.placeholder' | t | json -}},
+        accessibility: {{- 'klevu.search_landing.input.accessibility' | t | json -}}
+      }
+    },
+    product_card: {
+      pricing: {
+        from_price: {{- 'klevu.product_card.pricing.from_price' | t | json -}}
+      },
+      swatches: {
+        swatch_image_missing_error: {{- 'klevu.product_card.swatches.swatch_image_missing_error' | t | json -}},
+        more_options: {{- 'klevu.product_card.swatches.more_options' | t | json -}}
+      }
+    },
+    view: {
+      title: {{- 'klevu.view.title' | t | json -}}
+    },
+    pagination: {
+      load_more: {{- 'klevu.pagination.load_more' | t | json -}},
+      loaded: {{- 'klevu.pagination.loaded' | t | json -}}
+    },
+    debug: {{- 'klevu.debug' | t | json -}}
+  };
+</script>

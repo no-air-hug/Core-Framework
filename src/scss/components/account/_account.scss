@@ -1,0 +1,45 @@
+/* A way of simply arranging two columns a layout on the article partners
+  page, that still allows the user to easily move sections around.
+
+  Partial class match looks for all template classes beginning with
+  'article-partners'...
+*/
+.template-order,
+.template-account,
+.template-addresses {
+  main {
+    @apply min-h-screen-d-minus-header;
+
+    @screen lg {
+      grid-template: "menu sections" / auto 1fr;
+
+      @apply grid;
+    }
+
+    .shopify-section:not(.shopify-section--account-menu) {
+      @screen lg {
+        grid-area: sections;
+        grid-row: auto;
+        /* stylelint-disable-next-line declaration-no-important */
+        padding-left: theme("spacing.8") !important;
+      }
+
+      @screen xl {
+        /* stylelint-disable-next-line declaration-no-important */
+        padding-left: theme("spacing.14") !important;
+      }
+    }
+
+    .shopify-section--account-menu {
+      @screen lg {
+        grid-area: menu;
+        grid-row: span 50;
+
+        /* stylelint-disable-next-line declaration-no-important */
+        padding-right: 0 !important;
+
+        @apply h-full;
+      }
+    }
+  }
+}

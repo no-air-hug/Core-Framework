@@ -1,0 +1,66 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+-%}
+
+<ul class="flex flex-wrap gap-auto">
+  {%- assign blocks = section.blocks | where: 'type', 'logo' -%}
+  {%- for block in blocks -%}
+    <li
+      class="flex-auto sm:basis-1/3 lg:flex-1"
+      {{ block.shopify_attributes }}
+    >
+      {%- liquid
+        # Positioning
+        capture mobile_position
+          case block.settings.position
+            when 'start'
+              echo ' items-start'
+            when 'center'
+              echo ' items-center'
+            when 'end'
+              echo ' items-end'
+          endcase
+        endcapture
+
+        capture desktop_position
+          case block.settings.position_desktop
+            when 'start'
+              echo ' lg:items-start'
+            when 'center'
+              echo ' lg:items-center'
+            when 'end'
+              echo ' lg:items-end'
+          endcase
+        endcapture
+
+        assign classes = 'card' | append: mobile_position | append: desktop_position
+
+        # Image class
+        assign img_class = 'w-fit min-h-9 o-img--' | append: block.settings.image_fit
+      -%}
+
+      <div class="{{ classes }}">
+        <div class="overflow-hidden rounded-2">
+          {%- render 'object_image' with block.settings.image, img_class: img_class, visible_placeholder: false -%}
+        </div>
+
+        {%- liquid
+          assign heading_tag = 'h2'
+
+          if section.settings.heading
+            assign heading_tag = 'h3'
+          endif
+        -%}
+
+        {%- render 'object_content',
+          block: block.settings,
+          attributes: block.shopify_attributes,
+          class: 'card__content',
+          heading_tag: heading_tag
+        -%}
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

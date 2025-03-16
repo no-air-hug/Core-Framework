@@ -1,0 +1,13 @@
+{%- capture content -%}
+	<%
+    var caption = klevu.search.modules.kmcInputs.base.getVatCaption();
+    var vatCaption =  helper.translate("(" + caption + ")");
+  %>
+  <div class="kuCaptionVat">
+    <%= vatCaption %>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_searchResultProductVATLabelQuick">
+  {{- content -}}
+</script>

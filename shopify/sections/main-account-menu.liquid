@@ -1,0 +1,105 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'main-account-menu', breakpoint: 'max-lg', viewport_classes: '-mt-[2px] lg:overflow-visible'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+-%}
+
+{{ slider_styling }}
+
+<div class="account-menu">
+  <div class="pt-7">
+    <div class="flex items-center justify-between mb-4 lg:gap-16">
+      <p class="flex items-center justify-center text-2xl bg-current rounded-full h-13 w-13">
+        <span class="invert">
+          {{- customer.first_name | slice: 0 | upcase -}}
+        </span>
+      </p>
+
+      <a
+        class="o-button o-button--secondary o-button--small"
+        href="{{ routes.account_logout_url }}"
+      >
+        {{- 'sections.main_account_menu.log_out' | t -}}
+      </a>
+    </div>
+
+    <h2 class="text-3xl font-bold font-heading">
+      {{- 'sections.main_account_menu.welcome_name' | t: name: customer.first_name -}}
+    </h2>
+  </div>
+
+  <embla-slider
+    class="{{ slider_classes }} mt-6 border-t-2 border-solid border-border-light"
+    {{ slider_settings }}
+  >
+    <div {{ slider_viewport }}>
+      <ul class="{{ slider_track_class }} lg:flex lg:flex-col lg:gap-y-6 text-md lg:pt-6 lg:pb-17">
+        {%- if template.name == 'order' -%}
+          <li class="{{ slider_item_class }}">
+            <a
+              class="account-menu__link is-active"
+              href="{{ request.path }}"
+              aria-current="page"
+            >
+              {%- render 'theme_icons' with 'file', class: 'stroke-current', width: 20, height: 20 -%}
+
+              {{- 'sections.main_account_menu.name' | t: name: order.name -}}
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- for link in linklists[section.settings.menu].links -%}
+          <li class="{{ slider_item_class }}">
+            <a
+              class="account-menu__link{% if link.active %} is-active{% endif %}"
+              href="{{ link.url }}"
+              {%- if link.active -%}
+                aria-current="page"
+              {%- endif -%}
+            >
+              {%- liquid
+                assign title = link.title
+                assign icon = ''
+                assign text_accessors = title | split: '['
+
+                for accessor in text_accessors
+                  if accessor contains 'icon='
+                    assign icon_name = accessor | split: ']' | first
+                    assign icon_name = icon_name | remove: 'icon='
+                    assign to_replace = '[icon=' | append: icon_name | append: ']'
+
+                    capture icon
+                      render 'theme_icons' with icon_name, class: 'stroke-current', width: 20, height: 20
+                    endcapture
+
+                    assign title = title | replace: to_replace, ''
+                    assign icon = icon
+                  endif
+                endfor
+              -%}
+
+              {{- icon -}}
+              {{- title -}}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </embla-slider>
+</div>

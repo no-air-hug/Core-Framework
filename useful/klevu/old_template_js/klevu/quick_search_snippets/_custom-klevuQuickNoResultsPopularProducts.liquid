@@ -1,0 +1,26 @@
+{%- capture content -%}
+  <% var popularProductList = klevu.getObjectPath(data,"query.noResultsFoundPopularProductList.result");%>
+  <% if(popularProductList) { %>
+    <% if(popularProductList.length > 0 ) { %>
+      <div class="klevuNoResultsProductsBlock">
+        <div class="klevuPopularProductsHeading">
+          <span class="klevuQuickHeadingText">
+            <%= helper.translate(data.quickNoResultsPopularHeading) %>
+          </span>
+        </div>
+        <div class="klevuQuickSearchNoResultsPopular" data-section="noResultsFoundPopularProductList" id="noResultsFoundPopularProductList">
+          <ul>
+            <% helper.each(popularProductList,function(key, product){ %>
+              <%=helper.render('quickNoResultsPopularProductBlock',scope,data,product) %>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickNoResultsPopularProducts">
+  {{- content -}}
+</script>
+

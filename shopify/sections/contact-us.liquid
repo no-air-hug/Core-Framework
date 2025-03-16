@@ -1,0 +1,119 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section, set_padding: false
+
+  # - Section Padding Setting
+  case section.settings.padding
+    when 'full'
+      assign section_classes = section_classes | append: ' '
+    when 'padded'
+      assign section_classes = section_classes | append: ' px-row py-block-padding'
+    when 'contained'
+      assign section_classes = section_classes | append: ' px-row'
+  endcase
+
+  assign text_block = section.blocks | where: 'type', 'text' | first
+-%}
+
+<div class="grid relative lg:flex lg:gap-x-9 {{ section_classes }}">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'form' -%}
+        {%- liquid
+          # Internal padding is applied when the section padding is set to full.
+          case section.settings.padding
+            when 'full'
+              if forloop.first
+                assign text_block_classes = text_block_classes | append: ' lg:pl-row'
+              else
+                assign text_block_classes = text_block_classes | append: ' lg:pr-row'
+              endif
+          endcase
+
+          assign text_block_classes = text_block_classes | prepend: 'max-lg:px-row py-9 grid h-auto lg:w-min flex-grow'
+        -%}
+
+        <div
+          class="{{ text_block_classes }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- liquid
+            case block.settings.color
+              when 'dark'
+                assign call_us_color = 'text-primary'
+
+              when 'light'
+                assign call_us_color = 'text-primary-inverse'
+            endcase
+          -%}
+
+          {%- capture text -%}
+            {{- block.settings.text -}}
+            {%- render 'form_contact', require_phone: false, button_style: block.settings.form_submit_style -%}
+
+            {%- if block.settings.show_call_us -%}
+              <hr class="o-hr bg-border-dark my-9 max-lg:hidden">
+              <div class="{{ call_us_color }} max-lg:hidden">
+                <p class="mb-2 font-bold">
+                  {{- 'sections.contact_us.call_us.subtitle' | t -}}
+                </p>
+                <p class="text-md">
+                  {%- render 'theme_icons' with 'phone', width: 12, height: 12 -%}
+                  {{- 'sections.contact_us.call_us.text_html' | t -}}
+                </p>
+              </div>
+            {%- endif -%}
+          {%- endcapture -%}
+
+          {%- render 'object_content',
+            block: block.settings,
+            class: 'w-full [&>*]:text-left [&>*]:self-start',
+            heading_class: 'mb-4 lg:mb-5',
+            text: text
+          -%}
+        </div>
+
+      {%- when 'media' -%}
+        {%- liquid
+          # Media Aspect Ratios
+          capture media_aspect
+            render 'section_aspect-ratios', section: block
+          endcapture
+
+          # Media Width
+          capture media_width
+            case block.settings.media_width
+              when 'half'
+                echo '50'
+              when 'two-thirds'
+                echo '66.6'
+              when 'custom'
+                echo block.settings.custom_media_width
+            endcase
+          endcapture
+
+          # Media First Setting
+          if block.settings.media_first
+            assign media_block_classes = media_block_classes | append: ' max-lg:row-start-1'
+          endif
+        -%}
+
+        {%- style -%}
+          @media (min-width: 1024px) {
+            #shopify-section-{{ section.id }} .media-block {
+              width: {{ media_width }}%;
+            }
+          }
+        {%- endstyle -%}
+
+        <div
+          class="media-block relative {{ media_block_classes }}"
+          {{ block.shopify_attributes }}
+        >
+            {%- liquid
+              render 'object_content', block: block.settings, class: 'absolute inset-0 w-full h-full z-2 p-9 lg:p-12'
+              render 'section_media', target: block.settings, image_picture_class: 'o-picture--fill'
+            -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

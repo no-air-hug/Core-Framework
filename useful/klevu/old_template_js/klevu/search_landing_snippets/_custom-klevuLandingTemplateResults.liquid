@@ -1,0 +1,84 @@
+{%- capture content -%}
+  <div class="kuResultsListing">
+    <div class="productList klevuMeta" data-section="productList">
+      <div class="kuResultContent">
+        <div class="kuResultWrap <%=(data.query.productList.filters.length == 0 )?'kuBlockFullwidth':''%>">
+          <div ku-container data-container-id="ku_landing_main_content_container" data-container-role="content">
+            <section ku-container data-container-id="ku_landing_main_content_left" data-container-position="left" data-container-role="left">
+              <div ku-block data-block-id="ku_landing_left_facets"> <%=helper.render('filters',scope,data,"productList") %> </div>
+              <div ku-block data-block-id="ku_landing_left_call_outs"></div>
+              <div ku-block data-block-id="ku_landing_left_banner"></div>
+            </section>
+            <section ku-container data-container-id="ku_landing_main_content_center" data-container-position="center" data-container-role="center">
+              <header ku-block data-block-id="ku_landing_result_header">
+                <%=helper.render('klevuLandingTemplateResultsHeadingTitle',scope,data,"productList") %> <%=helper.render('filtersTop',scope,data,"productList") %> <%= helper.render('kuFilterTagsTemplate',scope,data,"productList") %> <% if(helper.hasResults(data,"productList")) { %> <%=helper.render('sortBy',scope,data,"productList") %> <%=helper.render('limit',scope,data,"productList") %> <%=helper.render('kuTemplateLandingResultsViewSwitch',scope,data,"productList") %> <%=helper.render('pagination',scope,data,"productList") %> <% } %>
+                <div class="kuClearBoth"></div>
+              </header>
+              <div ku-block data-block-id="ku_landing_result_items">
+                <div class="kuResults">
+                  <% if(helper.hasResults(data,"productList")) { %>
+                  <ul> <% helper.each(data.query.productList.result,function(key,item){ %> <% if(item.typeOfRecord == "KLEVU_PRODUCT") { %> <%=helper.render('productBlock',scope,data,item) %> <% } %> <% }); %> </ul>
+                  <% } else { %>
+                  <div class="kuNoRecordsFoundLabelTextContainer"> <span class="kuNoRecordsFoundLabelText"><%= helper.translate("No records found for your selection") %></span> </div>
+                  <% } %>
+                  <div class="kuClearBoth"></div>
+                </div>
+              </div>
+              <div ku-block data-block-id="ku_landing_other_items"> <%=helper.render('klevuLandingTemplateInfiniteScrollDown',scope,data) %> </div>
+              <footer ku-block data-block-id="ku_landing_result_footer"></footer>
+            </section>
+            <section ku-container data-container-id="ku_landing_main_content_right" data-container-position="right" data-container-role="right">
+              <div ku-block data-block-id="ku_landing_right_facets"></div>
+              <div ku-block data-block-id="ku_landing_right_call_outs"></div>
+              <div ku-block data-block-id="ku_landing_right_banner"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if(data.query.contentList) { %>
+    <div class="contentList klevuMeta" data-section="contentList" data-result-view="list">
+      <div class="kuResultContent">
+        <div class="kuResultWrap <%=(data.query.contentList.filters.length == 0 )?'kuBlockFullwidth':''%>">
+          <div ku-container data-container-id="ku_landing_main_content_container" data-container-role="content">
+            <section ku-container data-container-id="ku_landing_main_content_left" data-container-position="left" data-container-role="left">
+              <div ku-block data-block-id="ku_landing_left_facets"> <%=helper.render('filters',scope,data,"contentList") %> </div>
+              <div ku-block data-block-id="ku_landing_left_call_outs"></div>
+              <div ku-block data-block-id="ku_landing_left_banner"></div>
+            </section>
+            <section ku-container data-container-id="ku_landing_main_content_center" data-container-position="center" data-container-role="center">
+              <header ku-block data-block-id="ku_landing_result_header">
+                <%=helper.render('filtersTop',scope,data,"contentList") %> <%= helper.render('kuFilterTagsTemplate',scope,data,"contentList") %> <% if(helper.hasResults(data,"contentList")) { %> <%=helper.render('limit',scope,data,"contentList") %> <%=helper.render('pagination',scope,data,"contentList") %> <% } %>
+                <div class="kuClearBoth"></div>
+              </header>
+              <div ku-block data-block-id="ku_landing_result_items">
+                <div class="kuClearBoth"></div>
+                <div class="kuResults">
+                  <% if(helper.hasResults(data,"contentList")) { %>
+                  <ul> <% helper.each(data.query.contentList.result,function(key,item){ %> <% if(item.typeOfRecord == "KLEVU_CMS") { %> <%=helper.render('contentBlock',scope,data,item) %> <% }%> <% }); %> </ul>
+                  <% } else { %>
+                  <div class="kuNoRecordsFoundLabelTextContainer"> <span class="kuNoRecordsFoundLabelText"><%= helper.translate("No records found for your selection") %></span> </div>
+                  <% } %>
+                  <div class="kuClearBoth"></div>
+                </div>
+              </div>
+              <div ku-block data-block-id="ku_landing_other_items"> <%=helper.render('klevuLandingTemplateInfiniteScrollDown',scope,data) %> </div>
+              <footer ku-block data-block-id="ku_landing_result_footer"></footer>
+            </section>
+            <section ku-container data-container-id="ku_landing_main_content_right" data-container-position="right" data-container-role="right">
+              <div ku-block data-block-id="ku_landing_right_facets"></div>
+              <div ku-block data-block-id="ku_landing_right_call_outs"></div>
+              <div ku-block data-block-id="ku_landing_right_banner"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplateResults">
+  {{- content -}}
+</script>
+

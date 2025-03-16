@@ -1,0 +1,56 @@
+{%- capture content -%}
+  <div class="klevu-fluid kuQuickSearchImageUploadContainer kuPreventDocumentClick">
+    <div id="klevuSearchingArea" class="klevuQuickSearchingArea">
+      <header ku-container data-container-id="ku_quick_main_header_container" data-container-role="header">
+        <section ku-block data-block-id="ku_quick_main_header_sub_panel">
+          <span class="kuQuickUploadHeaderTitle">
+            <%= helper.translate("Visual Image Search") %>
+          </span>
+        </section>
+      </header>
+      <div ku-container data-container-id="ku_quick_main_container" data-container-role="main">
+        <div ku-container data-container-id="ku_quick_main_content_container" data-container-role="content" >
+          <section ku-container data-container-id="ku_quick_main_content_left" data-container-position="left" data-container-role="left"></section>
+          <section ku-container data-container-id="ku_quick_main_content_center" data-container-position="center" data-container-role="center">
+            <div ku-block data-block-id="ku_quick_result_items">
+              <div class="klevuResultsBlock">
+                <form class="kuQuickImageSearchForm">
+                  <input type="file" id="kuImageSearchFile" class="kuImageSearchFile" name="filename">
+                </form>
+                <button class="kuQuickUploadImageBtn">
+                  <span class="kuUploadText upload"> <%= helper.translate("Upload a photo") %> </span>
+                </button>
+                <div class="kuImageUploadErrorMsgContainer"></div>
+              </div>
+            </div>
+          </section>
+          <section ku-container data-container-id="ku_quick_main_content_right" data-container-position="right" data-container-role="right"></section>
+        </div>
+      </div>
+      <footer ku-container data-container-id="ku_quick_main_footer_container" data-container-role="footer">
+        <section ku-block data-block-id="ku_quick_main_footer_sub_panel">
+          <div class="kuImgSearchPrivacyNote">
+            <p class="kuImgSearchPrivacyNoteInfo">
+              <%= helper.translate("Your privacy is of utmost importance to us. Any images uploaded will only be used to provide relevant results and improve the general search experience. However, we recommend not uploading images containing people or sensitive information.") %>
+            </p>
+          </div>
+          <div class="kuImgSearchHowItWorks">
+            <div class="accordion">
+              <input type="checkbox" id="<%= data.imageUploadTemplateId %>">
+              <label class="accordion-label" for="<%= data.imageUploadTemplateId %>"> <%= helper.translate("How does this work?") %> </label>
+              <div class="accordion-content">
+                <span class="img1"></span>
+                <span class="img2"></span>
+                <p class="kuUploadWorksContent"> <%= helper.translate("After you take or upload a photo, we'll analyse it and recommend the closest matches.") %> </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </footer>
+    </div>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickImageSearchContent">
+  {{- content -}}
+</script>

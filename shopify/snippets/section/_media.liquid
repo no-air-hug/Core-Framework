@@ -1,0 +1,140 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Section - Media
+  -------------------------------------------------------------------------------
+  Accepts
+  - target: {Object} the section or block object that you're inheriting
+    the image or video settings from (required)
+  - prefix: {String} when utilising the media.js part with a prefix, that
+    prefix also needs to be passed into this snippet in order to correctly
+    assign objects to the correct settings.
+  - ... : {*} view object_image and object_video to see what settings
+    you can pass into this snippet, most of them are listed there, but
+    require a prefix when targeting them now [image/video].
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'section_media', target: section -%}
+  -------------------------------------------------------------------------------
+  Description
+  Used to keep consistent media settings and layout through the site, and designed
+  to be used with the ...media() part.
+{%- endcomment -%}
+
+{%- liquid
+  assign target = target | default: section.settings
+  assign prefix = prefix
+
+  # Media Aspect Ratios
+  capture media_aspect_dsk
+    render 'section_aspect-ratios', target: target
+  endcapture
+
+  capture media_aspect_mob
+    render 'section_aspect-ratios', target: target, setting: 'aspect_ratio_mob'
+  endcapture
+
+  # General
+  assign aspect = aspect | default: media_aspect_dsk
+  assign aspect_mobile = aspect_mobile | default: media_aspect_mob
+
+  # Setting Accessors
+  assign image_s = 'image' | prepend: prefix
+  assign image_mobile_s = 'image_mobile' | prepend: prefix
+  assign image_overlay_s = 'image_overlay' | prepend: prefix
+  assign image_fit_s = 'image_fit' | prepend: prefix
+  assign video_autoplay_s = 'video_autoplay' | prepend: prefix
+  assign video_muted_s = 'video_muted' | prepend: prefix
+  assign video_loop_s = 'video_loop' | prepend: prefix
+  assign video_fit_s = 'video_fit' | prepend: prefix
+  assign video_play_overlay_s = 'video_play_overlay' | prepend: prefix
+  assign video_file_s = 'video_file' | prepend: prefix
+  assign video_url_s = 'video_url' | prepend: prefix
+
+  # Image Content
+  assign image = image | default: target[image_s]
+  assign image_mobile = image_mobile | default: target[image_mobile_s]
+  assign image_picture_class = image_picture_class
+  assign image_img_class = image_img_class
+  assign image_overlay = image_overlay | default: target[image_overlay_s]
+  assign image_width = image_width
+  assign image_height = image_height
+  assign image_widths = image_widths
+  assign image_sizes = image_sizes
+  assign image_crop = image_crop
+  assign image_preload = image_preload
+  assign image_fit = image_fit | default: target[image_fit_s]
+  assign image_visible_placeholder = image_visible_placeholder
+
+  # Video Content
+  assign video_placeholder_classes = video_placeholder_classes | default: 'o-video__image js-video-image'
+  assign video_autoplay = video_autoplay | default: target[video_autoplay_s]
+  assign video_muted = video_muted | default: target[video_muted_s]
+  assign video_loop = video_loop | default: target[video_loop_s]
+  assign video_fit = video_fit | default: target[video_fit_s]
+  assign video_play_overlay = video_play_overlay | default: target[video_play_overlay_s]
+  assign video_class = video_class
+  assign video_loading = video_loading
+
+  # Classes
+  assign img_fit_class = 'o-img--' | append: image_fit | append: ' '
+  assign image_img_class = image_img_class | prepend: img_fit_class
+
+  assign video_source = target[video_file_s] | default: target[video_url_s]
+-%}
+
+{%- capture video_placeholder -%}
+  {%- render 'object_image' with image,
+    mobile_image: image_mobile,
+    class: video_placeholder_classes,
+    overlay: image_overlay,
+    width: image_width,
+    height: image_height,
+    widths: image_widths,
+    sizes: image_sizes,
+    crop: image_crop,
+    aspect: aspect,
+    aspect_mobile: aspect_mobile,
+    preload: image_preload,
+    visible_placeholder: false
+  -%}
+{%- endcapture -%}
+
+{%- if video_source -%}
+  {%- liquid
+    assign video_play_on_mobile = true
+
+    if target.image_mobile
+      assign video_play_on_mobile = false
+    endif
+  -%}
+
+  {%- render 'object_video' with video_source,
+    placeholder: video_placeholder,
+    autoplay: video_autoplay,
+    fit: video_fit,
+    muted: video_muted,
+    loop: video_loop,
+    loading: video_loading,
+    play_on_mobile: video_play_on_mobile,
+    play_overlay: video_play_overlay,
+    aspect_mobile: aspect_mobile,
+    aspect: aspect,
+    class: video_class
+  -%}
+{%- else -%}
+  {%- render 'object_image' with image,
+    mobile_image: image_mobile,
+    class: image_picture_class,
+    img_class: image_img_class,
+    overlay: image_overlay,
+    width: image_width,
+    height: image_height,
+    widths: image_widths,
+    sizes: image_sizes,
+    crop: image_crop,
+    aspect: aspect,
+    aspect_mobile: aspect_mobile,
+    preload: image_preload,
+    visible_placeholder: image_visible_placeholder
+  -%}
+{%- endif -%}

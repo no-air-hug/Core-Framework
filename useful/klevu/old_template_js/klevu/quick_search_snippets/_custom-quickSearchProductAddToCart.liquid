@@ -1,0 +1,22 @@
+{%- capture content -%}
+  <% if(dataLocal.inStock != "no") { %>
+  <% var addToCartCaption = klevu.search.modules.kmcInputs.base.getAddToCartButtonCaption(); %>
+    <% if(addToCartCaption && addToCartCaption.indexOf("<img") !== -1) { %>
+      <div class="kuAddtocart klevuQuickAddtoCart " data-id="<%=dataLocal.id%>">
+          <a target="_self" href="javascript:void(0)" class="kuBtn klevuQuickCartBtn" role="button" tabindex="0" area-label="Add to cart">
+            <%= addToCartCaption %>
+          </a>
+      </div>
+    <% } else { %>
+      <div class="kuAddtocart klevuQuickAddtoCart" data-id="<%=dataLocal.id%>" >
+          <button class="kuBtn kuBtnDark klevuQuickCartBtn">
+            <%= helper.translate(addToCartCaption) %>
+          </button>
+      </div>
+    <% } %>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_quickSearchProductAddToCart">
+  {{- content -}}
+</script>

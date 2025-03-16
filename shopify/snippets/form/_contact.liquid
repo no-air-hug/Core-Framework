@@ -1,0 +1,253 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Form - Contact
+  -------------------------------------------------------------------------------
+  Accepts
+  - class {Object/String} additional classes (optional)
+  - title {Object/String} the form title (optional)
+  - text {Object/String} text describing the form (optional)
+  - button_style {Object/String} the submission button style,
+    (primary, secondary, etc) (optional)
+  - require_phone {Boolean} renders a phone input (optional)
+  -------------------------------------------------------------------------------
+  Usage
+    {%- render 'form_conntact',
+    class: 'text-md',
+    title: 'Contact Form',
+    text: 'Send us a message!',
+    button_style: 'primary',
+    require_phone: true
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a basic Shopify contact form
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class | prepend: 'form ' | strip
+  assign button_style = button_style | default: 'primary'
+  assign require_phone = require_phone
+
+  if title contains ' | t'
+    assign title = title | replace: ' | t' | t
+  endif
+
+  if text contains ' | t'
+    assign text = text | replace: ' | t' | t
+  endif
+-%}
+
+{%- form 'contact', class: class, id: 'ContactForm' -%}
+  {%- if title or text -%}
+    <header class="form__header">
+      {%- if title -%}
+        <h2 class="mb-2 text-2xl font-bold font-heading">{{- title -}}</h2>
+      {%- endif -%}
+
+      {%- if text -%}
+        <p>{{- text -}}</p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  {%- if form.posted_successfully? -%}
+    <h2 tabindex="-1" autofocus>
+      {% render 'theme_icons' with 'success' %}
+      {{- 'global.forms.errors.post_success' | t -}}
+    </h2>
+  {%- elsif form.errors -%}
+    <div class="form__message">
+      <h2 class="flex gap-2 font-heading" role="alert" tabindex="-1" autofocus>
+        {%- render 'theme_icons' with 'error' -%}
+        {{- 'global.forms.errors.error_heading' | t -}}
+      </h2>
+      <ul class="pl-2 text-md">
+        <li>
+          <a href="#ContactForm-email" class="link">
+            {{- form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email -}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  {%- endif -%}
+
+  <ul class="form__fields">
+    <li class="form__field">
+      <label class="o-input" for="ContactForm-name">
+        <span class="flex gap-x-1">
+          {{- 'global.forms.structure.full_name.label' | t -}}
+          <span aria-hidden="true">*</span>
+        </span>
+
+        <input
+          id="ContactForm-name"
+          class="o-input__field"
+          name="contact[full_name]"
+          value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          type="text"
+          autocomplete="name"
+          required
+          aria-required="true"
+          placeholder="{{ 'global.forms.structure.full_name.placeholder' | t }}"
+        >
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input {%- if form.errors %} o-input--error{%- endif -%}" for="ContactForm-email">
+        <span class="flex gap-x-1">
+          {{- 'global.forms.structure.email.label' | t -}}
+          <span aria-hidden="true">*</span>
+        </span>
+
+        <input
+          class="o-input__field"
+          name="contact[email]"
+          id="ContactForm-email"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          type="email"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          required
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="ContactForm-email-error"
+          {% endif %}
+          placeholder="{{ 'global.forms.structure.email.placeholder' | t }}"
+        >
+
+        {%- if form.errors contains 'email' -%}
+          <small id="ContactForm-email-error" class="o-input__error">
+            <span class="sr-only">{{ 'global.accessibility.error' | t }}</span>
+            {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+            {{- form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email -}}
+            .
+          </small>
+        {%- endif -%}
+      </label>
+    </li>
+
+    {%- if require_phone != false -%}
+      <li class="form__field">
+        <label class="o-input" for="ContactForm-phone">
+          <span class="flex gap-x-1">
+            {{- 'global.forms.structure.phone.label' | t -}}
+            *
+          </span>
+
+          <input
+            id="ContactForm-phone"
+            class="o-input__field"
+            name="contact[phone]"
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            type="tel"
+            autocomplete="tel"
+            placeholder="{{ 'global.forms.structure.phone.placeholder' | t }}"
+            pattern="[0-9\-]*"
+          >
+        </label>
+      </li>
+    {%- endif -%}
+
+    <li class="form__field">
+      <label class="o-input" for="ContactForm-type">
+        <span class="flex gap-x-1">
+          {{- 'snippets.form.contact.enquiry_type.label' | t -}}
+          <span aria-hidden="true">*</span>
+        </span>
+
+        <select
+          id="ContactForm-type"
+          class="o-input__field"
+          name="contact[enquiry_type]"
+          required
+          onchange="handleContactFormTypeChange(this)"
+        >
+          <option value="" disabled selected>{{ 'snippets.form.contact.enquiry_type.placeholder' | t }}</option>
+          <option value="order" data-order-required>{{ 'snippets.form.contact.enquiry_type.options.order' | t }}</option>
+          <option value="delivery" data-order-required>{{ 'snippets.form.contact.enquiry_type.options.delivery' | t }}</option>
+          <option value="products">{{ 'snippets.form.contact.enquiry_type.options.products' | t }}</option>
+          <option value="marketing">{{ 'snippets.form.contact.enquiry_type.options.marketing' | t }}</option>
+          <option value="trade">{{ 'snippets.form.contact.enquiry_type.options.trade' | t }}</option>
+          <option value="dofe">{{ 'snippets.form.contact.enquiry_type.options.dofe' | t }}</option>
+          <option value="other">{{ 'snippets.form.contact.enquiry_type.options.other' | t }}</option>
+        </select>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input" for="ContactForm-order" hidden>
+        <span class="flex gap-x-1">
+          {{- 'snippets.form.contact.order.label' | t -}}
+          <span aria-hidden="true">*</span>
+        </span>
+
+        <input
+          id="ContactForm-order"
+          class="o-input__field"
+          name="contact[contact]"
+          value=""
+          type="text"
+          disabled
+          placeholder="{{ 'snippets.form.contact.order.placeholder' | t }}"
+        >
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input" for="ContactForm-body">
+        <span class="flex gap-x-1">
+          {{ 'snippets.form.contact.comment.label' | t }}
+          <span aria-hidden="true">*</span>
+        </span>
+
+        <textarea
+          rows="8"
+          id="ContactForm-body"
+          class="o-input__field"
+          name="contact[message]"
+          placeholder="{{ 'snippets.form.contact.comment.placeholder' | t }}"
+          required
+          aria-required="true"
+        >
+          {{- form.body -}}
+        </textarea>
+      </label>
+    </li>
+  </ul>
+
+  <div class="form__footer">
+    <button
+      class="o-button o-button--{{ button_style }} o-button--full"
+      type="submit"
+    >
+      {{ 'snippets.form.contact.send' | t }}
+    </button>
+  </div>
+{%- endform -%}
+
+<script type="module">
+  window.handleContactFormTypeChange = function (el) {
+    const elOrderField = el.form.querySelector(`[for=${el.form.id}-order]`);
+    if (!elOrderField) return;
+    const elInput = elOrderField.querySelector('input');
+    if (!elInput) return;
+
+    const [selectedOption] = el.selectedOptions;
+    if (selectedOption.hasAttribute('data-order-required')) {
+      elOrderField.hidden = false;
+      elInput.disabled = false;
+      elInput.required = true;
+      elInput.setAttribute('aria-required', 'true');
+    } else {
+      elOrderField.hidden = true;
+      elInput.disabled = true;
+      elInput.required = false;
+      elInput.removeAttribute('aria-required');
+    }
+  };
+</script>

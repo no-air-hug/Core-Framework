@@ -1,0 +1,55 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Count
+  -------------------------------------------------------------------------------
+  Accepts
+  - results_none: {Object/String} (required)
+  - results_one: {Object/String} (required)
+  - results_other: {Object/String} (required)
+  - count: {Object/Number} the count (required)
+  - class: {String} an optional class (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_count',
+  results_none: results_none,
+  results_one: 'results_one',
+  results_other: 'results_other',
+  count: results.products_count | default: results.results_count
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Relays the amount of results returned from a request
+{%- endcomment -%}
+
+{%- liquid
+  assign count = count
+
+  if results_none contains ' | t'
+    assign results_none = results_none | replace: ' | t' | t: count: count
+  endif
+
+  if results_one contains ' | t'
+    assign results_one = results_one | replace: ' | t' | t: count: count
+  endif
+
+  if results_other contains ' | t'
+    assign results_other = results_other | replace: ' | t' | t: count: count
+  endif
+-%}
+
+<p
+  class="js-pagination-external-results min-w-fit text-md font-bold {{ class }}"
+  data-results-text-none="{{ results_none }}"
+  data-results-text-one="{{ results_one }}"
+  data-results-text-other="{{ results_other }}"
+>
+  {%- liquid
+    if count == 0 and results_none != blank
+      echo results_none
+    elsif count == 1 and results_one != blank
+      echo results_one
+    elsif results_other != blank
+      echo results_other
+    endif
+  -%}
+</p>

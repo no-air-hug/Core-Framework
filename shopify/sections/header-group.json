@@ -1,0 +1,32 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "promo-bar": {
+      "type": "promo-bar",
+      "blocks": {
+        "1e1cc9d0-c3cf-4583-a9cc-8dacc6a7bcd4": {
+          "type": "promo_text",
+          "settings": {
+            "icon": "arrow-right",
+            "text": "It's a promotion"
+          }
+        }
+      },
+      "block_order": ["1e1cc9d0-c3cf-4583-a9cc-8dacc6a7bcd4"],
+      "settings": {
+        "background_color": "#109AD6",
+        "text_color": "light"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "main_menu": "main-menu",
+        "brand_logo": "standard-logo",
+        "logo_colour": "#161616"
+      }
+    }
+  },
+  "order": ["promo-bar", "header"]
+}

@@ -1,0 +1,99 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Field (Input)
+  -------------------------------------------------------------------------------
+  Accepts
+  - class: {Object/String} additional classes (optional)
+  - form: {Object/String} the form object (required)
+  - form_id: {Object/String} the unique form id (required)
+  - property: {Object/String} the property for the field's input (required)
+  - default_value: {Object/String} the default value for the field's input (optional)
+  - type: {Object} the field's input type
+  - label_text: {Object/String} the text for the field's label (optional)
+  - placeholder_text: {Object/String} the placeholder text for the field's
+    input (optional)
+  - dynamic_display: {Object/String} hide or show the element depending on the
+    value of a form select element insid ethe same section. The entry for
+    this input needs to have the following format [property]:[select_option_index].
+    This will also load the conditional-input module.
+  - error_scope: {String} the inputs error scope in the context of
+    form_errors (https://shopify.dev/docs/api/liquid/objects/form_errors), this
+    can either be author|body|email|password. General form errors will always
+    produce error styling (required)
+  - required: {Boolean} makes the field required, and displays
+    an asterix (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_field-input',
+    class: 'text-md',
+    form: 'form,
+    form_id: 'form_id',
+    property: 'name',
+    default_value: default_value,
+    type: 'text'
+    label_text: 'Label',
+    placeholder_text: 'Enter your name here',
+    dynamic_display: 'type:1',
+    error_scope: 'password',
+    required: true
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A typical form input element template.
+{%- endcomment -%}
+
+{%- capture required_asterix -%}
+  <span aria-hidden="true">*</span>
+{%- endcapture -%}
+
+<label
+  class="
+    o-input{% if class != blank %} {{ class }}{% endif %}
+    {% if form.errors contains error_scope or form.errors contains 'form' %}
+      o-input--error
+    {% endif %}
+  "
+  for="{{ form_id }}-{{ property | handleize }}"
+  {% if dynamic_display != blank %}
+    {% # the conditional-input module will reveal this %}
+    hidden
+  {% endif %}
+>
+  {%- if label_text != blank -%}
+    <span class="flex gap-x-1">
+      {%- liquid
+        echo label_text
+        if required
+          echo required_asterix
+        endif
+      -%}
+    </span>
+  {%- endif -%}
+
+  <input
+    id="{{ form_id }}-{{ property | handleize }}"
+    name="contact[{{ property | downcase }}]"
+    value="{{ default_value }}"
+    class="o-input__field"
+    type="{{ type }}"
+    spellcheck="false"
+    autocapitalize="off"
+    autocomplete="on"
+    {% if dynamic_display != blank %}
+      is="conditional-input"
+      data-dependency="{{ dynamic_display }}"
+      disabled
+    {% endif %}
+    {% if placeholder_text != blank %}
+      {% if required and label_text == blank %}
+        placeholder="{{ placeholder_text | append: '*' }}"
+      {% else %}
+        placeholder="{{ placeholder_text }}"
+      {% endif %}
+    {% endif %}
+    {% if required != false %}
+      required
+      aria-required="true"
+    {% endif %}
+  />
+</label>

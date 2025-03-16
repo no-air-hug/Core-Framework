@@ -1,0 +1,38 @@
+{%- capture content -%}
+  <% var updatedProductName = dataLocal.name; if(klevu.search.modules.kmcInputs.base.getSkuOnPageEnableValue()) { if(klevu.dom.helpers.cleanUpSku(dataLocal.sku)) { updatedProductName += klevu.dom.helpers.cleanUpSku(dataLocal.sku); } } %>
+  <li ku-product-block class="klevuProduct" data-id="<%=dataLocal.id%>">
+    <div class="kuProdWrap">
+      <header ku-block data-block-id="ku_landing_result_item_header"> <%=helper.render('landingProductBadge', scope, data, dataLocal) %> </header>
+      <% var desc = [dataLocal.summaryAttribute,dataLocal.packageText,dataLocal.summaryDescription].filter(function(el) { return el; }); desc = desc.join(" "); %>
+      <main ku-block data-block-id="ku_landing_result_item_info">
+        <div class="kuProdTop">
+          <div class="klevuImgWrap"> <a data-id="<%=dataLocal.id%>" href="<%=dataLocal.url%>" class="klevuProductClick kuTrackRecentView"> <img src="<%=dataLocal.image%>" origin="<%=dataLocal.image%>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" alt="<%=updatedProductName%>" class="kuProdImg"> <%=helper.render('landingImageRollover', scope, data, dataLocal) %> </a> </div>
+          <!-- <div class="kuQuickView"> <button data-id="<%=dataLocal.id%>" class="kuBtn kuBtnLight kuQuickViewBtn" role="button" tabindex="0" area-label="">Quick view</button> </div> -->
+        </div>
+      </main>
+      <footer ku-block="" data-block-id="ku_landing_result_item_footer">
+        <div class="kuProdBottom">
+          <div class="kuName kuClippedOne"><a data-id="<%=dataLocal.id%>" href="<%=dataLocal.url%>" class="klevuProductClick kuTrackRecentView" title="<%= updatedProductName %>"><%= updatedProductName %></a></div>
+          <% if(dataLocal.inStock && dataLocal.inStock != "yes") { %> <%=helper.render('landingProductStock', scope, data, dataLocal) %> <% } else { %> <% if(klevu.search.modules.kmcInputs.base.getShowPrices()) { %>
+          <div class="kuPrice">
+            <% var kuTotalVariants = klevu.dom.helpers.cleanUpPriceValue(dataLocal.totalVariants); var kuStartPrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.startPrice,dataLocal.currency); var kuSalePrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.salePrice,dataLocal.currency); var kuPrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.price,dataLocal.currency); %> <% if(!Number.isNaN(kuTotalVariants) && !Number.isNaN(kuStartPrice)) { %>
+            <div class="kuSalePrice kuStartPrice kuClippedOne"> <span class="klevuQuickPriceGreyText"><%=helper.translate("Starting at")%></span> <span><%=helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.startPrice))%></span> </div>
+            <% } else if(!Number.isNaN(kuSalePrice) && !Number.isNaN(kuPrice) && (kuPrice > kuSalePrice)){ %> <span class="kuOrigPrice kuClippedOne"> <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.price)) %> </span> <span class="kuSalePrice kuSpecialPrice kuClippedOne"> <%=helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.salePrice))%> </span> <% } else if(!Number.isNaN(kuSalePrice)) { %> <span class="kuSalePrice kuSpecialPrice"> <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.salePrice)) %> </span> <% } else if(!Number.isNaN(kuPrice)) { %> <span class="kuSalePrice"> <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.price)) %> </span> <% } %> <%=helper.render('searchResultProductVATLabel', scope, data, dataLocal) %>
+          </div>
+          <% } %> <% } %>
+        </div>
+        <div class="kuProdAdditional">
+          <div class="kuProdAdditionalData">
+            <% if(desc && desc.length) { %>
+            <div class="kuDesc kuClippedTwo"> <%=desc%> </div>
+            <% } %> <%=helper.render('landingProductSwatch',scope,data,dataLocal) %> <%=helper.render('klevuLandingProductRating',scope,data,dataLocal) %> <% var isAddToCartEnabled = klevu.search.modules.kmcInputs.base.getAddToCartEnableValue(); %> <% if(isAddToCartEnabled) { %> <%=helper.render('landingPageProductAddToCart',scope,data,dataLocal) %> <% } %>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </li>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplateProductBlock">
+  {{- content -}}
+</script>

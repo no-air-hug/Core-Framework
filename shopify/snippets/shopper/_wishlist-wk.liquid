@@ -1,0 +1,155 @@
+{% comment %}
+  --------------------------------------------------------------------
+      Functions for handling Wishlist King App into Shopper
+  --------------------------------------------------------------------
+{% endcomment %}
+<script>
+  let retries = 0;
+  const template = {{ template.suffix | json }}
+
+  document.addEventListener('DOMContentLoaded', () => pollForWishlistKing());
+
+
+  function pollForWishlistKing() {
+    if (retries === 10) return;
+    if (typeof WishlistKing !== 'object') {
+      retries += 1;
+      setTimeout(pollForWishlistKing, 500 * (retries * retries));
+      return;
+    }
+
+    WishlistKing.events.subscribe('wk:wishlist:add:success', (data) => {
+      updateWishlistCount(data.data.wishlist.numItems + 1);
+    });
+    WishlistKing.events.subscribe('wk:wishlist:remove:success', (data) => {
+      updateWishlistCount(data.data.wishlist.numItems - 1);
+    });
+    WishlistKing.events.subscribe('wk:wishlist:clear:success', () => {
+      updateWishlistCount(0);
+    });
+
+    if (template === "shopper-wishlist") initWishlist();
+  }
+
+  function updateWishlistCount(count) {
+    const data = {
+      event: 'wishlistItemsCount',
+      value: count,
+    };
+    // Send notification to shopper app
+    if (window.webkit && window.webkit.messageHandlers) {
+      window.webkit.messageHandlers.webViewBridge.postMessage(JSON.stringify(data));
+    } else if (typeof window.webViewBridge !== 'undefined') {
+      window.webViewBridge.postMessage(JSON.stringify(data));
+    }
+
+    document.querySelector('#webviewWishlistItemsCount').value = count;
+  }
+
+  {% comment %}
+    --------------------------------------------------------------------
+    Bespoke functions to work with swipe to like feature
+    --------------------------------------------------------------------
+  {% endcomment %}
+
+  function initWishlist() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('handle')) {
+      handleParams(urlParams);
+    } else {
+      wishlistData();
+    }
+  }
+
+  async function wishlistData(){
+    const wishlistData = document.querySelector("#wishlistData");
+    const { count } = await getWishlist();
+    const { host, headers } = WishlistKing._apis.wishlist;
+
+    wishlistData.insertAdjacentHTML("afterbegin",
+      `{
+        wishlistId: '${headers["x-appmate-sid"]}',
+        wishlistCount: ${count},
+      }`
+    );
+  }
+
+
+  async function handleParams(urlParams) {
+       const handle = urlParams.get('handle');
+       const sessionId = urlParams.get('sessionId');
+       const check = await checkInWishList(handle);
+       if(!check) await addToWishlist(handle, sessionId);
+  }
+
+   async function getProductId(handle) {
+    let productData = {}
+    await fetch(`/products/${handle}.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        productData = {
+          productId: data.product.id,
+          variantId:  data.product.variants[0].id
+        }
+      })
+      .catch((error) => console.error(error));
+
+    return productData;
+  }
+
+  async function checkInWishList(handle) {
+    let inWishlist = true
+    const productId = await getProductId(handle)
+    const { count, items }  = await getWishlist()
+    const matchingProducts = items.find((p) => p.productId === productId);
+
+    if(!matchingProducts) inWishlist = false
+    return inWishlist
+  }
+
+  async function addToWishlist(handle, sessionId){
+    const { productId, variantId } = await getProductId(handle)
+    const { host, headers } = WishlistKing._apis.wishlist;
+    await fetch(`${host}/wishlists/mine/items`, {
+      method: 'POST',
+      headers: {
+        "content-type": headers["content-type"],
+        "x-appmate-shp": headers["x-appmate-shp"],
+        "x-appmate-sid": sessionId,
+        "x-appmate-src": headers["x-appmate-src"],
+        "x-appmate-vca": headers["x-appmate-vca"],
+        "x-appmate-vcm": headers["x-appmate-vcm"]
+      },
+      body:JSON.stringify({
+        "productId": productId,
+        "variantId": variantId
+       })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        wishlistData();
+      })
+      .catch((error) => console.error(error))
+      .finally(async () => {
+        await WishlistKing._state.clearCache()
+      });
+  }
+
+  async function getWishlist(){
+    const { host, headers } = WishlistKing._apis.wishlist;
+    let wishlist = {};
+    await fetch(`${host}/wishlists/mine`, {
+      method: 'GET',
+      headers
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        wishlist = {
+          count: data.wishlist.numItems,
+          items: data.wishlist.items,
+        }
+      })
+      .catch((error) => console.error(error));
+    return wishlist
+  }
+</script>

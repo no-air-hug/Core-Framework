@@ -1,0 +1,7 @@
+.o-hr {
+  @apply flex-shrink-0 w-full h-px border-0 bg-border-light;
+
+  &--vertical {
+    @apply w-px h-auto min-h-full;
+  }
+}

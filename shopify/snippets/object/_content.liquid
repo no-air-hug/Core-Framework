@@ -1,0 +1,342 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Content
+  -------------------------------------------------------------------------------
+  Accepts
+  - block: {Object} the object where the content.js part settings are present
+    (required)
+  - attributes: {Object/String} any additional attributes you might want to
+    place on the content container (optional)
+  - class: {Object/String} any additional classes you might want to add to the
+    parent container
+  - ... {*} There are too many options to list, the majority of inputs to this
+    object should be managed via the block object because that object should
+    have a content.js schema part associated with it, but if you search through
+    this snippet you'll see that you'd be able to pass in various other
+    objects into this snippet individually to achieve various effects.
+  -------------------------------------------------------------------------------
+  Usage (Typical)
+  {%- render 'object_content',
+    block: block.settings,
+    attributes: section_header.shopify_attributes,
+    class: 'class',
+    ...
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A content object that displays content in a variety of ways.
+{%- endcomment -%}
+
+{%- liquid
+  # Content
+  # ------------------------------
+  assign overline = overline | default: block.overline
+  assign heading = heading | default: block.heading
+  assign text = text | default: block.text
+  assign content_width = content_width | default: block.content_width | append: 'px'
+  assign content_gap = content_gap | default: block.content_gap
+  assign content_gap_desktop = content_gap_desktop | default: block.content_gap_desktop
+  assign cta_spacing = cta_spacing | default: block.cta_spacing
+  assign cta_spacing_desktop = cta_spacing_desktop | default: block.cta_spacing_desktop
+  assign icon = icon | default: block.icon
+  assign grow_content = grow_content | default: block.grow_content
+  assign content_position = content_position | default: block.content_position
+  assign logo = logo | default: block.logo
+
+  # Object - Truncate Text | Settings
+  assign truncate = truncate | default: block.truncate
+  assign max_words = max_words | default: block.max_words
+  assign trigger_more_text = trigger_more_text | default: block.trigger_more_text
+  assign trigger_less_text = trigger_less_text | default: block.trigger_less_text
+  assign line_clamp_mob = line_clamp_mob | default: block.line_clamp_mob
+  assign line_clamp_dsk = line_clamp_dsk | default: block.line_clamp_dsk
+
+  assign class = class
+  assign content_class = content_class
+  assign logo_class = logo_class
+  assign cta_class = cta_class
+
+  # Article Content
+  # ------------------------------
+  assign content_tag = content_tag | default: block.content_tag
+  assign published = published
+
+  # CTAs
+  # ------------------------------
+  assign cta_1_text = cta_1_text | default: block.cta_1_text
+  assign cta_2_text = cta_2_text | default: block.cta_2_text
+
+  # External Content
+  # ------------------------------
+  # - Can be inserted directly into the main content
+  assign external_content_above_ctas = external_content_above_ctas | default: ''
+  assign external_content_below_ctas = external_content_below_ctas | default: ''
+
+  # External Button
+  # ------------------------------
+  # - Can be inserted directly into the CTA content
+  assign external_button = external_button | default: ''
+
+  # --------- Settings --------- #
+
+  comment
+    # DO NOT REMOVE!
+    # Tailwind font sizes:
+    # text-xs text-sm text-md text-base text-lg text-2xl text-3xl text-4xl text-5xl text-6xl text-7xl text-8xl text-9xl
+    # lg:text-xs lg:text-sm lg:text-md lg:text-base lg:text-lg lg:text-2xl lg:text-3xl lg:text-4xl lg:text-5xl lg:text-6xl lg:text-7xl lg:text-8xl lg:text-9xl
+  endcomment
+
+  # Heading
+  # ------------------------------
+  assign heading_class = heading_class | default: ''
+  assign heading_tag = heading_tag | default: 'h2'
+  assign heading_size = heading_size | default: block.heading_size
+
+  if heading_size != blank
+    assign heading_class = ' text-' | append: heading_size | prepend: heading_class
+  endif
+
+  assign heading_size_desktop = heading_size_desktop | default: block.heading_size_desktop
+
+  if heading_size_desktop != blank
+    assign heading_class = ' lg:text-' | append: heading_size_desktop | prepend: heading_class
+  endif
+
+  if grow_content == 'heading'
+    assign heading_class = heading_class | append: ' md:grow'
+  endif
+
+  # Overline
+  # ------------------------------
+  assign overline_class = overline_class | default: ' text-md font-semibold tracking-wide uppercase'
+
+  if grow_content == 'overline'
+    assign overline_class = overline_class | append: ' md:grow'
+  endif
+
+  # Text
+  # ------------------------------
+  assign text_class = text_class | default: ''
+  assign text_size = text_size | default: block.text_size
+
+  if text_size != blank
+    assign text_class = ' text-' | append: text_size | prepend: text_class
+  endif
+
+  assign text_size_desktop = text_size_desktop | default: block.text_size_desktop
+
+  if text_size_desktop != blank
+    assign text_class = ' lg:text-' | append: text_size_desktop | prepend: text_class
+  endif
+
+  if grow_content == 'text'
+    assign text_class = text_class | append: ' md:grow'
+  else
+    assign text_class = text_class | append: ' grow-0'
+  endif
+
+  # Position
+  # ------------------------------
+  assign position = position | default: block.position | default: 'start'
+  assign position_desktop = position_desktop | default: block.position_desktop | default: position
+  assign vertical_position = vertical_position | default: block.vertical_position
+
+  # Color
+  # ------------------------------
+  assign color = color | default: block.color
+
+  case color
+    when 'dark'
+      assign content_class = content_class | append: ' text-primary'
+    when 'light'
+      assign content_class = content_class | append: ' text-primary-inverse'
+    else
+      assign content_class = content_class | append: ' text-inherit'
+  endcase
+
+  # Card Content Placement
+  # ------------------------------
+  if content_position != blank
+    assign class = class | append: ' card__content--' | append: content_position
+  endif
+
+  # Content Colour Scheme
+  # ------------------------------
+  assign content_class = content_class | append: ' content--color-' | append: color
+
+  # Content Style
+  # ------------------------------
+
+  assign content_style = 'style="'
+
+  # OPEN Content Style
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Content Width
+  # ------------------------------
+
+  if content_width == '0px'
+    assign content_width = '100%'
+  endif
+
+  assign content_width_variable = '--content-width:#;' | replace: '#', content_width
+  assign content_style = content_style | append: content_width_variable
+
+  # Content Gap
+  # ------------------------------
+  # - Mobile
+  assign content_gap = '--content-gap: #px;' | replace: '#', content_gap
+  assign content_style = content_style | append: content_gap
+  # - Desktop
+  assign content_gap_desktop = '--content-gap-desktop: #px;' | replace: '#', content_gap_desktop
+  assign content_style = content_style | append: content_gap_desktop
+
+  # CTA Spacing
+  # ------------------------------
+  # - Mobile
+  assign cta_spacing = '--cta-spacing: #px;' | replace: '#', cta_spacing
+  assign content_style = content_style | append: cta_spacing
+  # - Desktop
+  assign cta_spacing_desktop = '--cta-spacing-desktop: #px;' | replace: '#', cta_spacing_desktop
+  assign content_style = content_style | append: cta_spacing_desktop
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # CLOSE Content Style
+
+  assign content_style = content_style | append: '"'
+
+  # Has Content?
+  if overline != blank or heading != blank or text != blank or cta_1_text != blank or cta_2_text != blank
+    assign has_content = true
+  endif
+-%}
+
+{%- if has_content -%}
+  {%- if class != blank -%}
+    <div class="{{ class }}">
+  {%- endif -%}
+
+  <div
+    class="content {{ content_class }}"
+    {{ content_style }}
+    data-position="{{ position }}"
+    data-position-desktop="{{ position_desktop }}"
+    data-vertical-position="{{ vertical_position }}"
+    {{ attributes | default: null }}
+  >
+    {%- if logo != blank -%}
+      <div class="{{ logo_class }}">
+        {%- render 'object_image' with logo, class: 'o-picture--fill', height: 24 -%}
+      </div>
+    {%- endif -%}
+
+    {%- if overline != blank -%}
+      <p class="content__overline {{ overline_class }}">
+        {%- liquid
+          assign overline = overline | replace: '[highlight]', '<span class="text-highlight">' | replace: '[/highlight]', '</span>'
+
+          if shop.metaobjects.countdown != blank
+            # Countdown
+            render 'object_countdown', text: overline
+          else
+            # Standard Text
+            echo overline
+          endif
+        -%}
+      </p>
+    {%- endif -%}
+
+    {%- if heading != blank -%}
+      <{{ heading_tag }}
+        class="content__heading tracking-wide flex items-center gap-x-2 font-medium leading-1 {{ heading_class }}"
+        {% if block.offset_heading != 0 and block.offset_heading != blank %}
+          {% # Offsets the title to be larger than the width of the content %}
+          style="width: calc(100% + {{ block.offset_heading }}px);"
+        {% endif %}
+      >
+        {%- capture prepped_heading -%}
+          {{-
+            heading
+            | replace: 'h1>', 'span>'
+            | replace: 'h2>', 'span>'
+            | replace: 'h3>', 'span>'
+            | replace: 'h4>', 'span>'
+            | replace: 'h5>', 'span>'
+            | replace: 'h6>', 'span>'
+            | replace: 'p>', 'span>'
+            | replace: '[highlight]', '<span class="text-highlight">'
+            | replace: '[/highlight]', '</span>'
+          -}}
+        {%- endcapture -%}
+
+        {%- liquid
+          # Icons
+          assign resolved_heading = prepped_heading | split: ']'
+          if resolved_heading[0] contains 'icon='
+            assign icon = resolved_heading[0] | replace: '[icon=', '' | strip_html
+            render 'theme_icons' with icon, class: 'stroke-current', width: '1.15em', height: '1.15em'
+            assign final_heading = resolved_heading[1]
+          else
+            assign final_heading = resolved_heading[0]
+          endif
+
+          if shop.metaobjects.countdown != blank
+            # Countdown
+            render 'object_countdown', text: final_heading
+          else
+            # Standard Text
+            echo final_heading
+          endif
+        -%}
+      </{{ heading_tag }}>
+    {%- endif -%}
+
+    {%- if text != blank -%}
+      <div class="content__text rte {{ text_class }}">
+        {%- liquid
+          assign text = text | replace: '[highlight]', '<span class="text-highlight">' | replace: '[/highlight]', '</span>'
+
+          if shop.metaobjects.countdown != blank
+            # Countdown
+            capture text
+              render 'object_countdown', text: text
+            endcapture
+          endif
+
+          if truncate == 'true'
+            render 'object_truncate-text', text: text, max_words: max_words, trigger_more_text: trigger_more_text, trigger_less_text: trigger_less_text, line_clamp_mob: line_clamp_mob, line_clamp_dsk: line_clamp_dsk
+          else
+            echo text
+          endif
+        -%}
+      </div>
+    {%- endif -%}
+
+    {%- if published != blank or content_tag != blank -%}
+      <div class="mt-auto flex gap-6">
+        {%- if content_tag != blank -%}
+          <p class="flex items-center gap-2 text-md font-medium leading-normal text-primary">
+            {%- render 'theme_icons' with icon, width: '1.5em', height: '1.5em', classes: 'stroke-black' -%}
+            {{- content_tag -}}
+          </p>
+        {%- endif -%}
+        {%- if published != blank -%}
+          <p class="flex items-center gap-2 text-md font-medium leading-normal text-primary">
+            {%- render 'theme_icons' with 'calendar', width: '1.5em', height: '1.5em', classes: 'stroke-black' -%}
+            {{- published -}}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- liquid
+      echo external_content_above_ctas
+      render 'object_ctas', settings: block, last_cta_index: 2, external_button: external_button, class: cta_class
+      echo external_content_below_ctas
+    -%}
+  </div>
+
+  {%- if class != blank -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

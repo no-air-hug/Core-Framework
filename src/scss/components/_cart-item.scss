@@ -1,0 +1,54 @@
+.cart-item {
+  position: relative;
+  display: grid;
+  grid-template:
+    "image details total" min-content
+    "image details quantity" min-content
+    "image detais remove" 1fr / max-content 1fr auto;
+  gap: 16px;
+  box-shadow: inset 0 -1px theme("colors.grey.90");
+
+  @screen md {
+    row-gap: 10px;
+  }
+
+  &:last-child {
+    box-shadow: inset 0 -1px theme("colors.border.light");
+  }
+
+  cart-items & {
+    &,
+    &:last-child {
+      box-shadow: inset 0 0 0 1px theme("colors.border.light");
+    }
+  }
+
+  &__media {
+    grid-area: image;
+
+    cart-items & {
+      width: 64px;
+
+      @screen md {
+        width: 128px;
+      }
+    }
+  }
+
+  &__details {
+    grid-area: details;
+  }
+
+  &__quantity {
+    grid-area: quantity;
+  }
+
+  &__remove {
+    grid-area: remove;
+  }
+
+  &__totals {
+    grid-area: total;
+    grid-row: span 1;
+  }
+}

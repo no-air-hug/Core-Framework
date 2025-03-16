@@ -1,0 +1,102 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Form - Newsletter
+  -------------------------------------------------------------------------------
+  Accepts
+  - form_id: {Object/String} a unique form id (required)
+  - title {Object/String} the form title (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'form_newsletter',
+    form_id: 'NewsletterSection',
+    title: 'Newsletter'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A newsletter form
+{%- endcomment -%}
+
+{%- liquid
+  assign form_id = form_id
+  assign title = title
+-%}
+
+{%- form 'customer', class: 'form form--newsletter', id: form_id -%}
+  {%- if title != blank -%}
+    <h3 class="text-2xl font-extrabold -tracking-2 leading-1 font-heading">
+      {{- title | newline_to_br -}}
+    </h3>
+  {%- endif -%}
+  {{- form.errors | default_errors -}}
+
+  {% comment %}theme-check-disable ContentForHeaderModification{% endcomment %}
+  {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+  {% comment %}theme-check-enable ContentForHeaderModification{% endcomment %}
+
+  {%- assign queryString = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+  -%}
+  {%- if queryString contains '?contact' -%}
+    <div class="form__state form__state--success">{{- 'snippets.form.newsletter.already_subscribed' | t -}}</div>
+  {%- endif -%}
+
+  <ul class="form__fields">
+    <li class="form__field">
+      {%- if form.posted_successfully? -%}
+        <p class="form__state form__state--success">
+          {{- 'snippets.form.newsletter.success' | t -}}
+        </p>
+      {%- else -%}
+        <input name="contact[tags]" type="hidden" value="newsletter">
+
+        <label class="o-input {%- if form.errors %} o-input--error{%- endif -%}" data-field="input">
+          <input
+            class="o-input__field o-input__field--newsletter"
+            required
+            type="email"
+            name="contact[email]"
+            id="{{ form_id }}-email"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ 'snippets.form.newsletter.placeholder' | t }} *"
+            value="{% if customer %}{{ customer.email }}{% endif %}"
+            {% if form.errors %}
+              autofocus
+              aria-invalid="true"
+              aria-describedby="Newsletter-error--{{ section.id }}"
+            {% elsif form.posted_successfully? %}
+              aria-describedby="Newsletter-success--{{ section.id }}"
+            {% endif %}
+          >
+          <span class="sr-only">{{- 'global.forms.structure.email.label' | t -}}</span>
+
+          {%- if form.errors -%}
+            <small id="Newsletter-error--{{ section.id }}" class="o-input__error">
+              {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+              {{- form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email -}}
+            </small>
+          {%- endif -%}
+        </label>
+      {%- endif -%}
+    </li>
+
+    <li class="form__field">
+      <button
+        class="o-button o-button--tertiary o-button--full"
+        type="submit"
+        id="{{ form_id }}-subscribe"
+        name="subscribe"
+      >
+        {{- 'snippets.form.newsletter.submit' | t -}}
+      </button>
+    </li>
+  </ul>
+{%- endform -%}

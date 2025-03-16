@@ -1,0 +1,26 @@
+{%- # prettier-ignore -%}
+{%- liquid
+  render 'section_spacing-and-color', section: section
+  render 'section_header', section: section
+
+  # Newsletter
+  assign newsletter_block = section.blocks | where: 'type', 'newsletter'
+-%}
+
+<div class="max-lg:text-center md:max-w-[774px] mx-auto self-center ">
+  {%- liquid
+    assign form_id = 'newsletter-' | append: section.id
+    render 'form_newsletter', form_id: form_id, privacy: newsletter_block.settings.privacy_statement,
+  -%}
+
+  <div class="flex flex-col items-center mt-3">
+    <p class="mb-2 text-lg uppercase text-grey-0 font-heading ">
+      {{- newsletter_block.settings.follow_newsletter -}}
+    </p>
+    {%- liquid
+      if newsletter_block.settings.show_socials != false
+        render 'social_network-links', hide_network_title: true, icon_size: 18, class: 'flex-wrap justify-center'
+      endif
+    -%}
+  </div>
+</div>

@@ -1,0 +1,70 @@
+{%- render 'section_spacing-and-color', section: section -%}
+
+<header class="text-center">
+  <h1 class="text-5xl font-extrabold -tracking-2 leading-1 py-9 font-heading">
+    {{- current_tags.first | default: blog.title | escape -}}
+  </h1>
+
+  <form class="relative pb-8 xmd:hidden">
+    <label
+      for="blog-category"
+      class="border border-border-dark w-full rounded-1 pt-2 pb-[5px] text-md font-bold cursor-pointer grid"
+    >
+      <select
+        name="category"
+        id="blog-category"
+        onchange="window.location.replace(this.value)"
+        class="w-full col-end-1 row-end-1 opacity-0"
+      >
+        <option
+          value="{{ blog.url }}"
+          {% if current_tags == blank %}
+            selected
+          {% endif %}
+        >
+          All
+        </option>
+        {%- for tag in blog.all_tags -%}
+          <option
+            value="{{ blog.url }}/tagged/{{ tag.handle }}"
+            {% if current_tags contains tag %}
+              selected
+            {% endif %}
+          >
+            {{- tag.title -}}
+          </option>
+        {%- endfor -%}
+      </select>
+
+      <span class="flex items-center justify-center col-end-1 row-end-1 gap-x-2" aria-hidden="true">
+        Categories
+        {%- render 'theme_icons' with 'chevron-down', width: 12, height: 12, 'stroke-current' -%}
+      </span>
+    </label>
+  </form>
+
+  <ul class="justify-center hidden font-bold xmd:flex gap-x-8 text-md">
+    <li class="flex">
+      <a
+        href="{{ blog.url }}"
+        class="cursor-pointer pb-6 border-b-2 border-b-transparent hover:border-b-highlight{% if current_tags == blank %} text-highlight border-b-highlight{% endif %}"
+      >
+        All
+      </a>
+    </li>
+
+    {%- for tag in blog.all_tags -%}
+      {%- capture tag_class -%}
+       {{ '<a' }}
+        class="
+          cursor-pointer pb-6 border-b-2 border-b-transparent hover:border-b-highlight
+          {% if current_tags contains tag %} text-highlight border-b-highlight{% endif %}
+        "
+      {%- endcapture -%}
+
+      <li class="flex">
+        {{- tag.title | link_to_tag: tag | replace_first: '<a ', tag_class -}}
+      </li>
+    {%- endfor -%}
+  </ul>
+</header>

@@ -1,0 +1,61 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Social - Network Links
+  -------------------------------------------------------------------------------
+  Accepts
+  - hide_network_title: {Boolean} hides the network title (optional)
+  - hide_network_icon: {Boolean} hides the network icon (optional)
+  - icon_size: {Number} the size of the network icon, default is 14 (optional)
+  - class: {String} optional container classes (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'social_network-links' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays links to various social media accounts set inside of the store's
+  brand settings.
+{%- endcomment -%}
+
+{%- if shop.brand.metafields.social_links.size > 0 -%}
+  <ul class="flex gap-4 h-fit {{ class }}">
+    {%- for social_link in shop.brand.metafields.social_links -%}
+      {%- liquid
+        assign social_network_name = social_link[0]
+        assign social_network_link = social_link[0]
+
+        # TODO: Shopify still refers to 'X' as 'Twitter', so this will probably need
+        # removing when they finally make the change.
+        if social_network_name == 'twitter'
+          assign social_network_name = 'x'
+        endif
+      -%}
+
+      <li class="flex h-fit">
+        <a
+          class="
+            inline-flex items-center gap-x-2 lg:text-md
+            {% if hide_network_title %}
+              transition-opacity hover:opacity-50
+            {% else %}
+              hover:underline underline-offset-4
+            {% endif %}
+          "
+          href="{{ social_network_link.value }}"
+          aria-describedby="a11y-external-message"
+          rel="noreferrer"
+          target="_blank"
+        >
+          {%- liquid
+            unless hide_network_icon
+              assign icon_size = icon_size | default: 14
+              render 'theme_icons' with social_network_name, width: icon_size, height: icon_size, class: 'stroke-current fill-current'
+            endunless
+            unless hide_network_title
+              echo 'global.social.links.' | append: social_network_name | t
+            endunless
+          -%}
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

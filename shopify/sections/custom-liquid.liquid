@@ -1,0 +1,13 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Custom Liquid
+  for block in section.blocks
+    case block.type
+      when 'custom_liquid'
+        echo block.settings.liquid
+    endcase
+  endfor
+-%}

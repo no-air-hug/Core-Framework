@@ -1,0 +1,128 @@
+{%- comment -%}
+  More conventional pagination look.
+{%- endcomment -%}
+
+{%- capture content -%}
+  {%- capture button_classes -%}
+    h-[3rem] w-[4rem] lg:h-7 lg:w-[6rem] flex items-center justify-center
+  {%- endcapture -%}
+
+  {%- capture link_classes -%}
+    h-[3rem] w-[4rem] lg:h-7 lg:w-[6rem] flex items-center justify-center select-none
+  {%- endcapture -%}
+
+  {%- capture link_inactive_classes -%}
+    hover:bg-black bg-white hover:text-white text-grey-25
+  {%- endcapture -%}
+
+  {%- capture link_active_classes -%}
+    bg-black hover:bg-white text-white hover:text-grey-25
+  {%- endcapture -%}
+
+  <% if(data.query[dataLocal].result.length > 0 ) { %>
+    <% var productListLimit = data.query[dataLocal].meta.noOfResults; %>
+    <% var productListTotal = data.query[dataLocal].meta.totalResultsFound - 1; %>
+    <% let totalPages = Math.ceil(productListTotal / productListLimit); %>
+    <% let currentPage = Math.ceil(data.query[dataLocal].meta.offset / productListLimit) + 1; %>
+    <% var isLastPage = (data.query[dataLocal].meta.offset + productListLimit) >= productListTotal; %>
+
+    <div class="flex justify-center text-sm font-medium leading-1 pb-14">
+      {%- # Previous Page Button -%}
+      <a
+        target="_self"
+        href="javascript:void(0)"
+        class="{{ button_classes }} klevuPaginate"
+        data-offset="<% if(currentPage > 1) { %><%=(data.query[dataLocal].meta.offset - productListLimit)%><% } else { %>0<% } %>"
+      >
+        {%- render 'theme_icons' with 'chevron-left', width: 16, height: 16 -%}
+        <span class="sr-only">Previous Page</span>
+      </a>
+
+      <div class="border border-solid flex border-border-dark_light rounded-[0.2rem]">
+        {%- # Ellipsis and Link to the First Page if we're past half the total pages -%}
+        <a
+          target="_self"
+          href="javascript:void(0)"
+          class="{{ link_classes }}
+            <% if (1 === currentPage) { %>
+              {{ link_active_classes }} kuCurrent
+            <% } else { %>
+              {{ link_inactive_classes }} klevuPaginate
+            <% } %>
+           "
+          data-offset="0"
+        >
+          1
+        </a>
+
+        <% if (currentPage > 3 && totalPages > 3) { %>
+          <div class="w-[1px] bg-border-dark_light h-full"></div>
+          <p class="{{ link_classes }} bg-white cursor-default text-grey-25">
+            ...
+          </p>
+        <% } %>
+
+        {%- # Current and Next Page Links -%}
+        <% let startPage = Math.max(2, currentPage - 1); %>
+        <% let endPage = Math.min(currentPage + 1, totalPages - 1); %>
+        <% for (let i = startPage; i <= endPage; i++) { %>
+          <div class="w-[1px] bg-border-dark_light h-full"></div>
+          <a
+            target="_self"
+            href="javascript:void(0)"
+            class="{{ link_classes }}
+              <% if (i === currentPage) { %>
+                {{ link_active_classes }} kuCurrent
+              <% } else { %>
+                {{ link_inactive_classes }} klevuPaginate
+              <% } %>
+            "
+            data-offset="<%= (i - 1) * productListLimit %>"
+          >
+            <%= i %>
+          </a>
+        <% } %>
+
+        {%- # Ellipsis and Link to the Last Page if we're not at the end -%}
+        <% if (currentPage < totalPages - 2 && totalPages > 3) { %>
+          <div class="w-[1px] bg-border-dark_light h-full"></div>
+          <p class="{{ link_classes }} bg-white cursor-default text-grey-25">
+            ...
+          </p>
+        <% } %>
+
+        <div class="w-[1px] bg-border-dark_light h-full"></div>
+
+        <a
+          target="_self"
+          href="javascript:void(0)"
+          class="{{ link_classes }}
+            <% if (totalPages === currentPage) { %>
+              {{ link_active_classes }} kuCurrent
+            <% } else { %>
+              {{ link_inactive_classes }} klevuPaginate
+            <% } %>
+           "
+          data-offset="<%= (totalPages - 1) * productListLimit %>"
+        >
+          <%= totalPages %>
+        </a>
+      </div>
+
+      {%- # Next Page Button -%}
+      <a
+        target="_self"
+        href="javascript:void(0)"
+        class="{{ button_classes }} klevuPaginate"
+        data-offset="<% if(currentPage < totalPages) { %><%=(data.query[dataLocal].meta.offset + productListLimit)%><% } else { %><%= (totalPages - 1) * productListLimit %><% } %>"
+      >
+        {%- render 'theme_icons' with 'chevron-right', width: 16, height: 16 -%}
+        <span class="sr-only">Next Page</span>
+      </a>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplatePagination">
+  {{- content -}}
+</script>

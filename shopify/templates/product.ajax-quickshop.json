@@ -1,0 +1,75 @@
+{
+  "layout": "theme.ajax",
+  "sections": {
+    "main": {
+      "type": "main-product-quickshop",
+      "blocks": {
+        "5039068a-fbca-442d-a85e-e7453367c345": {
+          "type": "header_start",
+          "settings": {}
+        },
+        "a60d8832-57ba-4e09-8c94-9c0dea38ecbd": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_BVErYN": {
+          "type": "rating",
+          "settings": {}
+        },
+        "9b89d674-1142-443d-a266-280cc60aa0d9": {
+          "type": "price",
+          "settings": {}
+        },
+        "aa9de256-56de-45ea-b1d3-057110155a6f": {
+          "type": "header_end",
+          "settings": {}
+        },
+        "528aa02b-8d69-46ef-9021-1da6b7ddc356": {
+          "type": "box_start",
+          "settings": {}
+        },
+        "c2f1d25f-6c41-4474-8bfd-56f134e25ce2": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type_default": "button",
+            "picker_type_swatch": "color, colour",
+            "size_guide_page": "{{ product.metafields.custom.size_guide.value }}"
+          }
+        },
+        "c21b4224-c014-4c50-b4ec-7164c3edc8b4": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "3356bcc9-af1f-4e33-bd33-984b8e074b08": {
+          "type": "box_end",
+          "settings": {}
+        },
+        "57430b82-8501-432e-baaf-fde1a417f629": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        }
+      },
+      "block_order": [
+        "5039068a-fbca-442d-a85e-e7453367c345",
+        "a60d8832-57ba-4e09-8c94-9c0dea38ecbd",
+        "rating_BVErYN",
+        "9b89d674-1142-443d-a266-280cc60aa0d9",
+        "aa9de256-56de-45ea-b1d3-057110155a6f",
+        "528aa02b-8d69-46ef-9021-1da6b7ddc356",
+        "c2f1d25f-6c41-4474-8bfd-56f134e25ce2",
+        "c21b4224-c014-4c50-b4ec-7164c3edc8b4",
+        "3356bcc9-af1f-4e33-bd33-984b8e074b08",
+        "57430b82-8501-432e-baaf-fde1a417f629"
+      ],
+      "settings": {
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "hide_variants": true,
+        "hide_variants_by_alt": false
+      }
+    }
+  },
+  "order": ["main"]
+}

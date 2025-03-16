@@ -1,0 +1,77 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Media Aspect Ratios
+  capture media_aspect
+    render 'section_aspect-ratios', target: section.settings
+  endcapture
+
+  # Grid Spacing, Structure
+  render 'section_grid', section: section
+
+  # Settings
+  assign page_size = section.settings.pagination_amount
+-%}
+
+{%- paginate collections by page_size -%}
+  <div class="js-paginatable pt-2 md:pt-4 lg:pt-8">
+    {%- if collections.size != 0 -%}
+      {% # Collections List %}
+      <ul class="section-grid js-paginatable-list grid">
+        {%- for collection in collections -%}
+          <li class="js-paginatable-item group relative">
+            <a
+              class="absolute inset-0 z-1 h-full w-full cursor-pointer"
+              href="{{ collection.url }}"
+            ></a>
+
+            <div
+              class="ease-ease group-hover:shadow-3 group-hover:scale-card before:ease-ease relative flex transition-all duration-500 before:absolute before:inset-0 before:z-1 before:bg-white before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-20"
+              style="aspect-ratio: {{ media_aspect }};"
+            >
+              {%- liquid
+                if collection.image != blank
+                  render 'object_image' with collection.image, preload: true, img_class: 'o-img--fill', class: 'origin-center transition-transform o-picture--fill'
+                else
+                  assign placeholder_class = 'bg-grey-80 w-full origin-center pointer-events-none" style="aspect-ratio:' | append: media_aspect
+                  echo 'image' | placeholder_svg_tag: placeholder_class
+                endif
+              -%}
+            </div>
+
+            <p class="flex items-center py-4">
+              {{- collection.title -}}
+
+              {%- render 'theme_icons' with 'arrow-right',
+                width: 18,
+                height: 18,
+                class: 'ml-2 group-hover:ml-3 transition-all duration-500 ease-out stroke-current'
+              -%}
+            </p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      {% # No Collections %}
+      <h2 class="font-heading">
+        {{- 'sections.main_list_collections.no_collections' | t -}}
+      </h2>
+    {%- endif -%}
+
+    {%- liquid
+      # Converts string to integer
+      assign pagination_visibility = settings.pagination_visibility | plus: 0
+
+      if paginate.pages > pagination_visibility
+        case section.settings.pagination_style
+          when 'text'
+            render 'pagination_text', paginate: paginate
+          when 'dynamic'
+            render 'pagination_dynamic', paginate: paginate
+        endcase
+      endif
+    -%}
+  </div>
+{%- endpaginate -%}

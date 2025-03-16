@@ -1,0 +1,129 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "text_color": "dark"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "6d10b689-7122-40a8-b20c-8ec23f2e7426": {
+          "type": "title",
+          "settings": {}
+        },
+        "d4cd501e-17b2-42bd-8ca6-4b9b4c1a1593": {
+          "type": "featured_image",
+          "settings": {}
+        },
+        "0bee086f-d148-4544-ab61-03e564c0d6c1": {
+          "type": "content",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "6d10b689-7122-40a8-b20c-8ec23f2e7426",
+        "d4cd501e-17b2-42bd-8ca6-4b9b4c1a1593",
+        "0bee086f-d148-4544-ab61-03e564c0d6c1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark"
+      }
+    },
+    "1c26b965-641d-44b6-b574-f3524d69db30": {
+      "type": "divider",
+      "settings": {
+        "spacing": "sm",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "divider_color": ""
+      }
+    },
+    "0fae084d-f7f4-483b-87f8-519c4bb1a905": {
+      "type": "journal-feed",
+      "blocks": {
+        "template--15179184832555__0fae084d-f7f4-483b-87f8-519c4bb1a905-section_header-1": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Heading</p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "5defb8e0-7c86-4dd2-a8df-3bf8f5a67948": {
+          "type": "article",
+          "settings": {
+            "article": "help-center/what-age-group-are-littlelife-toddler-backpacks-designed-for"
+          }
+        },
+        "template--15179184832555__0fae084d-f7f4-483b-87f8-519c4bb1a905-blog-1": {
+          "type": "blog",
+          "settings": {
+            "blog": "",
+            "limit": 4
+          }
+        }
+      },
+      "block_order": [
+        "template--15179184832555__0fae084d-f7f4-483b-87f8-519c4bb1a905-section_header-1",
+        "5defb8e0-7c86-4dd2-a8df-3bf8f5a67948",
+        "template--15179184832555__0fae084d-f7f4-483b-87f8-519c4bb1a905-blog-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "full_width": false,
+        "slider_loop": true,
+        "slider_autoplay": 0,
+        "slider_arrows": true,
+        "slider_arrows_color": "#000000",
+        "aspect_ratio": "custom",
+        "custom_aspect_ratio": "2/3",
+        "show_images": true,
+        "show_dates": true,
+        "show_authors": true,
+        "show_excerpts": true,
+        "show_badges": true
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "1c26b965-641d-44b6-b574-f3524d69db30",
+    "0fae084d-f7f4-483b-87f8-519c4bb1a905"
+  ]
+}

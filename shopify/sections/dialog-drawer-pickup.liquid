@@ -1,0 +1,55 @@
+<drawer-pickup
+  class="dialog dialog--drawer dialog--drawer-right"
+  id="DrawerPickup"
+  hidden
+  {% if section.settings.testing %}data-testing{% endif %}
+>
+  <div
+    class="dialog-overlay"
+    data-a11y-dialog-hide
+  ></div>
+
+  <div role="document">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'header-open' -%}
+          <header data-dialog-element="header">
+
+        {%- when 'header-controls' -%}
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+              <h2 class="font-bold font-heading">
+                {{- block.settings.title -}}
+              </h2>
+            </div>
+
+            <button
+              data-dialog-element="close"
+              type="button"
+              tabindex="-1"
+              data-a11y-dialog-hide
+            >
+              {%- render 'theme_icons' with 'close' -%}
+              <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'pickup availability' -}}</span>
+            </button>
+          </div>
+
+        {%- when 'header-close' -%}
+          </header>
+
+        {%- when 'main-open' -%}
+          <div data-dialog-element="main">
+
+        {%- when 'main-close' -%}
+          </div>
+
+        {%- when 'footer-open' -%}
+          <footer data-dialog-element="footer">
+
+        {%- when 'footer-close' -%}
+          </footer>
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</drawer-pickup>

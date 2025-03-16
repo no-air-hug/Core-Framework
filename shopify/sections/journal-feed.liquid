@@ -1,0 +1,81 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'journal-feed'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+
+  # Media Aspect Ratios
+  capture media_aspect
+    render 'section_aspect-ratios', target: section.settings
+  endcapture
+-%}
+
+{{ slider_styling }}
+
+<embla-slider
+  class="{{ slider_classes }}"
+  {{ slider_settings }}
+>
+  <div {{ slider_viewport }}>
+    <ul class="{{ slider_track_class }}">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'blog' -%}
+            {%- assign blog = block.settings.blog | default: blog -%}
+
+            {%- for item in blog.articles limit: block.settings.limit -%}
+              {%- liquid
+                # Skip post if the post is the same as the current article
+                # if there's an article available
+                if item.handle == article.handle
+                  continue
+                endif
+              -%}
+
+              <li class="{{ slider_item_class }}">
+                {%- render 'card_article',
+                  article: item,
+                  show_image: section.settings.show_images,
+                  show_date: section.settings.show_dates,
+                  show_author: section.settings.show_authors,
+                  show_excerpt: section.settings.show_excerpts,
+                  show_badge: section.settings.show_badges,
+                  aspect_ratio: media_aspect
+                -%}
+              </li>
+            {%- endfor -%}
+
+          {%- when 'article' -%}
+            <li class="{{ slider_item_class }}">
+              {%- render 'card_article',
+                article: block.settings.article,
+                show_image: section.settings.show_images,
+                show_date: section.settings.show_dates,
+                show_author: section.settings.show_authors,
+                show_excerpt: section.settings.show_excerpts,
+                show_badge: section.settings.show_badges,
+                aspect_ratio: media_aspect
+              -%}
+            </li>
+        {%- endcase -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</embla-slider>

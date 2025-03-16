@@ -1,0 +1,17 @@
+{%- capture content -%}
+  <div class="klevuSuggestionHeading">
+    <span class="klevuHeadingText">
+      <%=helper.translate("Products")%>
+    </span>
+  </div>
+  <div class="klevuProductsViewAll">
+    <% var queryParam = klevu.getSetting(klevu, "settings.url.queryParam"); %>
+    <a href="<%=helper.buildUrl(data.settings.landingUrl, queryParam ,helper.stripHtml(data.settings.term))%>" target="_parent">
+      <%=helper.translate("View All")%>
+    </a>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickProductBlockTitleHeader">
+  {{- content -}}
+</script>

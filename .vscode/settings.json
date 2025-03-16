@@ -1,0 +1,50 @@
+{
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+    // "source.organizeImports": "always"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "markdown": "html"
+  },
+  "emmet.excludeLanguages": [],
+
+  // Formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  // Eslint
+  "eslint.experimental.useFlatConfig": true,
+
+  // Stylelint
+  "stylelint.reportInvalidScopeDisables": true,
+  "stylelint.reportNeedlessDisables": true,
+  "stylelint.snippet": ["css", "postcss", "scss"],
+  "stylelint.validate": ["css", "postcss", "scss"],
+
+  // Imports
+  "javascript.suggest.autoImports": true,
+  "typescript.suggest.autoImports": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Folder and files
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "files.insertFinalNewline": true,
+  "explorer.fileNesting.enabled": true,
+  "search.exclude": {
+    "useful/": true
+  },
+
+  // Tailwind
+  "css.customData": [".vscode/tailwind.json"],
+  "tailwindCSS.experimental.classRegex": ["[cC]lass\\s*[:=]\\s*['\"]([^'\"]+)"]
+}

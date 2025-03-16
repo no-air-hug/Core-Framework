@@ -1,0 +1,473 @@
+{%- unless request.page_type contains 'cart' -%}
+  <drawer-cart
+    class="dialog dialog--drawer dialog--drawer-right js-drawer-cart"
+    style="--max-width: 480px"
+    id="DrawerCart"
+    data-id="{{- section.id -}}"
+    hidden
+    {% if section.settings.testing %}data-testing{% endif %}
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'header-open' -%}
+            <header data-dialog-element="header">
+
+          {%- when 'header-controls' -%}
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-x-3">
+                <h3 class="font-bold font-heading">
+                  {{- block.settings.title -}}
+                </h3>
+                <p class="py-[0.2rem] select-none px-2 text-xs border border-solid text-secondary border-highlight rounded-[1.6rem]">
+                  {%- render 'cart_item-count' -%}
+
+                  {%- liquid
+                    capture count_text
+                      case cart.item_count
+                        when 1
+                          echo block.settings.count_one_item_text
+                        else
+                          echo block.settings.count_multi_item_text
+                      endcase
+                    endcapture
+
+                    echo count
+                    echo count_text | prepend: ' '
+                  -%}
+                </p>
+              </div>
+
+              <button
+                data-dialog-element="close"
+                type="button"
+                tabindex="-1"
+                data-a11y-dialog-hide
+              >
+                {%- render 'theme_icons' with 'close' -%}
+                <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'cart' -}}</span>
+              </button>
+            </div>
+
+          {%- when 'header-close' -%}
+            </header>
+
+          {%- when 'main-open' -%}
+            <div data-dialog-element="main">
+
+          {%- when 'free-delivery' -%}
+            <label class="flex flex-col text-sm delivery-progress js-delivery-progress">
+              {%- liquid
+                assign remaining = settings.free_delivery_threshold | minus: cart.total_price
+                if remaining > 0
+                  assign remaining_money = remaining | money
+                  assign label = 'global.cart.free_delivery.in_progress_html' | t: money: remaining_money
+                else
+                  assign label = 'global.cart.free_delivery.completed' | t
+                endif
+              -%}
+              <span class="mb-2">{{- label -}}</span>
+              <progress max="{{- settings.free_delivery_threshold -}}" value="{{- cart.total_price -}}"></progress>
+            </label>
+
+          {%- when 'cart-items' -%}
+            {%- if cart == empty -%}
+              <div class="grid h-full text-center place-content-center">
+                <p class="mb-6 font-bold font-secondary">
+                  {{- 'sections.dialog_drawer_cart.empty' | t -}}
+                </p>
+
+                <button
+                  class="o-button o-button--primary"
+                  type="button"
+                  tabindex="-1"
+                  data-a11y-dialog-hide
+                >
+                  {{- 'sections.dialog_drawer_cart.prompts.continue' | t -}}
+                </button>
+
+                {%- if shop.customer_accounts_enabled and customer == null -%}
+                  <p class="mt-8 font-bold">{{- 'sections.dialog_drawer_cart.prompts.login.question' | t -}}</p>
+                  <p class="rte text-md">
+                    {{- 'sections.dialog_drawer_cart.prompts.login.resolution_html' | t: link: routes.account_login_url -}}
+                  </p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <drawer-cart-items
+              {%- if cart == empty %}
+                hidden
+              {%- endif -%}
+            >
+              <form
+                action="{{- routes.cart_url -}}"
+                id="DrawerCart-Form"
+                method="post"
+              >
+                <div id="DrawerCart-CartItems">
+                  {%- if cart != empty -%}
+                    <table role="table" class="w-full">
+                      <thead role="rowgroup">
+                        <tr role="row">
+                          <th id="DrawerCart-ColumnProductImage" role="columnheader">
+                            <span class="sr-only">{{- 'sections.dialog_drawer_cart.items.headings.image' | t -}}</span>
+                          </th>
+                          <th id="DrawerCart-ColumnProduct" scope="col" role="columnheader">
+                            <span class="sr-only">{{- 'sections.dialog_drawer_cart.items.headings.product' | t -}}</span>
+                          </th>
+                          <th id="DrawerCart-ColumnTotal" scope="col" role="columnheader">
+                            <span class="sr-only">{{- 'sections.dialog_drawer_cart.items.headings.total' | t -}}</span>
+                          </th>
+                          <th id="DrawerCart-ColumnQuantity" role="columnheader">
+                            <span class="sr-only">{{- 'sections.dialog_drawer_cart.items.headings.quantity' | t -}}</span>
+                          </th>
+                          <th id="DrawerCart-ColumnRemove" role="columnheader">
+                            <span class="sr-only">{{- 'sections.dialog_drawer_cart.items.headings.remove' | t -}}</span>
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody role="rowgroup">
+                        {%- for item in cart.items -%}
+                          <tr id="DrawerCart-Item-{{- item.index | plus: 1 -}}" class="pb-6 mb-6 cart-item" role="row">
+                            <td class="relative cart-item__media" role="cell" headers="DrawerCart-ColumnProductImage">
+                              {%- if item.image -%}
+                                <a
+                                  class="overflow-hidden rounded-3"
+                                  href="{{- item.url -}}"
+                                  tabindex="-1"
+                                  aria-hidden="true"
+                                >
+                                  <img
+                                    class="object-cover aspect-square"
+                                    src="{{- item.image | image_url: width: 128 -}}"
+                                    alt="{{- item.image.alt | escape -}}"
+                                    loading="lazy"
+                                    width="64"
+                                    height="64"
+                                  >
+                                </a>
+                              {%- endif -%}
+                            </td>
+
+                            <td class="cart-item__details text-md" role="cell" headers="DrawerCart-ColumnProduct">
+                              <a href="{{- item.url -}}" class="font-bold cart-item__name">
+                                {{- item.product.title | escape -}}
+                              </a>
+
+                              {%- if item.product.has_only_default_variant == false or item.properties != blank -%}
+                                <dl class="text-secondary">
+                                  {%- if item.product.has_only_default_variant == false -%}
+                                    {%- for option in item.options_with_values -%}
+                                      <dt class="sr-only">{{- option.name -}}:</dt>
+                                      <dd class="inline">
+                                        {{- option.value -}}
+                                        {%- unless forloop.last %}
+                                          <span aria-hidden="true">/</span>
+                                        {% endunless %}
+                                      </dd>
+                                    {%- endfor -%}
+                                  {%- endif -%}
+
+                                  {%- for property in item.properties -%}
+                                    {%- assign property_first_char = property.first | slice: 0 -%}
+                                    {%- if property.last != blank and property_first_char != '_' -%}
+                                      <div>
+                                        <dt class="inline">{{- property.first -}}:</dt>
+                                        <dd class="inline">{{- property.last -}}</dd>
+                                      </div>
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                </dl>
+                              {%- endif -%}
+
+                              {%- if item.selling_plan_allocation != null -%}
+                                <p>{{- item.selling_plan_allocation.selling_plan.name -}}</p>
+                              {%- endif -%}
+
+                              {%- if item.discounts.size != blank and item.discounts.size != 0 -%}
+                                <ul
+                                  class="text-secondary"
+                                  aria-label="{{- 'sections.dialog_drawer_cart.items.headings.discounts' | t -}}"
+                                >
+                                  {%- for discount in item.discounts -%}
+                                    <li class="flex items-center gap-x-1">
+                                      {%- liquid
+                                        render 'theme_icons' with 'discount'
+                                        echo discount.title
+                                      -%}
+                                    </li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+
+                              <div
+                                class="hidden gap-x-1 text-validation-error text-2xs"
+                                id="DrawerCart-LineItemError-{{- item.index | plus: 1 -}}"
+                                role="alert"
+                              >
+                                <span class="order-1 peer"></span>
+                                <span class="inline-flex flex-shrink-0 peer-empty:hidden pt-[2px]">
+                                  {%- render 'theme_icons' with 'error', width: 12, height: 12, class: 'stroke-validation-error' -%}
+                                </span>
+                              </div>
+                            </td>
+
+                            <td
+                              class="relative flex justify-end cart-item__totals"
+                              role="cell"
+                              headers="DrawerCart-ColumnTotal"
+                            >
+                              <div class="justify-end hidden w-full h-full animate-fade-in loading-overlay">
+                                <div class="loading-overlay__spinner">
+                                  {%- render 'theme_icons' with 'loading' -%}
+                                </div>
+                              </div>
+
+                              <div class="flex flex-col pt-1 leading-none gap-y-1 text-md">
+                                {%- if item.original_line_price != item.final_line_price -%}
+                                  <span class="sr-only">{{- 'global.products.prices.regular_price' | t -}}</span>
+                                  <s class="text-secondary">{{- item.original_line_price | money -}}</s>
+                                  <span class="sr-only">{{- 'global.products.prices.sale_price' | t -}}</span>
+                                  <span class="font-bold">{{- item.final_line_price | money -}}</span>
+                                {%- else -%}
+                                  <span class="font-bold">{{- item.original_line_price | money -}}</span>
+                                {%- endif -%}
+                              </div>
+                            </td>
+
+                            <td class="flex items-center justify-center cart-item__quantity" role="cell" headers="DrawerCart-ColumnQuantity">
+                              <quantity-input class="quantity-input quantity-input--tiny">
+                                <button class="o-button" name="minus">
+                                  <span class="sr-only">
+                                    {{- 'global.accessibility.quantity.decrease' | t: product: product.title | escape -}}
+                                  </span>
+                                  {%- render 'theme_icons' with 'minus', width: 16, height: 16 -%}
+                                </button>
+                                <input
+                                  id="Drawer-quantity-{{- item.index | plus: 1 -}}"
+                                  type="number"
+                                  data-quantity-variant-id="{{- item.variant.id -}}"
+                                  name="updates[]"
+                                  value="{{- item.quantity -}}"
+                                  data-cart-quantity="{{- cart | item_count_for_variant: item.variant.id -}}"
+                                  min="{{- item.variant.quantity_rule.min -}}"
+                                  {% if item.variant.quantity_rule.max != null %}
+                                    max="{{- item.variant.quantity_rule.max -}}"
+                                  {% endif %}
+                                  step="{{- item.variant.quantity_rule.increment -}}"
+                                  aria-label="{{- 'global.accessibility.quantity.input_label' | t: product: item.product.title | escape -}}"
+                                  data-index="{{- item.index | plus: 1 -}}"
+                                >
+                                <button class="o-button" name="plus">
+                                  <span class="sr-only">
+                                    {{- 'global.accessibility.quantity.increase' | t: product: product.title | escape -}}
+                                  </span>
+                                  {%- render 'theme_icons' with 'plus', width: 16, height: 16 -%}
+                                </button>
+                              </quantity-input>
+                            </td>
+
+                            <td
+                              class="inline-flex justify-end cart-item__remove"
+                              role="cell"
+                              headers="DrawerCart-ColumnRemove"
+                            >
+                              <button
+                                is="remove-cart-item"
+                                type="button"
+                                id="DrawerCart-Remove-{{- item.index | plus: 1 -}}"
+                                data-index="{{- item.index | plus: 1 -}}"
+                                class="text-sm o-button o-button--underline"
+                                aria-label="{{- 'sections.dialog_drawer_cart.remove_title' | t: title: item.title -}}"
+                              >
+                                {{- 'sections.dialog_drawer_cart.remove' | t -}}
+                              </button>
+                            </td>
+                          </tr>
+                        {%- endfor -%}
+                      </tbody>
+                    </table>
+                  {%- endif -%}
+
+                  <p id="DrawerCart-LiveRegionText" class="sr-only" role="status"></p>
+                  <p id="DrawerCart-LineItemStatus" class="sr-only" aria-hidden="true" role="status">
+                    {{- 'global.accessibility.loading' | t -}}
+                  </p>
+                </div>
+                <div class="mb-6 text-validation-error text-md empty:hidden" id="DrawerCart-CartErrors" role="alert"></div>
+              </form>
+            </drawer-cart-items>
+
+          {%- when 'recommendations' -%}
+            {%- if cart != empty -%}
+              <div class="mt-auto">
+                <product-recommendations
+                  id="DrawerCart-Recomendations"
+                  data-url="{{- routes.product_recommendations_url -}}?section_id={{ section.id }}&product_id={{- cart.items.first.product_id -}}&limit={{- 3 | plus: cart.items.size | at_most: 10 -}}&intent=related"
+                >
+                  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                    <aside
+                      class="p-6"
+                      style="background-color: {{- block.settings.container_background -}};"
+                    >
+                      <h2 class="mb-6 font-bold font-heading">{{- 'sections.dialog_drawer_cart.also_like.title' | t -}}</h2>
+
+                      <ul role="list" class="space-y-4">
+                        {%- liquid
+                          assign cart_items = cart.items | map: 'product_id'
+                          assign count = 0
+                        -%}
+                        {%- for product in recommendations.products -%}
+                          {%- liquid
+                            if count == 3
+                              break
+                            endif
+
+                            # Skip over products that are alread in basket
+                            if cart_items contains product.id
+                              continue
+                            endif
+
+                            assign count = count | plus: 1
+                            -%}
+
+                          <li
+                            class="rounded-[3px] p-3"
+                            style="background-color: {{- block.settings.card_background -}};"
+                          >
+                            <a
+                              href="{{ product.url }}"
+                              class="flex flex-wrap items-start justify-between gap-4"
+                            >
+                              {%- render 'object_image' with product.featured_image, width: 64, height: 64, aspect: '1 / 1' -%}
+
+                              <div class="flex flex-col flex-1">
+                                <p class="font-bold">{{- product.title -}}</p>
+                                <p class="mb-2">{{- product.price | money -}}</p>
+                              </div>
+
+                              <hr class="w-full o-hr">
+
+                              {%- form 'product', product, is: 'product-form', class: 'w-full text-center' -%}
+                                <input
+                                  type="hidden"
+                                  name="id"
+                                  value="{{ product.selected_or_first_available_variant.id }}"
+                                >
+                                <button
+                                  class="o-button o-button--{{ block.settings.button_style }} o-button--small"
+                                  name="add"
+                                  type="submit"
+                                >
+                                  {{- 'sections.dialog_drawer_cart.quick_add.title' | t -}}
+                                </button>
+                              {%- endform -%}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </aside>
+                  {%- endif -%}
+                </product-recommendations>
+              </div>
+            {%- endif -%}
+
+          {%- when 'main-close' -%}
+            </div>
+
+          {%- when 'footer-open' -%}
+            <footer
+              data-dialog-element="footer"
+              {% if cart == empty %}
+                hidden
+              {% endif %}
+            >
+
+          {%- when 'cart-totals' -%}
+            <div class="flex flex-col gap-y-2 text-md">
+              <div class="flex flex-wrap justify-between gap-y-1" role="status">
+                <h2>{{- 'sections.dialog_drawer_cart.totals.headings.subtotal' | t -}}</h2>
+                <p class="font-bold">{{- cart.total_price | money -}}</p>
+
+                {%- if cart.cart_level_discount_applications.size > 0 -%}
+                  <ul
+                    class="flex flex-col items-end w-full text-sm text-grey-20"
+                    role="list"
+                    aria-label="{{- 'sections.dialog_drawer_cart.totals.headings.discounts' | t -}}"
+                  >
+                    {%- for discount in cart.cart_level_discount_applications -%}
+                      <li class="flex gap-x-1">
+                        {%- render 'theme_icons' with 'discount' -%}
+                        {{- discount.title -}}
+                        (-{{- discount.total_allocated_amount | money -}})
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+
+              {%- liquid
+                assign tax = 'sections.dialog_drawer_cart.totals.text.taxes.not_included' | t
+                assign shipping = 'sections.dialog_drawer_cart.totals.text.shipping' | t
+
+                if cart.taxes_included
+                  assign tax = 'sections.dialog_drawer_cart.totals.text.taxes.included' | t
+                endif
+              -%}
+
+              <div class="flex justify-between">
+                <h2>{{- 'sections.dialog_drawer_cart.totals.headings.shipping' | t -}}</h2>
+                <p>{{- shipping -}}</p>
+              </div>
+
+              <div class="flex justify-between">
+                <h2>{{- 'sections.dialog_drawer_cart.totals.headings.tax' | t -}}</h2>
+                <p>{{- tax -}}</p>
+              </div>
+            </div>
+
+          {%- when 'delivery-countdown' -%}
+            <delivery-countdown
+              class="flex items-center justify-center gap-x-3 text-md"
+              cutoff="{{- settings.estimate_delivery_cutoff -}}"
+              excludedDates="{{- settings.estimate_delivery_excluded_dates -}}"
+              nextdaylabel="{{- 'global.products.delivery_estimate.nextday_delivery_html' | t: time: '[time]', date: '[date]' -}}"
+              nextweeklabel="{{- 'global.products.delivery_estimate.weekday_delivery_html' | t: day: '[day]' -}}"
+            >
+              <svg width="20" height="20" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M10 1.667c-4.596 0-8.334 3.738-8.334 8.333 0 4.595 3.738 8.333 8.333 8.333 4.595 0 8.334-3.738 8.334-8.333 0-4.595-3.739-8.333-8.334-8.333Zm0 15A6.674 6.674 0 0 1 3.332 10a6.674 6.674 0 0 1 6.666-6.667A6.674 6.674 0 0 1 16.666 10a6.674 6.674 0 0 1-6.667 6.667Z" />
+                <path d="M10.833 5.833H9.166v4.512l2.744 2.744 1.178-1.178-2.255-2.256V5.833Z" />
+              </svg>
+              <p class="invisible">
+                {{- 'global.products.delivery_estimate.nextday_delivery_html' | t: time: '[time]', date: '[date]' -}}
+              </p>
+            </delivery-countdown>
+
+          {%- when 'submit-buttons' -%}
+            <button
+              type="submit"
+              id="DrawerCart-Checkout"
+              class="o-button o-button--primary o-button--full"
+              form="DrawerCart-Form"
+              {% if cart == empty %}
+                disabled
+              {% endif %}
+            >
+              {{- 'sections.dialog_drawer_cart.checkout' | t -}}
+            </button>
+
+          {%- when 'footer-close' -%}
+            </footer>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </drawer-cart>
+{%- endunless -%}

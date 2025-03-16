@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "menu": {
+      "type": "main-account-menu",
+      "settings": {
+        "padding": "contained",
+        "background_color": "#f7f7f7",
+        "text_color": "dark",
+        "menu": "account-menu"
+      }
+    },
+    "spacer": {
+      "type": "spacer",
+      "settings": {
+        "background_color": "rgba(0,0,0,0)",
+        "spacer_mobile": 48,
+        "spacer_desktop": 96
+      }
+    },
+    "main": {
+      "type": "main-account-addresses",
+      "blocks": {
+        "template--15179184668715__e2049a06-ea45-4a40-9c88-7a5b492c4fd5-section_header-1": {
+          "type": "section_header",
+          "settings": {
+            "aside_cta": true,
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "dark",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>[icon=list-alt]My Addresses</p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "secondary",
+            "cta_1_target": false
+          }
+        },
+        "2f272575-e06a-43ca-828e-0e39c122c075": {
+          "type": "addresses",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "template--15179184668715__e2049a06-ea45-4a40-9c88-7a5b492c4fd5-section_header-1",
+        "2f272575-e06a-43ca-828e-0e39c122c075"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    }
+  },
+  "order": ["menu", "spacer", "main"]
+}

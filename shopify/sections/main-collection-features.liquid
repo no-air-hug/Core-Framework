@@ -1,0 +1,95 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Feature Collections
+  assign global_feature_collections = section.settings.feature_collections
+  assign specific_feature_collections = collection.metafields.custom.feature_collections.value
+
+  assign feature_collections = global_feature_collections
+
+  if specific_feature_collections != blank
+    assign feature_collections = specific_feature_collections
+  endif
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'feature-collections', breakpoint: 'max-md', full_width: true
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+-%}
+
+{%- if feature_collections == blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} {
+      display: none;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{{ slider_styling }}
+
+{%- if feature_collections != blank -%}
+  <div class="overflow-hidden">
+    <embla-slider
+      class="{{ slider_classes }} px-row"
+      {{ slider_settings }}
+    >
+      <nav
+        {{ slider_viewport }}
+        role="navigation"
+        aria-label="feature-collections"
+      >
+        <ul class="{{ slider_track_class }} md:grid md:grid-cols-3 lg:grid-cols-4">
+          {%- for feature_collection in feature_collections -%}
+            {%- liquid
+              assign collection = feature_collection
+
+              if specific_feature_collections != blank
+                assign collection = collections[feature_collection]
+              endif
+
+              if collection.image != blank
+                assign image = collection.image
+              elsif collection.metafields.reference.feature_collections_image
+                assign image = collection.metafields.reference.feature_collections_image
+              elsif collection.products.first
+                assign image = collection.products.first.feature_image | image_url: width: 128
+              endif
+            -%}
+
+            <li
+              class="{{ slider_item_class }} md:w-full rounded-2 p-3 border border-solid border-border-light cursor-pointer transition-all hover:border-primary"
+              style="background: {{ section.settings.secondary_background_color }};"
+            >
+              <a
+                href="{{ collection.url }}"
+                class="flex flex-col-reverse items-center justify-between w-full h-full gap-3 md:flex-row"
+              >
+                <p class="text-sm font-bold text-center md:text-left lg:text-md">
+                  {{- collection.title -}}
+                </p>
+
+                {%- render 'object_image' with image,
+                  class: 'rounded-2 overflow-hidden w-12 h-12 md:w-9 md:h-9 lg:w-10 lg:h-10',
+                  aspect: '1 / 1'
+                -%}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </embla-slider>
+  </div>
+{%- endif -%}

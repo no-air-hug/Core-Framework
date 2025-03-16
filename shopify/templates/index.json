@@ -1,0 +1,723 @@
+{
+  "sections": {
+    "b4de66d0-c461-4717-9a48-41eb3333deb6": {
+      "type": "hero-banner",
+      "blocks": {
+        "9c37b3bf-8bda-4c28-9277-73613a61e4b8": {
+          "type": "slide",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "end",
+            "position_desktop": "start",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "6xl",
+            "heading_size_desktop": "9xl",
+            "text_size": "2xl",
+            "text_size_desktop": "2xs",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+              "accessories",
+              "bundle-tes-product",
+              "bundles-test",
+              "cardigans-jumpers"
+            ],
+            "stl_title": "test",
+            "stl_position": "bottom-right"
+          }
+        },
+        "a1e66f93-76db-47ce-a0af-9d594011b588": {
+          "type": "slide",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "7xl",
+            "heading_size_desktop": "9xl",
+            "text_size": "2xl",
+            "text_size_desktop": "2xl",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_file": "shopify:\/\/files\/videos\/b0f7465994b24d16bbc8f0efc46743b6.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+
+            ],
+            "stl_title": "",
+            "stl_position": "bottom-left"
+          }
+        },
+        "9b96d6a2-16ce-484c-9312-025e33a6491d": {
+          "type": "slide",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "end",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "7xl",
+            "heading_size_desktop": "9xl",
+            "text_size": "2xl",
+            "text_size_desktop": "2xl",
+            "overline": "test",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+
+            ],
+            "stl_title": "",
+            "stl_position": "bottom-left"
+          }
+        }
+      },
+      "block_order": [
+        "9c37b3bf-8bda-4c28-9277-73613a61e4b8",
+        "a1e66f93-76db-47ce-a0af-9d594011b588",
+        "9b96d6a2-16ce-484c-9312-025e33a6491d"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "full",
+        "width": 0,
+        "background_color": "",
+        "height": "full",
+        "slider_loop": "loop",
+        "slider_autoplay": 0,
+        "slider_arrows": "showArrows",
+        "slider_dots": "showDots"
+      }
+    },
+    "00dc20ce-cbcf-4f6e-beee-f7d2d3988059": {
+      "type": "content-cards",
+      "blocks": {
+        "template--15095467212843__00dc20ce-cbcf-4f6e-beee-f7d2d3988059-1677145208ae8a8dee-0": {
+          "type": "section_header",
+          "disabled": true,
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Section heading<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "template--15095467212843__00dc20ce-cbcf-4f6e-beee-f7d2d3988059-1677145208ae8a8dee-1": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-6",
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "end",
+            "position_desktop": "start",
+            "vertical_position": "center",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "Test",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "779368e0-5679-41f2-a057-9895661715a7": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-6",
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "end",
+            "position_desktop": "end",
+            "vertical_position": "center",
+            "heading_size": "lg",
+            "heading_size_desktop": "3xl",
+            "text_size": "2xs",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__00dc20ce-cbcf-4f6e-beee-f7d2d3988059-1677145208ae8a8dee-0",
+        "template--15095467212843__00dc20ce-cbcf-4f6e-beee-f7d2d3988059-1677145208ae8a8dee-1",
+        "779368e0-5679-41f2-a057-9895661715a7"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": ""
+      }
+    },
+    "bc63718f-615e-46b5-ba59-00f985f4a55b": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15095467212843__bc63718f-615e-46b5-ba59-00f985f4a55b-16771454455f02e901-0": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus condimentum rhoncus quam.<\/p>",
+            "heading_size": "4xl",
+            "heading_size_desktop": "6xl"
+          }
+        },
+        "5bbdcce5-835b-4c3b-8e13-148249570424": {
+          "type": "ctas",
+          "settings": {
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "cta_align": "vertical",
+            "cta_align_desktop": "horizontal",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "cta_2_text": "",
+            "cta_2_icon": "none",
+            "cta_2_icon-position": "right",
+            "cta_2_link": "",
+            "cta_2_link_style": "secondary",
+            "cta_2_target": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__bc63718f-615e-46b5-ba59-00f985f4a55b-16771454455f02e901-0",
+        "5bbdcce5-835b-4c3b-8e13-148249570424"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 752,
+        "background_color": "",
+        "text_color": "dark",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "8e893d89-18c2-45e5-86a7-331f39e6be26": {
+      "type": "hero-banner",
+      "blocks": {
+        "6e5917b9-e614-44f0-bcc9-70b88c1e03ea": {
+          "type": "slide",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "6xl",
+            "heading_size_desktop": "7xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+              "jackets-coats",
+              "nightwear-loungewear",
+              "strange-product"
+            ],
+            "stl_title": "Shop the look",
+            "stl_position": "bottom-right"
+          }
+        }
+      },
+      "block_order": [
+        "6e5917b9-e614-44f0-bcc9-70b88c1e03ea"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "full",
+        "width": 0,
+        "background_color": "",
+        "height": "full",
+        "slider_loop": "loop",
+        "slider_autoplay": 0,
+        "slider_arrows": "showArrows",
+        "slider_dots": "showDots"
+      }
+    },
+    "c794f889-ab83-4cdd-87c3-3e9addc800c4": {
+      "type": "products-slider",
+      "blocks": {
+        "template--15095467212843__c794f889-ab83-4cdd-87c3-3e9addc800c4-16771456511d21c00e-0": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "start",
+            "heading_size": "5xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "3a103f1a-3345-4d1a-ba16-7e2bb51f26b3": {
+          "type": "collection",
+          "settings": {
+            "collection": "all"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__c794f889-ab83-4cdd-87c3-3e9addc800c4-16771456511d21c00e-0",
+        "3a103f1a-3345-4d1a-ba16-7e2bb51f26b3"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": ""
+      }
+    },
+    "7379ded9-082c-4b1b-989e-b01e4bb468ce": {
+      "type": "text-media",
+      "blocks": {
+        "template--15095467212843__7379ded9-082c-4b1b-989e-b01e4bb468ce-1677145824fd81d996-0": {
+          "type": "text",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "cta_align": "vertical",
+            "cta_align_desktop": "horizontal",
+            "position": "start",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "5xl",
+            "heading_size_desktop": "6xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt arcu eu lacinia faucibus. Vivamus consectetur lacus sed.<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "cta_2_text": "",
+            "cta_2_icon": "none",
+            "cta_2_icon-position": "right",
+            "cta_2_link": "",
+            "cta_2_link_style": "secondary",
+            "cta_2_target": false
+          }
+        },
+        "template--15095467212843__7379ded9-082c-4b1b-989e-b01e4bb468ce-1677145824fd81d996-1": {
+          "type": "media",
+          "settings": {
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+              "trouser",
+              "sleeveless-tank-top-no-variant",
+              "sleeveless-tank-top-3-variants"
+            ],
+            "stl_title": "Shop the look",
+            "stl_position": "bottom-right"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__7379ded9-082c-4b1b-989e-b01e4bb468ce-1677145824fd81d996-0",
+        "template--15095467212843__7379ded9-082c-4b1b-989e-b01e4bb468ce-1677145824fd81d996-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "#191919",
+        "media_first": false,
+        "media_width": "half"
+      }
+    },
+    "5d402f8c-644c-4f4c-9833-ac74b11b2816": {
+      "type": "journal-feed",
+      "blocks": {
+        "template--15095467212843__5d402f8c-644c-4f4c-9833-ac74b11b2816-1677148307877a2322-0": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "4xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Section title<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "template--15095467212843__5d402f8c-644c-4f4c-9833-ac74b11b2816-1677148307877a2322-1": {
+          "type": "blog",
+          "settings": {
+            "blog": "journal",
+            "limit": 4
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__5d402f8c-644c-4f4c-9833-ac74b11b2816-1677148307877a2322-0",
+        "template--15095467212843__5d402f8c-644c-4f4c-9833-ac74b11b2816-1677148307877a2322-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "padded",
+        "width": 0,
+        "background_color": "#f6f6f6"
+      }
+    },
+    "68849105-38d5-4d3e-802d-5a6ffcd289d8": {
+      "type": "bundle-hotspots",
+      "blocks": {
+        "template--15095467212843__68849105-38d5-4d3e-802d-5a6ffcd289d8-1677150728f5ba3dd2-0": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "f51045d9-3d53-4670-91d4-73bed0c3af6f": {
+          "type": "media",
+          "settings": {
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "f4253163-4b20-4691-8497-38fac63b12a0": {
+          "type": "product",
+          "settings": {
+            "product": "locations-test",
+            "show_marker": true,
+            "marker_x": 20,
+            "marker_y": 20
+          }
+        },
+        "9990745a-983e-4cc3-ae9c-863b8d09195a": {
+          "type": "product",
+          "settings": {
+            "product": "jackets-coats",
+            "show_marker": true,
+            "marker_x": 40,
+            "marker_y": 40
+          }
+        },
+        "94a30b7e-c722-4465-b890-686e219f702e": {
+          "type": "product",
+          "settings": {
+            "product": "shirts",
+            "show_marker": true,
+            "marker_x": 60,
+            "marker_y": 60
+          }
+        },
+        "77c41788-6500-4898-94b4-3ba703159736": {
+          "type": "product",
+          "settings": {
+            "product": "sleeveless-tank-top",
+            "show_marker": true,
+            "marker_x": 80,
+            "marker_y": 80
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__68849105-38d5-4d3e-802d-5a6ffcd289d8-1677150728f5ba3dd2-0",
+        "f51045d9-3d53-4670-91d4-73bed0c3af6f",
+        "f4253163-4b20-4691-8497-38fac63b12a0",
+        "9990745a-983e-4cc3-ae9c-863b8d09195a",
+        "94a30b7e-c722-4465-b890-686e219f702e",
+        "77c41788-6500-4898-94b4-3ba703159736"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "layout": "auto"
+      }
+    },
+    "3b34ae18-4b41-4773-a35c-442ee38015cb": {
+      "type": "instagram",
+      "blocks": {
+        "template--15095467212843__3b34ae18-4b41-4773-a35c-442ee38015cb-16771507455339cd76-0": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Instagram<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__3b34ae18-4b41-4773-a35c-442ee38015cb-16771507455339cd76-0"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": ""
+      }
+    },
+    "335ca93b-019b-4eea-88f5-8cbbdf32be7d": {
+      "type": "icons-text",
+      "blocks": {
+        "template--15095467212843__335ca93b-019b-4eea-88f5-8cbbdf32be7d-16771508043b014284-1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/base_7697d509-e5c6-4190-af1b-e13da0703544.png",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "3194de80-c80c-4a1f-a61b-9b8591d7ff1e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/base_7697d509-e5c6-4190-af1b-e13da0703544.png",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "051f8f5e-e07e-4223-951d-1bf2b63cce77": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/base_7697d509-e5c6-4190-af1b-e13da0703544.png",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467212843__335ca93b-019b-4eea-88f5-8cbbdf32be7d-16771508043b014284-1",
+        "3194de80-c80c-4a1f-a61b-9b8591d7ff1e",
+        "051f8f5e-e07e-4223-951d-1bf2b63cce77"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "text_color": "dark"
+      }
+    }
+  },
+  "order": [
+    "b4de66d0-c461-4717-9a48-41eb3333deb6",
+    "00dc20ce-cbcf-4f6e-beee-f7d2d3988059",
+    "bc63718f-615e-46b5-ba59-00f985f4a55b",
+    "8e893d89-18c2-45e5-86a7-331f39e6be26",
+    "c794f889-ab83-4cdd-87c3-3e9addc800c4",
+    "7379ded9-082c-4b1b-989e-b01e4bb468ce",
+    "5d402f8c-644c-4f4c-9833-ac74b11b2816",
+    "68849105-38d5-4d3e-802d-5a6ffcd289d8",
+    "3b34ae18-4b41-4773-a35c-442ee38015cb",
+    "335ca93b-019b-4eea-88f5-8cbbdf32be7d"
+  ]
+}

@@ -1,0 +1,214 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  capture section_header
+    render 'section_header', section: section
+  endcapture
+
+  # Subheadings
+  assign default_address_heading = 2
+  assign list_address_heading = 3
+  assign new_address_heading = 4
+
+  if section_header != blank
+    echo section_header
+
+    # Shift heading tag amounts based on section_header presence
+    assign default_address_heading = 3
+    assign list_address_heading = 4
+    assign new_address_heading = 5
+  endif
+
+  # Orders
+  assign addresses = section.blocks | where: 'type', 'addresses' | first
+-%}
+
+{%- capture address_tools -%}
+  <div class="flex overflow-hidden transition-all gap-x-3 js-address-tools">
+    <button
+      class="o-button o-button--secondary o-button--small js-address-edit-button"
+      type="button"
+      data-id="[[address_id]]"
+    >
+      {{- 'sections.main_account_addresses.edit_address_button' | t -}}
+    </button>
+
+    <form
+      class="[[remove_button_class]] js-address-remove-form"
+      data-confirm-removal-text="{{- 'sections.main_account_addresses.remove_confirm' | t }}"
+      method="post"
+      action="/account/addresses/[[address_id]]"
+    >
+      <input type="hidden" name="_method" value="delete">
+      <button
+        class="o-button o-button--secondary o-button--small"
+        type="submit"
+      >
+        {{- 'sections.main_account_addresses.remove_address_button' | t -}}
+      </button>
+    </form>
+  </div>
+{%- endcapture -%}
+
+{%- capture add_address_button -%}
+  <button
+    type="button"
+    class="o-button o-button--secondary o-button--standard js-add-address-button"
+  >
+    {{- 'sections.main_account_addresses.add_new_button' | t -}}
+  </button>
+{%- endcapture -%}
+
+{%- if addresses != blank -%}
+  <address-directory class="block max-w-5xl">
+    {%- # Main Addresses -%}
+    <div class="pb-4 js-address-directory-main">
+      {%- if customer.addresses.size > 0 -%}
+        {%- # Default Address - Heading -%}
+        <div class="flex items-center justify-between mb-6">
+          <h{{ default_address_heading }}
+            class="font-bold"
+          >
+            {{- 'sections.main_account_addresses.default_address_heading' | t -}}
+          </h{{ default_address_heading }}>
+        </div>
+
+        {%- # Default Address -%}
+        {%- for address in customer.addresses -%}
+          {%- if address == customer.default_address -%}
+            <div class="flex flex-col items-stretch justify-start w-full border border-solid rounded-2 border-border-light js-address">
+              {%- # Top -%}
+              <div class="flex p-5 lg:items-center lg:justify-between max-lg:flex-col lg:p-4 gap-y-3">
+                {%- # Address Preview -%}
+                <p class="py-2 my-px font-bold">
+                  {%- liquid
+                    if address.street == blank and address.zip == blank
+                      echo 'sections.main_account_addresses.default_address_preview' | t
+                    else
+                      # Remove name from Address Preview
+                      capture name
+                        echo address.first_name | append: ' ' | append: address.last_name
+                      endcapture
+
+                      capture country
+                        echo address.country | prepend: ', '
+                      endcapture
+
+                      echo address.summary | replace: name, '' | replace: country, '' | remove_first: ', '
+                    endif
+                  -%}
+                </p>
+
+                {%- # Address Tools -%}
+                {{-
+                  address_tools
+                  | replace: '[[address_id]]', address.id
+                  | replace: '[[remove_button_class]]', 'hidden'
+                -}}
+              </div>
+
+              {%- # Bottom -%}
+              <div
+                class="overflow-hidden transition-all js-address-edit-wrapper"
+                style="max-height: 0px"
+              >
+                <hr class="o-hr">
+                {%- # Edit Address -%}
+                {%- render 'form_account-address-edit', address: address, class: 'p-5 lg:p-4' -%}
+              </div>
+            </div>
+
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <hr class="my-8 o-hr">
+
+        {%- # List Addresses - Heading -%}
+        <div class="flex items-center justify-between mb-6">
+          <h{{ list_address_heading }}
+            class="font-bold"
+          >
+            {{- 'sections.main_account_addresses.list_address_heading' | t -}}
+          </h{{ list_address_heading }}>
+
+          {{- add_address_button -}}
+        </div>
+
+        {%- # List Addresses -%}
+        {%- if customer.addresses.size > 1 -%}
+          {%- assign iterator = 0 -%}
+
+          <ul class="flex flex-col gap-y-6">
+            {%- for address in customer.addresses -%}
+              {%- if address != customer.default_address -%}
+                <li class="flex flex-col items-stretch justify-start w-full border border-solid rounded-2 border-border-light js-address">
+                  {%- # Top -%}
+                  <div class="flex p-5 lg:items-center lg:justify-between max-lg:flex-col lg:p-4 gap-y-3">
+                    {%- # Address Preview -%}
+                    <p class="py-2 my-px font-bold">
+                      {%- liquid
+                        assign iterator = iterator | plus: 1
+
+                        if address.street == blank and address.zip == blank
+                          echo 'Address #' | append: iterator
+                        else
+                          # Remove name from Address Preview
+                          capture name
+                            echo address.first_name | append: ' ' | append: address.last_name
+                          endcapture
+
+                          capture country
+                            echo address.country | prepend: ', '
+                          endcapture
+
+                          echo address.summary | replace: name, '' | replace: country, '' | remove_first: ', '
+                        endif
+                      -%}
+                    </p>
+
+                    {%- # Address Tools -%}
+                    {{ address_tools | replace: '[[address_id]]', address.id }}
+                  </div>
+
+                  {%- # Bottom -%}
+                  <div
+                    class="overflow-hidden transition-all js-address-edit-wrapper"
+                    style="max-height: 0px"
+                  >
+                    <hr class="o-hr">
+                    {%- # Edit Address -%}
+                    {%- render 'form_account-address-edit', address: address, class: 'p-5 lg:p-4' -%}
+                  </div>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <small class="pt-2">{{- 'sections.main_account_addresses.list_address_none' | t -}}</small>
+        {%- endif -%}
+      {%- else -%}
+        <div class="flex flex-col gap-5">
+          <small class="pt-2">{{- 'sections.main_account_addresses.none' | t -}}</small>
+
+          {{- add_address_button -}}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- # New Address Utility -%}
+    <div class="hidden js-address-directory-new">
+      {%- # New Address - Heading -%}
+      <div class="flex items-center justify-between mb-6">
+        <h{{ new_address_heading }}
+          class="font-bold"
+        >
+          {{- 'sections.main_account_addresses.new_address_heading' | t -}}
+        </h{{ new_address_heading }}>
+      </div>
+
+      {%- # New Address - Form -%}
+      {%- render 'form_account-address-new', customer: customer -%}
+    </div>
+  </address-directory>
+{%- endif -%}

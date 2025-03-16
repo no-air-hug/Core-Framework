@@ -1,0 +1,27 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Sku
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_sku', product: product -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders the product's sku with an module to listen for variant changes,
+  if a variant is changed in the sku's section element, then the appropriate
+  sku for the chosen varaint will replace the previously chosen varaint's sku.
+{%- endcomment -%}
+{% liquid
+  assign class = class | default: 'w-full text-md'
+%}
+<product-sku
+  class="{{ class }}"
+  {{ block.shopify_attributes }}
+  {% if product.selected_or_first_available_variant.sku == blank %}
+    hidden
+  {% endif %}
+>
+  {{- product.selected_or_first_available_variant.sku -}}
+</product-sku>

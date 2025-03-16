@@ -1,0 +1,113 @@
+{%- if settings.enable_lightbox == 'true' -%}
+  {%- liquid
+    if section.settings.testing and section.settings.test_product != blank
+      assign target = section.settings.test_product
+    else
+      assign target = product
+    endif
+
+    assign variant_images = target.images | where: 'attached_to_variant?', true | map: 'src'
+  -%}
+
+  <dialog-element
+    id="ModalLightbox"
+    class="dialog dialog--modal"
+    modal-style="lightbox"
+    hidden
+  {% if section.settings.testing %}data-testing{% endif %}
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document">
+      <header data-dialog-element="header">
+        <button
+          data-dialog-element="close"
+          type="button"
+          tabindex="-1"
+          data-a11y-dialog-hide
+        >
+          {%- render 'theme_icons' with 'close' -%}
+          <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'lightbox' -}}</span>
+        </button>
+      </header>
+
+      <div data-dialog-element="main">
+        <div class="lightbox js-product-lightbox">
+          <div class="lightbox__thumbnails">
+            <div class="lightbox__thumbnails-viewport scrollbar-hide">
+              <ul class="lightbox__thumbnails-track">
+              </ul>
+            </div>
+          </div>
+
+          <div class="lightbox__viewport">
+            <ul class="lightbox__track">
+              {%- if target.selected_or_first_available_variant.featured_media != null -%}
+                {%- assign featured_media = target.selected_or_first_available_variant.featured_media -%}
+                <li
+                  class="lightbox__item"
+                  data-thumbnail="{{ featured_media | image_url: width: 120, height: 120 }}"
+                  data-zoom="{{ featured_media | image_url: width: 1, height: 1 }}"
+                >
+                  {%- case featured_media.media_type -%}
+                    {%- when 'image' -%}
+                      {%- render 'object_image' with featured_media,
+                        class: 'o-picture--fill',
+                        img_class: 'o-img--contain ',
+                        aspect: '1 / 1'
+                      -%}
+
+                    {%- when 'video', 'external_video' -%}
+                      {%- render 'object_video' with featured_media, class: 'h-full', aspect: '1 / 1', fit: 'contain' -%}
+                  {%- endcase -%}
+                </li>
+              {%- endif -%}
+
+              {%- for media in target.media -%}
+                {%- liquid
+                  if media.id == target.selected_or_first_available_variant.featured_media.id
+                    continue
+                  endif
+
+                  # Hide other variant images
+                  if section.settings.hide_variants
+                    if variant_images contains media.src
+                      continue
+                    endif
+
+                    # Hide images by alt tag
+                    if section.settings.hide_variants_by_alt
+                      # TODO: This currently assumes that alt tag contains only ONE option value e.g. color
+                      assign alt = media.alt | downcase
+                      assign options = target.selected_or_first_available_variant.options | downcase
+                      unless options contains alt
+                        continue
+                      endunless
+                    endif
+                  endif
+                -%}
+
+                <li
+                  class="flex justify-center lightbox__item"
+                  data-thumbnail="{{ media | image_url: width: 120, height: 120 }}"
+                  data-zoom="{{ media | image_url: width: 1, height: 1 }}"
+                >
+                  {%- case media.media_type -%}
+                    {%- when 'image' -%}
+                      {%- render 'object_image' with media, img_class: 'o-img--contain w-auto' -%}
+
+                    {%- when 'video', 'external_video' -%}
+                      {%- render 'object_video' with media, class: 'h-full', aspect: '1 / 1', fit: 'contain' -%}
+                  {%- endcase -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog-element>
+{%- endif -%}

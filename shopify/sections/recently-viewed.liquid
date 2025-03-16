@@ -1,0 +1,45 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'recently-viewed', full_width: true, loop: false
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  # - [End]
+
+  assign recently_viewed = section.blocks | where: 'type', 'recently_viewed' | first
+-%}
+
+{%- if recently_viewed -%}
+  {{ slider_styling }}
+
+  <recently-viewed
+    data-section-id="{{ section.id }}"
+    {%- if product -%}
+      data-product-handle="{{ product.handle }}"
+    {%- endif -%}
+    data-limit="{{ recently_viewed.settings.limit }}"
+  >
+    <embla-slider
+      class="{{ slider_classes }}"
+      {{ slider_settings }}
+    >
+      <div {{ slider_viewport }}>
+        <ul class="{{ slider_track_class }} js-recently-viewed-products-container"></ul>
+      </div>
+    </embla-slider>
+  </recently-viewed>
+{%- endif -%}

@@ -1,0 +1,51 @@
+{%- capture content -%}
+  <%
+    var updatedProductName = dataLocal.name;
+
+    if(klevu.search.modules.kmcInputs.base.getSkuOnPageEnableValue()) {
+      if(klevu.dom.helpers.cleanUpSku(dataLocal.sku)) {
+        updatedProductName += klevu.dom.helpers.cleanUpSku(dataLocal.sku);
+      }
+    }
+
+    var hasImageFound = (dataLocal.image && dataLocal.image != "") ? true : false;
+
+    if(!hasImageFound){
+      hasImageFound = (dataLocal.imageUrl && dataLocal.imageUrl != "") ? true : false;
+    }
+  %>
+  <li class="klevuProduct klevuCMSProduct" data-id="<%=dataLocal.id%>">
+    <div class="kuProdWrap">
+      <main ku-block data-block-id="ku_landing_result_item_info">
+        <% if(hasImageFound) { %>
+        <div class="kuProdTop">
+          <div class="klevuImgWrap">
+            <a target="_self" href="<%=dataLocal.url%>" class="klevuProductClick">
+              <img origin="<%=dataLocal.image%>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" src="<%=dataLocal.image%>" alt="<%=updatedProductName%>" class="kuProdImg">
+            </a>
+          </div>
+        </div>
+        <% } %>
+      </main>
+      <footer class="<%= (hasImageFound) ? '' : 'kuCMSProductNoImageFound' %>" ku-block="" data-block-id="ku_landing_result_item_footer">
+        <div class="kuProdBottom">
+          <div class="kuNameDesc">
+            <div class="kuName">
+              <a title="<%= updatedProductName %>" target="_self" href="<%=dataLocal.url%>" class="klevuProductClick">
+                <%= updatedProductName %>
+              </a>
+            </div>
+            <div class="kuDesc kuClippedTwo">
+              <%=dataLocal.shortDesc%>
+            </div>
+            <%=helper.render('klevuLandingProductRating',scope,data,dataLocal) %>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </li>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplateContentBlock">
+  {{- content -}}
+</script>

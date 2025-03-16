@@ -1,0 +1,83 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Variant Options
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} product object. (required)
+  - block: {Object} passing the block information.. (required)
+  - update_url: {Object} whether or not to update url when changing variants. If
+    false, the url isn't updated. Default: true (optional). (optional)
+  - size_guide: {Object} a page object that displays a size guide (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_variant-picker',
+    product: product,
+    block: block,
+    update_url: update_url
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  The variant picker module.
+{%- endcomment -%}
+
+{%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign default_picker = block.settings.picker_type_default | default: 'button'
+    assign swatch_picker_style = block.settings.picker_type_swatch | downcase | default: 'color,colour'
+    assign size_guide = size_guide
+  -%}
+
+  <variant-options
+    id="variant-options-{{ section.id }}"
+    class="variants js-variant-options"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+    data-update-url="{{ update_url | default: true, allow_false: true }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_name = option.name | downcase
+        assign option_picker_style = default_picker
+        if swatch_picker_style contains option_name
+          assign option_picker_style = 'swatch'
+        endif
+      -%}
+
+      <fieldset>
+        <div class="variants__block">
+          <legend class="font-bold font-heading">{{ option.name }}</legend>
+
+          {% if option.name == 'Size' and size_guide != blank %}
+            <button
+              is="dialog-trigger"
+              dialog-selector="#PopupModal-{{ size_guide.handle }}"
+              id="ProductPopup-{{ size_guide.handle }}"
+              class="text-sm underline"
+              type="button"
+              aria-haspopup="dialog"
+            >
+              Size guide
+            </button>
+          {% else %}
+            <span class="font-bold text-md" data-selected-option="{{ option.name }}">
+              {{- option.selected_value -}}
+            </span>
+          {% endif %}
+
+          <div class="variants__options" data-type="{{ option_picker_style }}">
+            {%- render 'product_variant-options',
+              product: product,
+              option: option,
+              picker_style: option_picker_style
+            -%}
+          </div>
+        </div>
+      </fieldset>
+    {%- endfor -%}
+
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  </variant-options>
+{%- endunless -%}

@@ -1,0 +1,23 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+-%}
+
+<div class="px-5 md:px-0">
+  <ul>
+    {%- assign collapsible_blocks = section.blocks | where: 'type', 'collapsible' -%}
+    {%- for block in collapsible_blocks -%}
+      <li {{ block.shopify_attributes }}>
+        {%- render 'object_accordion',
+          title: block.settings.title,
+          content: block.settings.body,
+          class: 'border-t border-solid border-border-light',
+          heading_class: 'py-5 font-bold',
+          content_class: 'text-md',
+          content_inner_class: 'pb-4'
+        -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

@@ -1,0 +1,133 @@
+{%- unless request.page_type contains 'customers' -%}
+  <drawer-account
+    class="dialog dialog--drawer dialog--drawer-right"
+    id="DrawerAccount"
+    hidden
+    {% if section.settings.testing %}data-testing{% endif %}
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document" class="js-account-tabs">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'header-open' -%}
+            <header data-dialog-element="header">
+
+          {%- when 'header-controls' -%}
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2 font-bold">
+                <button
+                  class="dialog-account__tab-trigger o-button o-button--underline"
+                  aria-controls="account-panel-1"
+                  aria-selected="true"
+                  tabindex="-1"
+                  onclick="DrawerAccount.changeTab(event)"
+                >
+                  {{- block.settings.tab_one_title -}}
+                </button>
+                <button
+                  class="dialog-account__tab-trigger o-button o-button--underline"
+                  aria-controls="account-panel-2"
+                  aria-selected="false"
+                  tabindex="-1"
+                  onclick="DrawerAccount.changeTab(event)"
+                >
+                  {{- block.settings.tab_two_title -}}
+                </button>
+              </div>
+
+              <button
+                data-dialog-element="close"
+                type="button"
+                tabindex="-1"
+                data-a11y-dialog-hide
+              >
+                {%- render 'theme_icons' with 'close' -%}
+                <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'account' -}}</span>
+              </button>
+            </div>
+
+          {%- when 'header-close' -%}
+            </header>
+
+          {%- when 'main-open' -%}
+            <div data-dialog-element="main">
+
+          {%- when 'account-tabs' -%}
+            <div class="dialog-account__main">
+              <div
+                id="account-panel-1"
+                class="dialog-account__tab js-account-tab"
+                aria-expanded="true"
+              >
+                <div>
+                  {%- render 'form_account-forgot-password',
+                    title: block.settings.forgot_title
+                    text: block.settings.forgot_text
+                  -%}
+                  <div class="mb-6">
+                    {%- render 'form_account-login',
+                      title: block.settings.login_title
+                      text: block.settings.login_text
+                    -%}
+                  </div>
+                  <hr class="mb-6 o-hr" role="presentation">
+                  <p class="mb-4 text-center text-md">
+                    {{- block.settings.register_prompt_text -}}
+                  </p>
+                  <button
+                    type="button"
+                    class="o-button o-button--{{ block.settings.register_prompt_button_style }} o-button--full"
+                    aria-controls="account-panel-2"
+                    onclick="DrawerAccount.changeTab(event)"
+                  >
+                    {{- block.settings.register_prompt_button_text -}}
+                  </button>
+                </div>
+              </div>
+
+              <div
+                id="account-panel-2"
+                class="dialog-account__tab js-account-tab"
+                aria-expanded="true"
+              >
+                <div>
+                  <div class="mb-6">
+                    {%- render 'form_account-register',
+                      title: block.settings.register_title
+                      text: block.settings.register_text
+                    -%}
+                  </div>
+                  <hr class="mb-6 o-hr" role="presentation">
+                  <p class="mb-4 text-center text-md">
+                    {{- block.settings.login_prompt_text -}}
+                  </p>
+                  <button
+                    type="button"
+                    class="o-button o-button--{{ block.settings.login_prompt_button_style }} o-button--full"
+                    aria-controls="account-panel-1"
+                    onclick="DrawerAccount.changeTab(event)"
+                  >
+                    {{- block.settings.login_prompt_button_text -}}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          {%- when 'main-close' -%}
+            </div>
+
+          {%- when 'footer-open' -%}
+            <footer data-dialog-element="footer">
+
+          {%- when 'footer-close' -%}
+            </footer>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </drawer-account>
+{%- endunless -%}

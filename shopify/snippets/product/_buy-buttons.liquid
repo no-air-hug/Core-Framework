@@ -1,0 +1,105 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Buy Buttons
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} (required)
+  - block: {Object} the block object with relevant settings for
+  dynamic checkout buttons, etc (required)
+  - product_form_id: {String} (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'produt-buy-buttons',
+  product: product,
+  block: block,
+  product_form_id: product_form_id
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a product add to cart module
+{%- endcomment -%}
+
+{%- assign product_form_id = product_form_id -%}
+
+<div {{ block.shopify_attributes }}>
+  {%- if product != blank -%}
+    {% # TODO: Handle error %}
+    <div
+      class="js-product-form-error mb-2 flex items-center gap-x-2 text-sm"
+      role="alert"
+      hidden
+    >
+      {%- render 'theme_icons' with 'error', width: 16, height: 16 -%}
+      <span class="js-product-form-error-message"></span>
+    </div>
+
+    {%- form 'product',
+      product,
+      is: 'product-form',
+      id: product_form_id,
+      class: 'form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form',
+      data-variant-price: product.selected_or_first_available_variant.price,
+      data-product-handle: product.handle
+    -%}
+      <input
+        type="hidden"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        disabled
+        class="product-variant-id"
+      >
+      <div class="flex flex-col gap-y-4">
+        <button
+          type="submit"
+          name="add"
+          class="o-button o-button--primary o-button--full"
+
+          {% if product.selected_or_first_available_variant.available == false
+            or product.selected_or_first_available_variant.quantity_rule.min
+              > product.selected_or_first_available_variant.inventory_quantity
+          %}
+            disabled
+          {% endif %}
+        >
+          <span>
+            {%- liquid
+              if product.selected_or_first_available_variant.available
+                if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity
+                  echo 'global.products.sold_out' | t
+                else
+                  assign variant_price = product.selected_or_first_available_variant.price | money
+                  echo 'global.products.add_to_cart_price_html' | t: price: variant_price
+                endif
+              else
+                echo 'global.products.sold_out' | t
+              endif
+            -%}
+          </span>
+
+          <span class="loading-overlay invisible">
+            <span class="loading-overlay__spinner">
+              {%- render 'theme_icons' with 'loading' -%}
+            </span>
+          </span>
+        </button>
+
+        {%- if block.settings.show_dynamic_checkout -%}
+          {{ form | payment_button }}
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+  {%- else -%}
+    <div class="flex">
+      <button
+        type="submit"
+        name="add"
+        class="o-button o-button--full o-button--primary"
+        disabled
+      >
+        {{ 'global.products.sold_out' | t }}
+      </button>
+    </div>
+  {%- endif -%}
+</div>

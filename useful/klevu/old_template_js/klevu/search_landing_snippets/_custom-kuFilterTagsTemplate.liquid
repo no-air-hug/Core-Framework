@@ -1,0 +1,43 @@
+{%- capture content -%}
+  <% var filterTagsModule = data.filterTags; var filterTagsData = []; if(dataLocal && dataLocal.length){ filterTagsData = filterTagsModule.query[dataLocal].tags; } %> <% if(filterTagsData.length) { %>
+    <div class="kuFilterTagsContainer">
+      <%
+        helper.each(filterTagsData, function(key,item){
+          var filterTagItemKey = helper.escapeHTML(item.key);
+          var filterTagItemLabel = helper.escapeHTML(helper.translate(item.label));
+      %>
+          <span class="kuFilterTag" data-key="<%= filterTagItemKey %>" data-type="<%= helper.escapeHTML(item.type) %>" >
+            <span title="<%= filterTagItemLabel %>" data-value="<%= filterTagItemLabel %>" class="kuFilterTagKey" >
+              <%= helper.translate(item.label) %>
+            </span>
+            <% helper.each(item.values, function(key,option){ %>
+              <% if(item.type === "RATING") { %>
+                <span title="<%= helper.escapeHTML(helper.translate(option)) %>" data-value="<%= helper.escapeHTML(helper.translate(option)) %>" class="kuFilterTagValue">
+                  <div class="klevuFacetStars">
+                    <div class="klevuFacetRating" style="width:<%=(20*Number(option))%>%;"></div>
+                  </div>
+                  <span>&times;</span>
+                </span>
+              <% } else { %>
+                <span title="<%= helper.escapeHTML(helper.translate(option)) %>" data-value="<%= helper.escapeHTML(helper.translate(option)) %>" class="kuFilterTagValue">
+                  <%= helper.translate(option) %>
+                  <span>
+                    &times;
+                  </span>
+                </span>
+              <% } %>
+            <% }); %>
+          </span>
+      <%
+        });
+      %>
+      <span title="<%= helper.translate("Clear all") %>" class="kuFilterTagClearAll">
+        <%= helper.translate("Clear all") %>
+      </span>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_kuFilterTagsTemplate">
+  {{- content -}}
+</script>

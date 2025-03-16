@@ -1,0 +1,12 @@
+{%- capture content -%}
+  <% if( typeof dataLocal.rating != "undefined" && dataLocal.rating !== "" && dataLocal.rating > 0 ) { %>
+    <div class="klevu-stars-small-l2">
+      <div class="klevu-rating-l2" style="width:<%=(20*Number(dataLocal.rating))%>%;"></div>
+    </div>
+    <%=helper.render('klevuLandingProductRatingCount',scope,data,dataLocal) %>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingProductRating">
+  {{- content -}}
+</script>

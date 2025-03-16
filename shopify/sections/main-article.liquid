@@ -1,0 +1,106 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+  render 'theme_assets' with 'section-article.min.css', preload: true
+-%}
+
+<div class="py-7 lg:py-9 space-y-7 lg:space-y-9">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        <div class="o-row o-row--with-space" style="--row-width: 702;" {{ block.shopify_attributes }}>
+          {% render block %}
+        </div>
+
+      {%- when 'featured_image' -%}
+        {%- if article.image -%}
+          <div class="o-row o-row--with-space" {{ block.shopify_attributes }}>
+            {%- render 'object_image' with article.image, aspect: '5 / 2', aspect_mobile: '414 / 552', preload: true -%}
+          </div>
+        {%- endif -%}
+
+      {%- when 'title' -%}
+        <div class="o-row o-row--with-space" style="--row-width: 702;" {{ block.shopify_attributes }}>
+          <header class="space-y-2 text-center">
+            <span class="text-xs uppercase tracking-2">
+              {{- 'sections.main_article.author_lead_in' | t -}}
+              &nbsp;
+              <span class="text-highlight">{{- article.author -}}</span>
+              &nbsp;
+              {{- 'sections.main_article.published_lead_in' | t -}}
+              &nbsp;
+              {{ article.published_at | time_tag: format: 'date' -}}
+            </span>
+
+            <h1 class="text-5xl font-extrabold leading-1 -tracking-2 lg:text-6xl font-heading">
+              {{- article.title -}}
+            </h1>
+
+            <ul class="flex flex-wrap justify-center gap-2 ">
+              {%- for tag in article.tags -%}
+                <li class="py-[1px] px-[5px] text-sm bg-border-light rounded-1 list-none">{{- tag -}}</li>
+              {%- endfor -%}
+            </ul>
+          </header>
+        </div>
+
+      {%- when 'content' -%}
+        <div
+          class="o-row o-row--with-space lg:flex lg:gap-[40px]"
+          style="--row-width: 774;"
+          {{ block.shopify_attributes }}
+        >
+          <div class="text-lg rte section-text-secondary">
+            {{ article.content }}
+          </div>
+
+          {%- assign share_url = request.origin | append: article.url -%}
+          <div class="text-center lg:-order-1 lg:shrink-0 lg:-ml-[90px] lg:sticky lg:self-start lg:top-[var(--header-height)] max-lg:mt-9">
+            <p class="mb-2 text-lg font-bold lg:hidden">{{- 'global.social.share_on' | t -}}</p>
+            <div class="flex flex-wrap items-center justify-center gap-2 lg:flex-col">
+              <a
+                class="flex items-center justify-center p-3 border rounded-full hover:border-highlight hover:bg-highlight hover:text-white"
+                target="_blank"
+                href="https://twitter.com/intent/tweet?url={{ share_url }}"
+                aria-label="{{- 'global.social.alt_text.share_x' | t -}}"
+              >
+                {%- render 'theme_icons' with 'x', width: 24, height: 24, class: 'stroke-none fill-current' -%}
+              </a>
+              <a
+                class="flex items-center justify-center p-3 border rounded-full hover:border-highlight hover:bg-highlight hover:text-white"
+                target="_blank"
+                href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}"
+                aria-label="{{- 'global.social.alt_text.share_facebook' | t -}}"
+              >
+                {%- render 'theme_icons' with 'facebook', width: 24, height: 24, class: 'stroke-none fill-current' -%}
+              </a>
+              <a
+                class="flex items-center justify-center p-3 border rounded-full hover:border-highlight hover:bg-highlight hover:text-white"
+                target="_blank"
+                href="http://pinterest.com/pin/create/button/?url={{ share_url }}"
+                aria-label="{{- 'global.social.alt_text.share_pinterest' | t -}}"
+              >
+                {%- render 'theme_icons' with 'pinterest', width: 24, height: 24, class: 'stroke-none fill-current' -%}
+              </a>
+              <a
+                class="flex items-center justify-center p-3 border rounded-full hover:border-highlight hover:bg-highlight hover:text-white"
+                target="_blank"
+                href="mailto:?subject={{ 'global.social.share.email_subject' | t }}&amp;body={{ 'global.social.share.email_body' | t: url: share_url }}"
+                aria-label="{{- 'global.social.alt_text.share_email' | t -}}"
+              >
+                {%- render 'theme_icons' with 'envelope', width: 24, height: 24, class: 'stroke-current' -%}
+              </a>
+
+              <button
+                is="share-button"
+                class="flex items-center justify-center p-3 border rounded-full hover:border-highlight hover:bg-highlight hover:text-white"
+                href="{{ share_url }}"
+                aria-label="{{- 'global.social.alt_text.share_link' | t -}}"
+              >
+                {%- render 'theme_icons' with 'link', width: 24, height: 24, class: 'stroke-current' -%}
+              </button>
+            </div>
+          </div>
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

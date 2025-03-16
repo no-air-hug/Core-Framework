@@ -1,0 +1,37 @@
+{%- capture content -%}
+  <%
+    var trendingProductsTitle = klevu.getObjectPath(data,"modules.trendingProducts.title");
+    trendingProductsTitle = (trendingProductsTitle) ? trendingProductsTitle : "";
+  %>
+  <% if(data.query.trendingProductList) { %>
+    <% if(data.query.trendingProductList.result.length > 0 ) { %>
+      <div class="klevuResultsBlock kuPreventDocumentClick kuRecommendationSlider">
+        <div class="klevuSuggestionHeading">
+          <span class="klevuHeadingText"><%= helper.translate(trendingProductsTitle) %></span>
+        </div>
+        <div class="klevuQuickSearchResults klevuQuickSearchTrendingResults" data-section="trendingProductList" data-source="trendingProducts" id="trendingProductList">
+          <div class="kuCarousel kuTrendingProductsCarousel">
+            <div class="nav nav-left">
+              <div class="ion-chevron-left kuCarousel-arrow-icon-left"></div>
+            </div>
+            <div class="kuCarousel-content">
+              <% helper.each(data.query.trendingProductList.result,function(key,product){ %>
+                <div class="klevuProduct kuQSMenuItem kuSlide" id="<%= (key + 1) %>" ku-product-block data-id="<%=product.id%>">
+                  <%=helper.render('klevuQuickTrendingProductBlock',scope,data,product) %>
+                </div>
+              <% }); %>
+            </div>
+            <div class="nav nav-right">
+              <div class="ion-chevron-right kuCarousel-arrow-icon-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuTrendingProducts">
+  {{- content -}}
+</script>

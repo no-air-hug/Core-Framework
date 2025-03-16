@@ -1,0 +1,44 @@
+<dialog-element
+  id="ModalQuickshop"
+  class="dialog dialog--modal js-quickshop-modal"
+  modal-style="quickshop"
+  hidden
+  {% if section.settings.testing %}
+    data-testing
+    data-test-product-url="{{ section.settings.test_product.url }}"
+    data-text-variant-id="{{ section.settings.test_product.selected_or_first_available_variant.id }}"
+  {% endif %}
+>
+  <div
+    class="dialog-overlay"
+    data-a11y-dialog-hide
+  ></div>
+
+  <div role="document">
+    <div
+      data-dialog-element="loader"
+      class="opacity-0 loading-overlay"
+    >
+      <div class="loading-overlay__spinner">
+        {%- render 'theme_icons' with 'loading', width: 28, height: 28 -%}
+      </div>
+    </div>
+
+    <header data-dialog-element="header">
+      <button
+        data-dialog-element="close"
+        type="button"
+        tabindex="-1"
+        data-a11y-dialog-hide
+      >
+        {%- render 'theme_icons' with 'close' -%}
+        <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'quickshop' -}}</span>
+      </button>
+    </header>
+
+    <div
+      data-dialog-element="main"
+      class="js-quickshop-content"
+    ></div>
+  </div>
+</dialog-element>

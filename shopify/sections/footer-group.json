@@ -1,0 +1,51 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "e042bc38-bc61-4b46-b10d-14caebdf2fec": {
+          "type": "link-column",
+          "settings": {
+            "column_linklist": "footer-menu-1"
+          }
+        },
+        "b434b0a6-d2cf-404b-9e79-af95c8ec413b": {
+          "type": "link-column",
+          "settings": {
+            "column_linklist": "footer-menu-1"
+          }
+        },
+        "e65a1eba-7fd3-421d-981e-fc08793e2b21": {
+          "type": "link-column",
+          "settings": {
+            "column_linklist": "footer-menu-1"
+          }
+        },
+        "c08af4bd-82e0-49d9-b707-b733183ae394": {
+          "type": "link-column",
+          "settings": {
+            "column_linklist": "footer-menu-1"
+          }
+        }
+      },
+      "block_order": [
+        "e042bc38-bc61-4b46-b10d-14caebdf2fec",
+        "b434b0a6-d2cf-404b-9e79-af95c8ec413b",
+        "e65a1eba-7fd3-421d-981e-fc08793e2b21",
+        "c08af4bd-82e0-49d9-b707-b733183ae394"
+      ],
+      "settings": {
+        "background_color": "#191919",
+        "text_color": "light",
+        "title": "Lorem ipsum dolor sit amet",
+        "show_social": true,
+        "footer_link_bottom": "footer-bottom",
+        "show_newsletter": true,
+        "heading_newsletter": "Stay up to date\nand receive 10% off"
+      }
+    }
+  },
+  "order": ["footer"]
+}

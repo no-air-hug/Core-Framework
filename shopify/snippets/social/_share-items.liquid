@@ -1,0 +1,49 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Social - Share Items
+  -------------------------------------------------------------------------------
+  Accepts
+  - share_url: {String} url to be added to the input the user
+    will get/copy (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'social_share-items', share_url: share_url -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders an array of social media links to share an inherited url.
+{%- endcomment -%}
+
+{%- assign share_url = share_url -%}
+
+<ul class="flex gap-x-4 h-fit">
+  <li class="flex w-4 h-4">
+    <a
+      class="flex transition-opacity hover:opacity-50"
+      rel="noreferrer"
+      href="https://twitter.com/intent/tweet?url={{ share_url }}"
+    >
+      <span class="sr-only">{{- 'global.social.alt_text.share_x' | t -}}</span>
+      {%- render 'theme_icons' with 'x', width: 16, height: 16, class: 'stroke-current fill-current' -%}
+    </a>
+  </li>
+  <li class="flex w-4 h-4">
+    <a
+    class="flex transition-opacity hover:opacity-50"
+      rel="noreferrer"
+      href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}"
+    >
+      <span class="sr-only">{{- 'global.social.alt_text.share_facebook' | t -}}</span>
+      {%- render 'theme_icons' with 'facebook', width: 16, height: 16, class: 'stroke-current fill-current' -%}
+    </a>
+  </li>
+  <li class="flex w-4 h-4">
+    <a
+    class="flex transition-opacity hover:opacity-50"
+      rel="noreferrer"
+      href="https://pinterest.com/pin/create/button/?url={{ share_url }}"
+    >
+      <span class="sr-only">{{- 'global.social.alt_text.share_pinterest' | t -}}</span>
+      {%- render 'theme_icons' with 'pinterest', width: 16, height: 16, class: 'fill-current' -%}
+    </a>
+  </li>
+</ul>

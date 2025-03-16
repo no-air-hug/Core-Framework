@@ -1,0 +1,190 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Form - Register
+  -------------------------------------------------------------------------------
+  Accepts
+  - class {Object/String} additional classes (optional)
+  - title {Object/String} the form title (optional)
+  - text {Object/String} text describing the form (optional)
+  - submit_button_style {Object/String} the submission button style,
+    (primary, secondary, etc) (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'form_account-register',
+    class: 'text-md',
+    title: 'Registration Form',
+    text: 'Register for a account',
+    submit_button_style: 'primary'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  The site registration form.
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class | prepend: 'form ' | strip
+  assign submit_button_style = submit_button_style | default: 'primary'
+  assign login_button_style = login_button_style | default: 'secondary'
+
+  if title contains ' | t'
+    assign title = title | replace: ' | t' | t
+  endif
+
+  if text contains ' | t'
+    assign text = text | replace: ' | t' | t
+  endif
+-%}
+
+{%- form 'create_customer', class: class, id: 'RegisterForm', return_to: routes.account_url -%}
+  {%- if title or text -%}
+    <header class="form__header">
+      {%- if title -%}
+        {%- if request.page_type contains 'customers' -%}
+          <h2 class="font-heading text-2xl font-bold">
+            {{- title -}}
+          </h2>
+        {%- else -%}
+          <p class="font-heading font-bold">
+            {{- title -}}
+          </p>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if text -%}
+        <p class="{% unless request.page_type contains 'customers' %}text-md text-text-section-secondary{% endunless %}">
+          {{- text -}}
+        </p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  {% if form.errors %}
+    <div class="form__message">
+      <h2 class="flex gap-2 font-heading" role="alert" tabindex="-1" autofocus>
+        {% render 'theme_icons' with 'error' %}
+        {{ 'global.forms.errors.error_heading' | t }}
+      </h2>
+      <ul class="pl-2 text-md" role="list">
+        {%- for field in form.errors -%}
+          <li>
+            {%- if field == 'form' -%}
+              {{ form.errors.messages[field] }}
+            {%- else -%}
+              {{ form.errors.translated_fields[field] | capitalize }}
+              {{ form.errors.messages[field] }}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {% endif %}
+
+  <ul class="form__fields">
+    <li class="form__field">
+      <label class="o-input" data-field="input">
+        <span class="sr-only">
+          {{- 'global.forms.structure.first_name.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[first_name]"
+          value="{{ form.first_name }}"
+          type="text"
+          autocomplete="given-name"
+          placeholder="{{ 'global.forms.structure.first_name.placeholder' | t }}"
+        >
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input" data-field="input">
+        <span class="sr-only">
+          {{- 'global.forms.structure.last_name.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[last_name]"
+          value="{{ form.last_name }}"
+          type="text"
+          autocomplete="family-name"
+          placeholder="{{ 'global.forms.structure.last_name.placeholder' | t }}"
+        >
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input" data-field="input">
+        <span class="sr-only">
+          {{- 'global.forms.structure.email.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[email]"
+          value="{{ form.email }}"
+          type="email"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          required
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-email-error"
+          {% endif %}
+          placeholder="{{ 'global.forms.structure.email.placeholder' | t }}"
+        >
+
+        {%- if form.errors contains 'email' -%}
+          <small id="RegisterForm-email-error" class="o-input__error">
+            {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+            {{- form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email -}}
+            .
+          </small>
+        {%- endif -%}
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input" data-field="input">
+        <span class="sr-only">
+          {{- 'global.forms.structure.password.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[password]"
+          value="{{ form.password }}"
+          type="password"
+          autocomplete="new-password"
+          required
+          aria-required="true"
+          {% if form.errors contains 'password' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-password-error"
+          {% endif %}
+          placeholder="{{ 'global.forms.structure.password.placeholder' | t }}"
+          minlength="5"
+        >
+
+        {%- if form.errors contains 'password' -%}
+          <small id="RegisterForm-password-error" class="o-input__error">
+            {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+            {{- form.errors.translated_fields.password | capitalize }}
+            {{ form.errors.messages.password -}}
+            .
+          </small>
+        {%- endif -%}
+      </label>
+    </li>
+
+    <li class="form__field">
+      <button class="o-button mt-6 o-button--{{ submit_button_style }} o-button--full" type="submit">
+        {{- 'snippets.form.account_register.submit' | t -}}
+      </button>
+    </li>
+  </ul>
+{%- endform -%}

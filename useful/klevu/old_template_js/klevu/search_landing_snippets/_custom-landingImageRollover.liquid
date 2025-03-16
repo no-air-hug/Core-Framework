@@ -1,0 +1,9 @@
+{%- capture content -%}
+  <% if(dataLocal.imageHover) { %>
+    <img style="display:none;" class="kuProdImgHover" src="<%=dataLocal.imageHover%>" origin="<%=dataLocal.imageHover%>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" alt="<%=dataLocal.name%>">
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_landingImageRollover">
+  {{- content -}}
+</script>

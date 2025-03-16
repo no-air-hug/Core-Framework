@@ -1,0 +1,212 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Form
+  assign form_id = 'ContactForm-' | append: section.id
+
+  # Form Spacing, Structure
+  render 'section_grid', section: section, context: '.form__fields'
+-%}
+
+{%- form 'contact', id: form_id -%}
+  <ul class="form__fields">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'section_header' -%}
+          {%- liquid
+            capture section_header
+              render 'section_header', section: section, header_classes: 'mb-0'
+            endcapture
+          -%}
+
+          {%- if section_header != blank -%}
+            <li class="form__field">
+              {{- section_header -}}
+            </li>
+          {%- endif -%}
+
+        {%- when 'field_name' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-input',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_email' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-input',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_phone' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-input',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_type' -%}
+          {%- capture option_el -%}
+            <option value="[[value_handleized]]">[[value]]</option>
+          {%- endcapture -%}
+
+          {%- liquid
+            capture options
+              assign options = block.settings.options | split: ','
+
+              for option in options
+                assign value_handleized = option | handleize
+                echo option_el | replace: '[[value_handleized]]', value_handleized | replace: '[[value]]', option
+              endfor
+            endcapture
+          -%}
+
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-select',
+              form: form,
+              form_id: form_id,
+              property: block.settings.property,
+              label_text: block.settings.label_text,
+              initial_option: block.settings.initial_option,
+              dynamic_display: block.settings.dynamic_display,
+              options: options,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_body' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-textarea',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_order' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-input',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_custom-input' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-input',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_custom-select' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-select',
+              form: form,
+              form_id: form_id,
+              property: block.settings.property,
+              label_text: block.settings.label_text,
+              initial_option: block.settings.initial_option,
+              dynamic_display: block.settings.dynamic_display,
+              options: options,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'field_custom-textarea' -%}
+          <li class="form__field form__field--{{ block.settings.field_size }}">
+            {%- render 'object_field-textarea',
+              form: form,
+              form_id: form_id,
+              type: block.settings.type,
+              property: block.settings.property,
+              default_value: block.settings.default_value,
+              label_text: block.settings.label_text,
+              placeholder_text: block.settings.placeholder_text,
+              dynamic_display: block.settings.dynamic_display,
+              error_scope: block.settings.error_scope,
+              required: block.settings.required
+            -%}
+          </li>
+
+        {%- when 'submit_button' -%}
+          <li
+            class="form__field"
+            data-position="{{ block.settings.position }}"
+            data-position-desktop="{{ block.settings.position_desktop }}"
+          >
+            <button
+              class="o-button o-button--{{ block.settings.button_style }} o-button--medium"
+              type="submit"
+            >
+              {{- block.settings.text -}}
+            </button>
+          </li>
+
+        {%- when 'field_errors' -%}
+          <li class="form__field">
+            {%- render 'form_errors',
+              form: form,
+              form_id: form_id,
+              success_message: block.settings.success_message,
+              error_heading: block.settings.error_heading,
+              preview_success: block.settings.preview_success,
+              preview_error: block.settings.preview_error
+            -%}
+          </li>
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </ul>
+{%- endform -%}

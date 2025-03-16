@@ -1,0 +1,31 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  assign section_hidden = true
+-%}
+
+<ul class="flex flex-col gap-[20px]">
+  {%- assign blocks = section.blocks | where: 'type', 'item' -%}
+  {%- for block in blocks -%}
+    {% if block.settings.text != blank and block.settings.info != blank %}
+      {%- assign section_hidden = false -%}
+
+      <li aria-hidden="true"><hr class="o-hr"></li>
+
+      <li class="grid grid-cols-2 gap-x-2" {{ block.shopify_attributes }}>
+        <p class="font-bold">{{ block.settings.text }}</p>
+        <p>{{ block.settings.info }}</p>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% if section_hidden %}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      display: none;
+    }
+  {% endstyle %}
+{% endif %}

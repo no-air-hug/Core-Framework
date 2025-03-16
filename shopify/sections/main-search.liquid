@@ -1,0 +1,48 @@
+{%- if settings.sitewide_search_method == 'standard' -%}
+  {%- liquid
+    render 'theme_assets' with 'section-search.min.css', preload: true
+    render 'section_spacing-and-color', section: section
+  -%}
+
+  <div
+    class="text-center py-9 md:py-11 lg:py-17 -mx-row"
+    style="background-color: {{ section.settings.secondary_background_color }}"
+  >
+    <div class="px-row">
+      {%- if search.results.size > 0 -%}
+        <h2 class="mb-4 text-2xl font-extrabold lg:text-5xl font-heading">
+          {{- 'sections.main_search.results_for' | t: terms: search.terms -}}
+        </h2>
+      {%- else -%}
+        <h2 class="mb-4 text-2xl font-extrabold text-center lg:text-5xl font-heading">
+          {{- 'sections.main_search.no_results_template' | t: terms: search.terms -}}
+        </h2>
+        <p class="mb-6 text-center">
+          {{- 'sections.main_search.no_results_text' | t -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="search">
+      <form action="/search" class="search__main-form">
+        <label class="text-sm o-input" data-field="input">
+          <input
+            class="o-input__field"
+            name="q"
+            type="search"
+            placeholder="{{ 'sections.main_search.form.input.placeholder' | t }}"
+            {%- if search.terms != '' -%}
+              value="{{ search.terms }}"
+            {%- endif -%}
+          >
+          <span class="sr-only">{{- 'sections.main_search.form.input.placeholder' | t -}}</span>
+        </label>
+
+        <button type="submit">
+          {%- render 'theme_icons' with 'search', width: 14, height: 14 -%}
+          <span class="sr-only">{{- 'sections.main_search.form.submit' | t -}}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+{%- endif -%}

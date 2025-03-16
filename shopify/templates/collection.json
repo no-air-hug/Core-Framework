@@ -1,0 +1,80 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "spacing": "lg",
+        "padding": "full",
+        "background_color": "#f6f6f6",
+        "color_spacing": false,
+        "text_color": "dark",
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "image_height": 600
+      }
+    },
+    "2eba6c47-fc6f-4595-af82-6d5149b0fff2": {
+      "type": "main-collection-features",
+      "settings": {
+        "spacing": "sm",
+        "padding": "full",
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "secondary_background_color": "#f7f7f7",
+        "text_color": "dark",
+        "feature_collections": ["all", "test-2", "test-3", "test-4"]
+      }
+    },
+    "products": {
+      "type": "main-collection-products",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "text_color": "dark",
+        "facets_layout": "horizontal",
+        "filtering": true,
+        "sorting": true,
+        "sort_manual": true,
+        "sort_best_selling": true,
+        "sort_title": true,
+        "sort_price": true,
+        "sort_created": true,
+        "aspect_ratio": "square",
+        "custom_aspect_ratio": "",
+        "mob_gap_x": 8,
+        "mob_gap_y": 8,
+        "tab_gap_x": 8,
+        "tab_gap_y": 8,
+        "dsk_gap_x": 8,
+        "dsk_gap_y": 8,
+        "xl_dsk_gap_x": 8,
+        "xl_dsk_gap_y": 8,
+        "mob_per_row": "2",
+        "tab_per_row": "3",
+        "dsk_per_row": "3",
+        "xl_dsk_per_row": "4",
+        "pagination_amount": 2,
+        "pagination_style": "dynamic"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "banner",
+    "2eba6c47-fc6f-4595-af82-6d5149b0fff2",
+    "products"
+  ]
+}

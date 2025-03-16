@@ -1,0 +1,31 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Blocks
+  assign media_blocks = section.blocks | where: 'type', 'media'
+-%}
+
+<ul class="media">
+  {%- for block in media_blocks -%}
+    {%- style -%}
+      #shopify-section-{{ section.id }} .media-block--{{ forloop.index }} {
+        max-width: {{ block.settings.media_width | append: '%' }};
+      }
+
+      @media (min-width: 1024px) {
+        #shopify-section-{{ section.id }} .media-block--{{ forloop.index }} {
+          max-width: {{ block.settings.media_width_dsk | append: '%' }};
+        }
+      }
+    {%- endstyle -%}
+
+    <li
+      {{ block.shopify_attributes }}
+      class="mx-auto media-block--{{ forloop.index }}"
+    >
+      {%- render 'section_media', target: block.settings -%}
+    </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,35 @@
+{%- capture content -%}
+  <% if(data.noResultsFoundPopularSearches && data.noResultsFoundPopularSearches.length) { %>
+    <div class="kuNoResultsPopularSearchesBlock">
+      <div class="kuNoResultsPopularSearchHeading">
+        <span class="klevuQuickHeadingText">
+          <%=helper.translate("Popular Searches")%>
+        </span>
+      </div>
+      <div class="kuNoResultsPopularSearchTerms">
+        <ul>
+          <% helper.each(data.noResultsFoundPopularSearches, function(key,term){ %>
+            <% if(term && term.length) { %>
+              <%
+                var landingURLPrefix = klevu.getObjectPath(klevu.settings,"url.landing");
+                if(typeof landingURLPrefix === "undefined" || landingURLPrefix === ""){
+                  landingURLPrefix = "/";
+                }
+              %>
+              <li class="kuNoResultsPopularSearchTerm" data-value="<%= term %>">
+                <a href="<%= landingURLPrefix %>?q=<%= term %>" title="<%= term %>">
+                  <%= term %>
+                </a>
+              </li>
+            <% } %>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_kuQuickNoResultsPopularSearches">
+  {{- content -}}
+</script>
+

@@ -1,0 +1,96 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+  render 'section_header', section: section
+
+  assign item_blocks = section.blocks | where: 'type', 'item'
+-%}
+
+{%- if item_blocks.size > 0 -%}
+  <ul class="grid gap-auto xmd:grid-cols-3 xmd:grid-flow-dense">
+    {%- for item in item_blocks -%}
+      {%- liquid
+        capture position_classes
+          if forloop.first
+            case section.settings.section_position
+              when 'left'
+                echo 'xmd:row-span-2 xmd:col-span-2'
+              when 'right'
+                echo 'xmd:row-span-2 xmd:col-span-2 xmd:col-start-2'
+            endcase
+          endif
+        endcapture
+      -%}
+
+      <li
+        class="relative grid {{ position_classes }}"
+        {{ block.shopify_attributes }}
+      >
+        {%- liquid
+          assign aspect_ratio = '448 / 444'
+          if forloop.first
+            assign aspect_ratio = '936 / 924'
+          endif
+
+          render 'section_media', target: item.settings, aspect: aspect_ratio
+        -%}
+
+        {%- render 'object_content',
+          block: block.settings,
+          attributes: block.shopify_attributes,
+          class: 'grid col-span-full row-span-full py-8 px-4 lg:px-8 z-1'
+        -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'list' -%}
+      {%- liquid
+        capture position_classes
+          case section.settings.section_position
+            when 'left'
+              echo 'xmd:row-span-2 xmd:col-span-2'
+            when 'right'
+              echo 'xmd:row-span-2 xmd:col-span-2 xmd:col-start-2'
+          endcase
+        endcapture
+      -%}
+
+      <ul
+        class="relative grid gap-auto xmd:grid-cols-3 xmd:grid-flow-dense"
+        {{ block.shopify_attributes }}
+      >
+        {%- for item in block.settings.list -%}
+          <li class="{%- if forloop.first -%}{{ position_classes }}{%- endif -%}">
+            {%- render 'card_product', product: item -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+    {%- when 'collection' -%}
+
+      {%- liquid
+      capture position_classes
+        case section.settings.section_position
+          when 'left'
+            echo 'xmd:row-span-2 xmd:col-span-2'
+          when 'right'
+            echo 'xmd:row-span-2 xmd:col-span-2 xmd:col-start-2'
+        endcase
+      endcapture
+      -%}
+
+      <ul
+        class="relative grid gap-auto xmd:grid-cols-3 xmd:grid-flow-dense"
+        {{ block.shopify_attributes }}
+      >
+        {%- for item in block.settings.collection.products limit: 3 -%}
+          <li class="{%- if forloop.first -%}{{ position_classes }}{%- endif -%}">
+            {%- render 'card_product', product: item -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+  {%- endcase -%}
+{%- endfor -%}

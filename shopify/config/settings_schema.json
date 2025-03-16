@@ -1,0 +1,763 @@
+// prettier-ignore
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Base Framework",
+    "theme_version": "2.6.0",
+    "theme_author": "Miguel Nóbrega",
+    "theme_documentation_url": "https://incredible-cat-6ffa3a.netlify.app/",
+    "theme_support_url": "https://incredible-cat-6ffa3a.netlify.app/"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "raleway_n4",
+        "label": "Font",
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+      },
+      {
+        "type": "header",
+        "content": "Body"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "raleway_n4",
+        "label": "Font",
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Global site colors, 'Inverse' colors will apply when the text color option on sections is set to 'Light'"
+      },
+      {
+        "type": "header",
+        "content": "Highlight Color"
+      },
+      {
+        "type": "color",
+        "id": "colors_highlight",
+        "default": "#191919",
+        "label": "Highlight"
+      },
+      {
+        "type": "header",
+        "content": "Primary Colors (Headings)"
+      },
+      {
+        "type": "color",
+        "id": "colors_primary",
+        "default": "#222",
+        "label": "Primary"
+      },
+      {
+        "type": "color",
+        "id": "colors_primary_inverse",
+        "default": "#FFF",
+        "label": "Primary (Inverse)"
+      },
+      {
+        "type": "header",
+        "content": "Secondary Colors (Text)"
+      },
+      {
+        "type": "color",
+        "id": "colors_secondary",
+        "default": "#333333",
+        "label": "Secondary"
+      },
+      {
+        "type": "color",
+        "id": "colors_secondary_inverse",
+        "default": "#FFF",
+        "label": "Secondary (Inverse)"
+      },
+      {
+        "type": "header",
+        "content": "Border colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_border_light",
+        "default": "#e9e9e9",
+        "label": "Border (Light)"
+      },
+      {
+        "type": "color",
+        "id": "colors_border_dark",
+        "default": "#ccc",
+        "label": "Border (Dark)"
+      },
+      {
+        "type": "header",
+        "content": "Pricing Colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_pricing_sale",
+        "default": "#B71C1C",
+        "label": "Sale"
+      },
+      {
+        "type": "color",
+        "id": "colors_pricing_compare",
+        "default": "#b3b3b3",
+        "label": "Compare"
+      },
+      {
+        "type": "color",
+        "id": "colors_pricing_sale_inverse",
+        "default": "#FF3D3D",
+        "label": "Sale (Inverse)"
+      },
+      {
+        "type": "color",
+        "id": "colors_pricing_compare_inverse",
+        "default": "#C6C6C6",
+        "label": "Compare (Inverse)"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Border"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "px",
+        "label": "Thickness",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 6
+      },
+      {
+        "type": "header",
+        "content": "Primary"
+      },
+      {
+        "type": "paragraph",
+        "content": "Default State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_color",
+        "default": "#FFF",
+        "label": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_bg",
+        "default": "#109AD6",
+        "label": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_border",
+        "default": "#222",
+        "label": "Border color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Hover State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_color_hover",
+        "default": "#FFF",
+        "label": "Text color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_bg_hover",
+        "default": "#222",
+        "label": "Background color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_border_hover",
+        "default": "#222",
+        "label": "Border color on hover"
+      },
+      {
+        "type": "paragraph",
+        "content": "Active/Click State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_color_active",
+        "default": "#FFF",
+        "label": "Text color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_bg_active",
+        "default": "#444",
+        "label": "Background color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_border_active",
+        "default": "#444",
+        "label": "Border color on click"
+      },
+      {
+        "type": "paragraph",
+        "content": "Focus State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_color_focus",
+        "default": "#FFF",
+        "label": "Text color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_bg_focus",
+        "default": "#666",
+        "label": "Background color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_border_focus",
+        "default": "#666",
+        "label": "Border color on focus"
+      },
+      {
+        "type": "paragraph",
+        "content": "Disabled State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_color_disabled",
+        "default": "#191919",
+        "label": "Text color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_bg_disabled",
+        "default": "#E9E9E9",
+        "label": "Background color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_primary_border_disabled",
+        "default": "#E9E9E9",
+        "label": "Border color on disabled"
+      },
+      {
+        "type": "header",
+        "content": "Secondary"
+      },
+      {
+        "type": "paragraph",
+        "content": "Default State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_color",
+        "default": "#191919",
+        "label": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_bg",
+        "default": "transparent",
+        "label": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_border",
+        "default": "#191919",
+        "label": "Border color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Hover State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_color_hover",
+        "default": "#FFF",
+        "label": "Text color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_bg_hover",
+        "default": "#191919",
+        "label": "Background color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_border_hover",
+        "default": "#191919",
+        "label": "Border color on hover"
+      },
+      {
+        "type": "paragraph",
+        "content": "Active/Click State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_color_active",
+        "default": "#FFF",
+        "label": "Text color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_bg_active",
+        "default": "#444",
+        "label": "Background color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_border_active",
+        "default": "#444",
+        "label": "Border color on click"
+      },
+      {
+        "type": "paragraph",
+        "content": "Focus State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_color_focus",
+        "default": "#FFF",
+        "label": "Text color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_bg_focus",
+        "default": "#666",
+        "label": "Background color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_border_focus",
+        "default": "#666",
+        "label": "Border color on focus"
+      },
+      {
+        "type": "paragraph",
+        "content": "Disabled State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_color_disabled",
+        "default": "#191919",
+        "label": "Text color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_bg_disabled",
+        "default": "#E9E9E9",
+        "label": "Background color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_secondary_border_disabled",
+        "default": "#E9E9E9",
+        "label": "Border color on disabled"
+      },
+      {
+        "type": "header",
+        "content": "Tertiary"
+      },
+      {
+        "type": "paragraph",
+        "content": "Default State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_color",
+        "default": "#109AD6",
+        "label": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_bg",
+        "default": "transparent",
+        "label": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_border",
+        "default": "#109AD6",
+        "label": "Border color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Hover State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_color_hover",
+        "default": "#FFF",
+        "label": "Text color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_bg_hover",
+        "default": "#222",
+        "label": "Background color on hover"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_border_hover",
+        "default": "#222",
+        "label": "Border color on hover"
+      },
+      {
+        "type": "paragraph",
+        "content": "Active/Click State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_color_active",
+        "default": "#FFF",
+        "label": "Text color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_bg_active",
+        "default": "#444",
+        "label": "Background color on click"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_border_active",
+        "default": "#444",
+        "label": "Border color on click"
+      },
+      {
+        "type": "paragraph",
+        "content": "Focus State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_color_focus",
+        "default": "#FFF",
+        "label": "Text color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_bg_focus",
+        "default": "#666",
+        "label": "Background color on focus"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_border_focus",
+        "default": "#666",
+        "label": "Border color on focus"
+      },
+      {
+        "type": "paragraph",
+        "content": "Disabled State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_color_disabled",
+        "default": "#191919",
+        "label": "Text color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_bg_disabled",
+        "default": "#E9E9E9",
+        "label": "Background color on disabled"
+      },
+      {
+        "type": "color",
+        "id": "buttons_tertiary_border_disabled",
+        "default": "#E9E9E9",
+        "label": "Border color on disabled"
+      },
+      {
+        "type": "header",
+        "content": "Underline"
+      },
+      {
+        "type": "paragraph",
+        "content": "Default State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_underline_color",
+        "default": "#000",
+        "label": "Text color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Hover State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_underline_color_hover",
+        "default": "#898D8D",
+        "label": "Text color on hover"
+      },
+      {
+        "type": "paragraph",
+        "content": "Active/Click State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_underline_color_active",
+        "default": "#000",
+        "label": "Text color on click"
+      },
+      {
+        "type": "paragraph",
+        "content": "Focus State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_underline_color_focus",
+        "default": "#000",
+        "label": "Text color on focus"
+      },
+
+      {
+        "type": "paragraph",
+        "content": "Disabled State"
+      },
+      {
+        "type": "color",
+        "id": "buttons_underline_color_disabled",
+        "default": "#191919",
+        "label": "Text color on disabled"
+      }
+    ]
+  },
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "select",
+        "id": "enable_lightbox",
+        "options": [
+          {
+            "value": "false",
+            "label": "Disable"
+          },
+          {
+            "value": "true",
+            "label": "Enable"
+          }
+        ],
+        "default": "true",
+        "label": "Lightbox and Image Zoom"
+      }
+    ]
+  },
+  {
+    "name": "Product Card",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Quick Shop"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_quick_shop",
+        "default": true,
+        "label": "Enable Quick Shop"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_variants",
+        "default": false,
+        "label": "Show variant images on product cards"
+      }
+    ]
+  },
+  {
+    "name": "Markets",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Markets"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_markets",
+        "label": "Enable Markets UI",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Free delivery",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_delivery_threshold",
+        "default": 0,
+        "label": "Threshold",
+        "info": "Minimum order value for free delivery, in pence. i.e. 1000 = £10"
+      }
+    ]
+  },
+  {
+    "name": "Delivery estimate",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "estimate_delivery_enabled",
+        "label": "Enabled?",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "estimate_delivery_cutoff",
+        "label": "Delivery cutoff time",
+        "default": "13:00",
+        "info": "Cutoff time in HH:MM format."
+      },
+      {
+        "type": "textarea",
+        "id": "estimate_delivery_excluded_dates",
+        "label": "Excluded dates",
+        "info": "Comma separated list of dates (e.g. Christmas) in DD/MM/YYYY format."
+      }
+    ]
+  },
+  {
+    "name": "Sitewide Search Method",
+    "settings": [
+      {
+        "type": "select",
+        "id": "sitewide_search_method",
+        "label": "Sitewide Search Method",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "klevu",
+            "label": "Klevu"
+          }
+        ],
+        "default": "klevu"
+      }
+    ]
+  },
+  {
+    "name": "Klevu AI",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Swatches"
+      },
+      {
+        "type": "select",
+        "id": "klevu_swatch_utilisation",
+        "options": [
+          {
+            "value": "variant-images",
+            "label": "Variant Images"
+          },
+          {
+            "value": "section-blocks",
+            "label": "Section Blocks"
+          }
+        ],
+        "label": "Swatch Utilisation"
+      },
+      {
+        "type": "number",
+        "id": "klevu_swatch_limit",
+        "label": "Swatch Limit",
+        "info": "Limits the amount of swatches to show, set to 0 or leave empty to show all swatches",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "name": "Predictive Search API",
+    "settings": [
+      {
+        "type": "range",
+        "id": "predictive_search_limit",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "label": "Number of results to show",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "name": "Custom scripts",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Scripts for tracking and analytics"
+      },
+      {
+        "type": "liquid",
+        "id": "head_scripts",
+        "label": "Scripts for site head"
+      },
+      {
+        "type": "liquid",
+        "id": "body_scripts",
+        "label": "Scripts for site body"
+      }
+    ]
+  },
+  {
+    "name": "Yotpo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Widget Instances",
+        "info": "ID's located on Yotpo Widget Editor URL: https://yap.yotpo.com/wadmin/#/reviews-star-ratings/widget/instance_id"
+      },
+      {
+        "type": "text",
+        "id": "yotpo_star_rating_instance",
+        "label": "Star rating instance ID"
+      }
+    ]
+  },
+  {
+    "name": "Shopper app",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "shopper_enabled",
+        "label": "Enable Shopper App?",
+        "default": false
+      }
+    ]
+  },
+]

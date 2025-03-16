@@ -1,0 +1,387 @@
+/**
+ * Great article about styling buttons:
+ * https://ishadeed.com/article/styling-the-good-old-button/
+*/
+
+@mixin button {
+  @include button-standard;
+
+  min-height: 46px;
+  padding-inline: 6px;
+  color: var(--button-color);
+  background-color: var(--button-background-color);
+  border-color: var(--button-border);
+  border-width: var(--buttons-border-width);
+  border-radius: var(--buttons-radius);
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-duration: 500ms;
+  transition-property: all;
+
+  @apply h-fit select-none items-center justify-center border-solid text-center text-md font-semibold leading-none;
+
+  svg,
+  span {
+    @apply pointer-events-none;
+  }
+
+  /* Disabled */
+  &[aria-disabled="true"],
+  &[disabled] {
+    @include hover {
+      svg,
+      span {
+        @apply opacity-50;
+      }
+    }
+
+    svg,
+    span {
+      @apply opacity-50;
+    }
+  }
+}
+
+@mixin button-primary {
+  /* Default */
+  --button-border: var(--buttons-primary-border);
+  --button-background-color: var(--buttons-primary-bg);
+  --button-color: var(--buttons-primary-color);
+
+  @include button;
+
+  /* Hover */
+  @include hover {
+    --button-border: var(--buttons-primary-border-hover);
+    --button-background-color: var(--buttons-primary-bg-hover);
+    --button-color: var(--buttons-primary-color-hover);
+  }
+
+  /* Click */
+  &:active {
+    --button-border: var(--buttons-primary-border-active);
+    --button-background-color: var(--buttons-primary-bg-active);
+    --button-color: var(--buttons-primary-color-active);
+
+    @include hover {
+      --button-border: var(--buttons-primary-border-active);
+      --button-background-color: var(--buttons-primary-bg-active);
+      --button-color: var(--buttons-primary-color-active);
+    }
+  }
+
+  /* Focus */
+  &:focus {
+    --button-border: var(--buttons-primary-border-focus);
+    --button-background-color: var(--buttons-primary-bg-focus);
+    --button-color: var(--buttons-primary-color-focus);
+  }
+
+  /* Disabled */
+  &[aria-disabled="true"],
+  &[disabled] {
+    --button-border: var(--buttons-primary-border-disabled);
+    --button-background-color: var(--buttons-primary-bg-disabled);
+    --button-color: var(--buttons-primary-color-disabled);
+
+    @apply cursor-not-allowed;
+
+    @include hover {
+      --button-border: var(--buttons-primary-border-disabled);
+      --button-background-color: var(--buttons-primary-bg-disabled);
+      --button-color: var(--buttons-primary-color-disabled);
+
+      @apply cursor-not-allowed;
+    }
+  }
+
+  /* Error */
+  .error &,
+  &--error {
+    @apply border-red-20 bg-red-20 text-white;
+
+    @include hover {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+
+    &:active,
+    &:focus {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+  }
+}
+
+@mixin button-secondary {
+  /* Default */
+  --button-border: var(--buttons-secondary-border);
+  --button-background-color: var(--buttons-secondary-bg);
+  --button-color: var(--buttons-secondary-color);
+
+  @include button;
+
+  /* Hover */
+  @include hover {
+    --button-border: var(--buttons-secondary-border-hover);
+    --button-background-color: var(--buttons-secondary-bg-hover);
+    --button-color: var(--buttons-secondary-color-hover);
+  }
+
+  /* Click */
+  &:active {
+    --button-border: var(--buttons-secondary-border-active);
+    --button-background-color: var(--buttons-secondary-bg-active);
+    --button-color: var(--buttons-secondary-color-active);
+
+    @include hover {
+      --button-border: var(--buttons-secondary-border-active);
+      --button-background-color: var(--buttons-secondary-bg-active);
+      --button-color: var(--buttons-secondary-color-active);
+    }
+  }
+
+  /* Focus */
+  &:focus {
+    --button-border: var(--buttons-secondary-border-focus);
+    --button-background-color: var(--buttons-secondary-bg-focus);
+    --button-color: var(--buttons-secondary-color-focus);
+  }
+
+  /* Disabled */
+  &[aria-disabled="true"],
+  &[disabled] {
+    --button-border: var(--buttons-secondary-border-disabled);
+    --button-background-color: var(--buttons-secondary-bg-disabled);
+    --button-color: var(--buttons-secondary-color-disabled);
+
+    @apply cursor-not-allowed;
+
+    @include hover {
+      --button-border: var(--buttons-secondary-border-disabled);
+      --button-background-color: var(--buttons-secondary-bg-disabled);
+      --button-color: var(--buttons-secondary-color-disabled);
+
+      @apply cursor-not-allowed;
+    }
+  }
+
+  /* Error */
+  .error &,
+  &--error {
+    @apply border-red-20 bg-red-20 text-white;
+
+    @include hover {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+
+    &:active,
+    &:focus {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+  }
+}
+
+@mixin button-tertiary {
+  /* Default */
+  --button-border: var(--buttons-tertiary-border);
+  --button-background-color: var(--buttons-tertiary-bg);
+  --button-color: var(--buttons-tertiary-color);
+
+  @include button;
+
+  /* Hover */
+  @include hover {
+    --button-border: var(--buttons-tertiary-border-hover);
+    --button-background-color: var(--buttons-tertiary-bg-hover);
+    --button-color: var(--buttons-tertiary-color-hover);
+  }
+
+  /* Click */
+  &:active {
+    --button-border: var(--buttons-tertiary-border-active);
+    --button-background-color: var(--buttons-tertiary-bg-active);
+    --button-color: var(--buttons-tertiary-color-active);
+
+    @include hover {
+      --button-border: var(--buttons-tertiary-border-active);
+      --button-background-color: var(--buttons-tertiary-bg-active);
+      --button-color: var(--buttons-tertiary-color-active);
+    }
+  }
+
+  /* Focus */
+  &:focus {
+    --button-border: var(--buttons-tertiary-border-focus);
+    --button-background-color: var(--buttons-tertiary-bg-focus);
+    --button-color: var(--buttons-tertiary-color-focus);
+  }
+
+  /* Disabled */
+  &[aria-disabled="true"],
+  &[disabled] {
+    --button-border: var(--buttons-tertiary-border-disabled);
+    --button-background-color: var(--buttons-tertiary-bg-disabled);
+    --button-color: var(--buttons-tertiary-color-disabled);
+
+    @apply cursor-not-allowed;
+
+    @include hover {
+      --button-border: var(--buttons-tertiary-border-disabled);
+      --button-background-color: var(--buttons-tertiary-bg-disabled);
+      --button-color: var(--buttons-tertiary-color-disabled);
+
+      @apply cursor-not-allowed;
+    }
+  }
+
+  /* Error */
+  .error &,
+  &--error {
+    @apply border-red-20 bg-red-20 text-white;
+
+    @include hover {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+
+    &:active,
+    &:focus {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+  }
+}
+
+@mixin button-underline {
+  /* Default */
+  --button-color: var(--buttons-underline-color);
+
+  color: var(--button-color);
+
+  @apply self-center underline underline-offset-4 transition-colors hover:no-underline;
+
+  /* Hover */
+  @include hover {
+    --button-color: var(--buttons-underline-color-hover);
+  }
+
+  /* Click */
+  &:active {
+    --button-color: var(--buttons-underline-color-active);
+
+    @include hover {
+      --button-color: var(--buttons-underline-color-active);
+    }
+  }
+
+  /* Focus */
+  &:focus {
+    --button-color: var(--buttons-underline-color-focus);
+  }
+
+  /* Disabled */
+  &[aria-disabled="true"],
+  &[disabled] {
+    --button-color: var(--buttons-underline-color-disabled);
+
+    @apply cursor-not-allowed;
+
+    @include hover {
+      --button-color: var(--buttons-underline-color-disabled);
+
+      @apply cursor-not-allowed;
+    }
+  }
+
+  /* Error */
+  .error &,
+  &--error {
+    @apply border-red-20 bg-red-20 text-white;
+
+    @include hover {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+
+    &:active,
+    &:focus {
+      @apply border-red-20 bg-red-20 text-white;
+    }
+  }
+}
+
+@mixin button-short {
+  min-height: 22px;
+
+  @apply text-xs;
+}
+
+@mixin button-tall {
+  min-height: 52px;
+}
+
+@mixin button-standard {
+  width: 180px;
+}
+
+@mixin button-smallest {
+  width: 80px;
+}
+
+@mixin button-small {
+  width: 160px;
+}
+
+@mixin button-medium {
+  width: 246px;
+}
+
+@mixin button-large {
+  width: 309px;
+}
+
+@layer components {
+  .o-button {
+    &--primary {
+      @include button;
+      @include button-primary;
+    }
+
+    &--secondary {
+      @include button;
+      @include button-secondary;
+    }
+
+    &--tertiary {
+      @include button;
+      @include button-tertiary;
+    }
+
+    &--short {
+      @include button-short;
+    }
+
+    &--tall {
+      @include button-tall;
+    }
+
+    &--smallest {
+      @include button-smallest;
+    }
+
+    &--small {
+      @include button-small;
+    }
+
+    &--medium {
+      @include button-medium;
+    }
+
+    &--large {
+      @include button-large;
+    }
+
+    &--underline {
+      @include button-underline;
+    }
+
+    &--full {
+      @apply w-full;
+    }
+  }
+}

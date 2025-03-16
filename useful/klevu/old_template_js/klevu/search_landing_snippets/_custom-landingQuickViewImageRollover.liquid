@@ -1,0 +1,9 @@
+{%- capture content -%}
+  <% if(data.selected_product.imageHover) { %>
+    <img style="display:none;" class="kuProdQuickviewImgHover" src="<%=data.selected_product.imageHover%>" origin="<%=data.selected_product.imageHover%>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" alt="<%=data.selected_product.name%>">
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_landingQuickViewImageRollover">
+  {{- content -}}
+</script>

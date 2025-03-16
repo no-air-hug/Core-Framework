@@ -1,0 +1,134 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Video
+  -------------------------------------------------------------------------------
+  Accepts
+  - object_video: {ShopifyVideoObject} the video object (required)
+  - autoplay: {Boolean} (optional)
+  - fit: {String/Object} either: 'contain' or 'cover' (optional)
+  - mute: {Boolean} mutes the video (optional)
+  - loop: {Boolean} loops the video (optional)
+  - loading: {String/Object} configures lazyloading, either 'lazy'
+    or 'eager' (optional)
+  - play_on_mobile: {Boolean} (optional)
+  - play_overlay: {Boolean} whether or not to display an overlay with a
+    theme-design-specific play logo when the video is paused
+  - aspect: {String} set a standard aspect ratio for the image.
+  - aspect_mobile: {String} set a mobile-only aspect ratio for the image.
+  - class: {String} additional class names (optional)
+  - placeholder: {Object} a placeholder image, a template of such can be found
+    inside 'section_media' (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_video' with object_video as video,
+    object_video: object_video,
+    autoplay: autoplay,
+    fit: fit,
+    muted: muted,
+    loop: loop,
+    loading: loading,
+    play_on_mobile: play_on_mobile,
+    play_overlay: play_overlay,
+    aspect_mobile: '1 / 1',
+    aspect: '1 / 1',
+    class: class,
+    placeholder: placeholder
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A basic read more/less snippet. On load, an ingested text object will be
+  truncated by a provided amount, but when it's trigger is clicked, the rest
+  of the text will be revealed.
+{%- endcomment -%}
+
+{%- liquid
+  assign video = video | default: object_video
+  assign autoplay = autoplay
+  assign loop = loop
+  assign muted = muted
+  assign play_on_mobile = play_on_mobile
+  assign play_overlay = play_overlay
+  assign class = class
+  assign placeholder = placeholder
+
+  capture video_id
+    if video.external_id
+      echo video.external_id
+    else
+      echo video.id
+    endif
+  endcapture
+
+  capture video_type
+    if video.host
+      echo video.host
+    elsif video.type
+      echo video.type
+    else
+      echo 'html5'
+    endif
+  endcapture
+
+  capture video_sources
+    if video.sources.size > 0
+      echo video | json | prepend: 'data-sources='
+    elsif video.host == 'youtube'
+      echo video.external_id | prepend: 'data-url="https://www.youtube.com/embed/' | append: '"'
+    else
+      echo video | prepend: 'data-url="' | append: '"'
+    endif
+  endcapture
+
+  capture video_settings
+    echo fit | default: 'contain'
+    if autoplay == true
+      echo ' autoload autoplay'
+    endif
+    if loop == true
+      echo ' loop'
+    endif
+    if muted == true
+      echo ' mute'
+    endif
+    if play_on_mobile != false
+      echo ' canPlayOnMobile'
+    endif
+  endcapture
+
+  assign loading = loading | default: 'lazy'
+-%}
+
+<div
+  class="o-video {{ class }} js-video"
+  data-id="{{ video_id | strip }}"
+  data-type="{{ video_type | strip }}"
+  data-status="paused"
+  data-settings="{{ video_settings }}"
+  data-video-type="{{ video.media_type }}"
+  style="--ar: {{ aspect }}; --ar-mob: {{ aspect_mobile | default: aspect }};"
+>
+  <div class="o-video__container js-video-container" {{ video_sources }}></div>
+  {{- placeholder -}}
+
+  {%- if play_overlay and autoplay == false -%}
+    <button
+      class="absolute inset-0 items-center justify-center w-full h-full bg-cover group o-button js-video-trigger"
+      aria-label="Play video"
+    >
+      <span class="absolute inset-0 bg-black opacity-50"></span>
+      <svg
+        class="relative w-12 transition-opacity group-hover:opacity-50 md:w-15 lg:w-auto"
+        role="presentation"
+        focusable="false"
+        viewBox="0 0 168 168"
+        width="168"
+        height="168"
+      >
+        <g opacity=".75" fill="#fff">
+          <path d="M84 14c-38.6 0-70 31.4-70 70s31.4 70 70 70 70-31.4 70-70-31.4-70-70-70Zm0 126c-30.88 0-56-25.12-56-56s25.12-56 56-56 56 25.12 56 56-25.12 56-56 56Z"/>
+          <path d="m63 119 56-35-56-35v70Z"/>
+        </g>
+      </svg>
+    </button>
+  {%- endif -%}
+</div>

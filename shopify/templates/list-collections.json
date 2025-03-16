@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "aspect_ratio": "square",
+        "custom_aspect_ratio": "",
+        "mob_gap_x": 8,
+        "tab_gap_x": 8,
+        "dsk_gap_x": 8,
+        "mob_gap_y": 8,
+        "tab_gap_y": 8,
+        "dsk_gap_y": 8,
+        "mob_per_row": "2",
+        "tab_per_row": "3",
+        "dsk_per_row": "4"
+      }
+    }
+  },
+  "order": ["main"]
+}

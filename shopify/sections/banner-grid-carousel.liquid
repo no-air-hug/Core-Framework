@@ -1,0 +1,118 @@
+{%- liquid
+  capture show_section
+    echo section.settings.show_if
+  endcapture
+
+  assign show_section = show_section | strip
+-%}
+
+{% if show_section == blank or show_section == 'true' or show_section == true %}
+  {%- liquid
+    render 'theme_assets' with 'section-banner-grid.min.css'
+    render 'section_spacing-and-color', section: section
+    render 'section_header', section: section
+
+    # Slider
+    # - [Start]
+    capture slider_snippet
+      render 'section_slider', target: section, name: 'banner-grid-carousel', breakpoint: '(max-width: 767px), (min-width: 1024px)'
+    endcapture
+
+    assign slider_snippet = slider_snippet | split: ' ** '
+
+    assign slider_settings = slider_snippet[0]
+    assign slider_classes = slider_snippet[1]
+    assign slider_styling = slider_snippet[2]
+    assign slider_components = slider_snippet[3] | split: '::'
+
+    assign slider_viewport = slider_components[0]
+    assign slider_track_class = slider_components[1]
+    assign slider_item_class = slider_components[2]
+    # - [End]
+
+    # Media Aspect Ratios
+    capture media_aspect_dsk
+      render 'section_aspect-ratios', target: section.settings
+    endcapture
+
+    capture media_aspect_mob
+      render 'section_aspect-ratios', target: section.settings, setting: 'aspect_ratio_mob'
+    endcapture
+  -%}
+
+  {{ slider_styling }}
+
+  <embla-slider
+    class="{{ slider_classes }}"
+    {{ slider_settings }}
+  >
+    <div {{ slider_viewport }}>
+      <ul class="{{ slider_track_class }}">
+        {%- assign blocks = section.blocks | where: 'type', 'card' -%}
+        {%- for block in blocks -%}
+          {%- liquid
+            capture item_styling
+              assign style_attr = 'style="#"'
+
+              capture item_width
+                assign variable = '--item-width: #;'
+
+                case block.settings.width
+                  when 'full'
+                    echo variable | replace: '#', '100%'
+                  when 'two-thirds'
+                    echo variable | replace: '#', 'calc(((100% / 3) * 2) - (var(--col-gap) / 2))'
+                  when 'half'
+                    echo variable | replace: '#', 'calc((100% / 2) - (var(--col-gap) / 2))'
+                  when 'one-third'
+                    echo variable | replace: '#', 'calc((100% / 3) - (var(--col-gap) / 2))'
+                  when 'quarter'
+                    echo variable | replace: '#', 'calc((100% / 4) - (var(--col-gap) / 2))'
+                  when 'one-sixth'
+                    echo variable | replace: '#', 'calc((100% / 6) - (var(--col-gap) / 2))'
+                endcase
+              endcapture
+
+              # Background Color Application
+              capture background_color
+                if block.settings.background_color != blank
+                  echo 'background: #;' | replace: '#', block.settings.background_color
+                endif
+              endcapture
+
+              assign styles = item_width | append: background_color
+              echo style_attr | replace: '#', styles
+            endcapture
+          -%}
+
+          <li
+            class="{{ slider_item_class }}"
+            {{ block.shopify_attributes }}
+            {{ item_styling }}
+          >
+            <div class="card card--banner-grid-carousel">
+              {%- liquid
+                if block.settings.background_color == blank
+                  render 'section_media', target: block.settings, aspect: media_aspect_dsk, aspect_mobile: media_aspect_mob
+                endif
+
+                assign heading_tag = 'h2'
+
+                if section.settings.heading
+                  assign heading_tag = 'h3'
+                endif
+              -%}
+
+              {%- render 'object_content',
+                block: block.settings,
+                attributes: block.shopify_attributes,
+                class: 'card__content',
+                heading_tag: heading_tag
+              -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </embla-slider>
+{%- endif -%}

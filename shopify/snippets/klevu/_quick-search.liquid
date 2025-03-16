@@ -1,0 +1,21 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Klevu - Quick Search
+  -------------------------------------------------------------------------------
+  Accepts
+  - class: {String} container classes (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'klevu_quick-search', class: 'max-w-2' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays the site's quick search, integrated with the Klevu API.
+{%- endcomment -%}
+
+<div
+  id="klevu-react-root-quick-search"
+  {%- if class != blank -%}
+    class="{{ class }}"
+  {%- endif -%}
+>
+</div>

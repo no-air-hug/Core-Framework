@@ -1,0 +1,14 @@
+{%- capture content -%}
+  <% var currentSort = klevu.getObjectPath(data, "modules.quickFacetedLayoutSort.currentSort"); %>
+  <div class="kuDropdown kuDropSortBy kuQuickFacetedLayoutSort" role="listbox">
+    <div class="kuDropdownOptions">
+      <div title="<%= helper.translate("Relevance") %>" class="kuDropOption kuSort kuQuickRelSort <%= (currentSort === 'RELEVANCE') ? 'kuActiveSort' : '' %>" data-value="RELEVANCE" role="option"></div>
+      <div title="<%= helper.translate("Price: Low to high") %>" class="kuDropOption kuSort kuQuickLTHSort <%= (currentSort === 'PRICE_ASC') ? 'kuActiveSort' : '' %>" data-value="PRICE_ASC" role="option"></div>
+      <div title="<%= helper.translate("Price: High to low") %>" class="kuDropOption kuSort kuQuickHTLSort <%= (currentSort === 'PRICE_DESC') ? 'kuActiveSort' : '' %>" data-value="PRICE_DESC" role="option"></div>
+    </div>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickTemplateSortBy">
+  {{- content -}}
+</script>

@@ -1,0 +1,14 @@
+/**
+ * ----------------
+ * - Global Mixins
+ * ----------------
+ */
+
+// Hover Mixin
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}

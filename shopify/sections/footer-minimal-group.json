@@ -1,0 +1,15 @@
+{
+  "type": "custom.footer_minimal",
+  "name": "Footer",
+  "sections": {
+    "footer-minimal": {
+      "type": "footer-minimal",
+      "settings": {
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "footer_link_bottom": ""
+      }
+    }
+  },
+  "order": ["footer-minimal"]
+}

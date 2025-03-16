@@ -1,0 +1,46 @@
+{%- comment -%}
+  Note: not the default Klevu recent searches snippet, I've added some extra code in here to help the
+  recent searches persist, but the default snippet is here:
+   <% if(data.recentSearches && data.recentSearches.length) { %> <div class="kuRecentSearchesBlock kuPreventDocumentClick"> <div class="klevuSuggestionHeading kuRecentSearchHeading"><span class="klevuHeadingText"><%=helper.translate("Recent Searches")%></span></div> <div class="kuRecentSearchTerms"> <ul> <% helper.each(data.recentSearches,function(key,term){ %> <% if(term && term.length) { %> <li class="kuRecentSearchTerm" data-value="<%= term %>"> <a target="_parent" href="javascript:void(0)"><%= helper.escapeHTML(term) %></a> </li> <% } %> <% }); %> </ul> </div> </div> <% } %>
+{%- endcomment -%}
+
+{%- capture content -%}
+  <%
+    // Note: For some reason if you have recent searches, and you type a query into the search,
+    // the recentSearches object will then be emptied. So they won't display when searching a query,
+    // everything below is to circumvent that.
+
+    let { recentSearches } = data;
+
+    if (typeof window.klevu_customRecentSearches === "undefined") window.klevu_customRecentSearches = ''
+    if (recentSearches && recentSearches.length) window.klevu_customRecentSearches = recentSearches
+  %>
+  <% if(window.klevu_customRecentSearches && window.klevu_customRecentSearches.length) { %>
+    <div class="klevuRecentSearchesBlock">
+      <div class="kuRecentSearchesBlock kuPreventDocumentClick">
+        <div class="klevuSuggestionHeading kuRecentSearchHeading">
+          <span class="klevuHeadingText">
+            <%=helper.translate("Recent Searches")%>
+          </span>
+        </div>
+        <div class="kuRecentSearchTerms">
+          <ul>
+            <% helper.each(window.klevu_customRecentSearches, (key,term) => { %>
+              <% if(term && term.length) { %>
+                <li class="kuRecentSearchTerm" data-value="<%= term %>">
+                  <a target="_parent" href="javascript:void(0)">
+                    <%= helper.escapeHTML(term) %>
+                  </a>
+                </li>
+              <% } %>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_kuTemplateRecentSearches">
+  {{- content -}}
+</script>

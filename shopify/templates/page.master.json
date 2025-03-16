@@ -1,0 +1,1266 @@
+{
+  "sections": {
+    "8984c9a9-e8d2-446b-a697-3feb2c90b505": {
+      "type": "rich-text",
+      "blocks": {
+        "template--17571826696474__8984c9a9-e8d2-446b-a697-3feb2c90b505-16756853066386882d-0": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>HERO BANNER<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__8984c9a9-e8d2-446b-a697-3feb2c90b505-16756853066386882d-0"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "146019e9-6973-4d54-8fe4-1237e6a4fdd7": {
+      "type": "hero-banner",
+      "blocks": {
+        "52ae8b91-a366-4c76-ad4d-b7943448aeba": {
+          "type": "slide",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "color": "light",
+            "heading_size": "9xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "lg",
+            "overline": "Overline test",
+            "heading": "<p>Heading testing<\/p>",
+            "text": "<p>This is a test Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt arcu eu lacinia faucibus. Vivamus consectetur lacus sed.<\/p>",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+
+            ],
+            "stl_title": "",
+            "stl_position": "bottom-left"
+          }
+        },
+        "template--17571826696474__146019e9-6973-4d54-8fe4-1237e6a4fdd7-16756842635f84e9ca-0": {
+          "type": "slide",
+          "settings": {
+            "position": "end",
+            "position_desktop": "center",
+            "color": "light",
+            "heading_size": "9xl",
+            "heading_size_desktop": "9xl",
+            "text_size": "2xl",
+            "text_size_desktop": "2xl",
+            "overline": "",
+            "heading": "<p>Toddler Backpacks<\/p>",
+            "text": "<p>The original toddler backpacks with a rein.<\/p>",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+              "ambulance-toddler-backpack-with-rein",
+              "bee-toddler-backpack-with-rein",
+              "dinosaur-backpack-with-rein",
+              "dinosaur-toddler-backpack"
+            ],
+            "stl_title": "Shop",
+            "stl_position": "bottom-right"
+          }
+        }
+      },
+      "block_order": [
+        "52ae8b91-a366-4c76-ad4d-b7943448aeba",
+        "template--17571826696474__146019e9-6973-4d54-8fe4-1237e6a4fdd7-16756842635f84e9ca-0"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "padded",
+        "background_color": "rgba(0,0,0,0)",
+        "height": "half",
+        "slider_loop": "loop",
+        "slider_autoplay": 1.5,
+        "slider_arrows": "showArrows",
+        "slider_dots": "showDots"
+      }
+    },
+    "1a47b4db-b724-441d-a3e6-cb4b070564f2": {
+      "type": "rich-text",
+      "blocks": {
+        "6f0dc61f-d47d-45a1-a6b4-132e489d00fd": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>TEXT MEDIA<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "6f0dc61f-d47d-45a1-a6b4-132e489d00fd"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e": {
+      "type": "text-media",
+      "blocks": {
+        "template--17571826696474__6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e-1675685344b5402810-1": {
+          "type": "media",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/a-model-perched-on-a-stool-smiles.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+
+            ],
+            "stl_title": "",
+            "stl_position": "bottom-left"
+          }
+        },
+        "template--17571826696474__6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e-1675685344b5402810-0": {
+          "type": "text",
+          "settings": {
+            "position": "end",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt arcu eu lacinia faucibus. Vivamus consectetur lacus sed.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e-1675685344b5402810-1",
+        "template--17571826696474__6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e-1675685344b5402810-0"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "media_first": true,
+        "media_width": "two-thirds"
+      }
+    },
+    "386f5a72-da48-40f6-ab12-69e3acecd69a": {
+      "type": "rich-text",
+      "blocks": {
+        "7346da65-cffc-43a8-a32c-79c5d115f2cb": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>BUNDLE HOTSPOTS<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "7346da65-cffc-43a8-a32c-79c5d115f2cb"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "07a9fd8d-ba08-40de-aa44-197d81541bfe": {
+      "type": "bundle-hotspots",
+      "blocks": {
+        "template--16864162906394__d383075f-220b-40f7-b1af-ad068dec5974-167535556936a7b458-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>"
+          }
+        },
+        "360fbded-c12e-45a7-83ad-7e46ca3b785d": {
+          "type": "media",
+          "settings": {
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "34c01d56-fe1d-4b50-94b8-5e800b7a1441": {
+          "type": "product",
+          "settings": {
+            "product": "dinosaur-toddler-backpack",
+            "show_marker": true,
+            "marker_x": 2,
+            "marker_y": 49
+          }
+        },
+        "156d57e2-2a03-42cf-a290-83df49273546": {
+          "type": "product",
+          "settings": {
+            "product": "unicorn-toddler-backpack-with-rein",
+            "show_marker": true,
+            "marker_x": 44,
+            "marker_y": 50
+          }
+        },
+        "e32b33af-4d0f-4cb3-a4c1-6ae3613b1d96": {
+          "type": "product",
+          "settings": {
+            "product": "unicorn-backpack-with-rein",
+            "show_marker": true,
+            "marker_x": 72,
+            "marker_y": 49
+          }
+        },
+        "54d1bca5-32c6-4854-867f-9dbf015a48de": {
+          "type": "product",
+          "settings": {
+            "product": "bee-toddler-backpack-with-rein",
+            "show_marker": true,
+            "marker_x": 93,
+            "marker_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "template--16864162906394__d383075f-220b-40f7-b1af-ad068dec5974-167535556936a7b458-0",
+        "360fbded-c12e-45a7-83ad-7e46ca3b785d",
+        "34c01d56-fe1d-4b50-94b8-5e800b7a1441",
+        "156d57e2-2a03-42cf-a290-83df49273546",
+        "e32b33af-4d0f-4cb3-a4c1-6ae3613b1d96",
+        "54d1bca5-32c6-4854-867f-9dbf015a48de"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "layout": "auto"
+      }
+    },
+    "45c6541c-348d-44dd-adba-88cba2c6ce48": {
+      "type": "rich-text",
+      "blocks": {
+        "abc93d64-0e8a-456b-a645-ceade8041786": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>BANNER GRID<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "abc93d64-0e8a-456b-a645-ceade8041786"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "bc3fb215-4dd4-4a8f-8c05-6a62ba188fec": {
+      "type": "banner-grid",
+      "blocks": {
+        "template--17571826696474__bc3fb215-4dd4-4a8f-8c05-6a62ba188fec-1675685805ff840fc7-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "template--17571826696474__bc3fb215-4dd4-4a8f-8c05-6a62ba188fec-1675685805ff840fc7-1": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "center",
+            "position_desktop": "",
+            "color": "light",
+            "heading_size": "lg",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "test",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "2e789378-e883-4c72-8711-c24e49efa08f": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "center",
+            "position_desktop": "",
+            "color": "light",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_mobile": "shopify:\/\/shop_images\/a-model-perched-on-a-stool-smiles.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "fc5a023c-40ea-453f-8bcd-619bf6dbab54": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "center",
+            "position_desktop": "",
+            "color": "light",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-infront-of-tree-with-berries.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "38a1dd7e-065a-451a-984a-2ccb2c7944a5": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "center",
+            "position_desktop": "",
+            "color": "light",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-in-sports-clothes-stands-on-a-beach-in-the-morning-light.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__bc3fb215-4dd4-4a8f-8c05-6a62ba188fec-1675685805ff840fc7-0",
+        "template--17571826696474__bc3fb215-4dd4-4a8f-8c05-6a62ba188fec-1675685805ff840fc7-1",
+        "2e789378-e883-4c72-8711-c24e49efa08f",
+        "fc5a023c-40ea-453f-8bcd-619bf6dbab54",
+        "38a1dd7e-065a-451a-984a-2ccb2c7944a5"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "full",
+        "background_color": ""
+      }
+    },
+    "9aa93c13-3c7b-433d-a940-2bece8d2478e": {
+      "type": "rich-text",
+      "blocks": {
+        "697cf297-a1f0-4ec3-a7c2-ed4dc3564782": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>BANNER GRID - CAROUSEL<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "697cf297-a1f0-4ec3-a7c2-ed4dc3564782"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "d83b2417-7c6e-4fa4-9598-6a43751dc134": {
+      "type": "banner-grid-carousel",
+      "blocks": {
+        "template--17571826696474__d83b2417-7c6e-4fa4-9598-6a43751dc134-16756859554184c268-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "template--17571826696474__d83b2417-7c6e-4fa4-9598-6a43751dc134-16756859554184c268-1": {
+          "type": "card",
+          "settings": {
+            "position": "end",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/a-model-perched-on-a-stool-smiles.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "27b8950f-4b59-4b4c-895a-4688dfa5633e": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/model-poses-near-bushes.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "b87caa99-dfa4-4c8f-8d67-72f5202fce3d": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-in-sports-clothes-stands-on-a-beach-in-the-morning-light.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "32ffcd9b-4f6e-40d2-8f58-f95dbce06e8f": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-infront-of-tree-with-berries.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "eec8d235-4565-4ba4-9c99-83917c4447e0": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "29479e0e-ba00-4855-bbe1-28369493dd20": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/model-poses-near-bushes.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "ec22bbf2-1a12-4d05-9050-7dbca7ff22a8": {
+          "type": "card",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "base",
+            "text_size_desktop": "lg",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__d83b2417-7c6e-4fa4-9598-6a43751dc134-16756859554184c268-0",
+        "template--17571826696474__d83b2417-7c6e-4fa4-9598-6a43751dc134-16756859554184c268-1",
+        "27b8950f-4b59-4b4c-895a-4688dfa5633e",
+        "b87caa99-dfa4-4c8f-8d67-72f5202fce3d",
+        "32ffcd9b-4f6e-40d2-8f58-f95dbce06e8f",
+        "eec8d235-4565-4ba4-9c99-83917c4447e0",
+        "29479e0e-ba00-4855-bbe1-28369493dd20",
+        "ec22bbf2-1a12-4d05-9050-7dbca7ff22a8"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "show_if": ""
+      }
+    },
+    "6900393f-68ff-4e35-8f37-a20ff1a47240": {
+      "type": "rich-text",
+      "blocks": {
+        "8a5c9fc2-51b0-436b-bd81-a9ed9286536b": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>RICH TEXT<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "8a5c9fc2-51b0-436b-bd81-a9ed9286536b"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "e9d5f8a7-5ce0-4f91-95a2-d5846721866a": {
+      "type": "rich-text",
+      "blocks": {
+        "9e16cc9f-4fa0-4c52-b520-f4f277dafc6a": {
+          "type": "overline",
+          "settings": {
+            "text": "EYEBROW TEXT"
+          }
+        },
+        "template--17571826696474__e9d5f8a7-5ce0-4f91-95a2-d5846721866a-1675686040ebde423d-0": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>Lorem ipsum dolor sit amet<\/p>",
+            "heading_size": "4xl",
+            "heading_size_desktop": "4xl"
+          }
+        },
+        "template--17571826696474__e9d5f8a7-5ce0-4f91-95a2-d5846721866a-1675686040ebde423d-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat sem leo, at dapibus augue interdum quis. Proin placerat arcu ut malesuada pharetra. Donec gravida enim vel ligula viverra, vitae ullamcorper tortor mattis. Ut fringilla nunc sit amet elementum fringilla. Duis nec aliquet orci. <br\/><br\/>Etiam a elit et elit porttitor consectetur quis ut ante. Ut pharetra faucibus nisi, sit amet ullamcorper dolor imperdiet. Vivamus fermentum libero sed erat maximus, quis lobortis arcu ornare.<\/p>",
+            "text_size": "base",
+            "text_size_desktop": "lg"
+          }
+        },
+        "efd304a6-fe1f-4f73-a281-1503cd730b02": {
+          "type": "ctas",
+          "settings": {
+            "cta_1_link": "shopify:\/\/collections",
+            "cta_1_target": false
+          }
+        }
+      },
+      "block_order": [
+        "9e16cc9f-4fa0-4c52-b520-f4f277dafc6a",
+        "template--17571826696474__e9d5f8a7-5ce0-4f91-95a2-d5846721866a-1675686040ebde423d-0",
+        "template--17571826696474__e9d5f8a7-5ce0-4f91-95a2-d5846721866a-1675686040ebde423d-1",
+        "efd304a6-fe1f-4f73-a281-1503cd730b02"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "text_color": "dark",
+        "position": "start",
+        "position_desktop": ""
+      }
+    },
+    "992fa42d-7c5d-45d7-a30b-4d90952a68ed": {
+      "type": "rich-text",
+      "blocks": {
+        "b53d4dc4-96f1-4bf8-ab03-72ee2b747904": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>CONTENT CARDS<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "b53d4dc4-96f1-4bf8-ab03-72ee2b747904"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "010556df-a68f-4c93-9ace-9235623b033f": {
+      "type": "content-cards",
+      "blocks": {
+        "template--17571826696474__010556df-a68f-4c93-9ace-9235623b033f-1675686128e92c04a1-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "template--17571826696474__010556df-a68f-4c93-9ace-9235623b033f-1675686128e92c04a1-1": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-8",
+            "position": "start",
+            "position_desktop": "end",
+            "heading_size": "lg",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "734f2ed0-25fb-4185-afc4-4c729154a61c": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "Test overline",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "8246514f-d5d1-4e5c-b938-2f155b2173ba": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-4",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/a-model-perched-on-a-stool-smiles.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "f453c471-dc45-4d1e-9c39-dcbbe8503543": {
+          "type": "card",
+          "settings": {
+            "width": "col-span-8",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__010556df-a68f-4c93-9ace-9235623b033f-1675686128e92c04a1-0",
+        "template--17571826696474__010556df-a68f-4c93-9ace-9235623b033f-1675686128e92c04a1-1",
+        "734f2ed0-25fb-4185-afc4-4c729154a61c",
+        "8246514f-d5d1-4e5c-b938-2f155b2173ba",
+        "f453c471-dc45-4d1e-9c39-dcbbe8503543"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": ""
+      }
+    },
+    "335e723e-f951-47a7-8a19-d1b73fb877e8": {
+      "type": "rich-text",
+      "blocks": {
+        "26e16e88-236f-4393-a40b-74d7577db0ae": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>CONTENT CARDS - CAROUSEL<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "26e16e88-236f-4393-a40b-74d7577db0ae"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "f2cf2e83-de36-4590-a09d-25d912d1bab8": {
+      "type": "content-cards-carousel",
+      "blocks": {
+        "template--17571826696474__f2cf2e83-de36-4590-a09d-25d912d1bab8-1675686224409d4b11-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "template--17571826696474__f2cf2e83-de36-4590-a09d-25d912d1bab8-1675686224409d4b11-2": {
+          "type": "card",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/mist-rises-above-rocky-water-fall.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "03b97b07-645a-4a08-88e0-0d20849dc3cd": {
+          "type": "card",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "195f08fa-2b2b-479c-b883-e909c085ba65": {
+          "type": "card",
+          "settings": {
+            "position": "end",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/fashion-portrait.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "4593fe70-0561-4f7e-bcef-f5cde698197a": {
+          "type": "card",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/woman-in-park-afternoon.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "f2da27a0-97f6-4651-8ef7-855b485f1ae0": {
+          "type": "card",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/woman-infront-of-tree-with-berries.jpeg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        },
+        "88ecacb7-f177-46b5-b76f-053ea9ae66f8": {
+          "type": "card",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "3xl",
+            "text_size": "base",
+            "text_size_desktop": "base",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor<\/p>",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis sit amet.<\/p>",
+            "image": "shopify:\/\/shop_images\/woman-in-sports-clothes-stands-on-a-beach-in-the-morning-light.jpg",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__f2cf2e83-de36-4590-a09d-25d912d1bab8-1675686224409d4b11-0",
+        "template--17571826696474__f2cf2e83-de36-4590-a09d-25d912d1bab8-1675686224409d4b11-2",
+        "03b97b07-645a-4a08-88e0-0d20849dc3cd",
+        "195f08fa-2b2b-479c-b883-e909c085ba65",
+        "4593fe70-0561-4f7e-bcef-f5cde698197a",
+        "f2da27a0-97f6-4651-8ef7-855b485f1ae0",
+        "88ecacb7-f177-46b5-b76f-053ea9ae66f8"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": ""
+      }
+    },
+    "77ac4263-2e87-4748-85ab-9a9876f98a37": {
+      "type": "rich-text",
+      "blocks": {
+        "c54984a3-c291-4603-a4dd-c3f9c9b173d4": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>JOURNAL FEED<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "c54984a3-c291-4603-a4dd-c3f9c9b173d4"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "1beb5bb4-1214-4001-9bba-6c1d0382ce22": {
+      "type": "journal-feed",
+      "blocks": {
+        "template--17571826696474__1beb5bb4-1214-4001-9bba-6c1d0382ce22-16756863059ce9be12-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "center",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Catch up with the Littlelife family<\/p>"
+          }
+        },
+        "template--17571826696474__1beb5bb4-1214-4001-9bba-6c1d0382ce22-16756863059ce9be12-1": {
+          "type": "blog",
+          "settings": {
+            "blog": "news",
+            "limit": 4
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__1beb5bb4-1214-4001-9bba-6c1d0382ce22-16756863059ce9be12-0",
+        "template--17571826696474__1beb5bb4-1214-4001-9bba-6c1d0382ce22-16756863059ce9be12-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "padded",
+        "background_color": "#f4f4f4"
+      }
+    },
+    "c81e7c1d-4d4b-4d77-9d1c-ebf8069947c0": {
+      "type": "rich-text",
+      "blocks": {
+        "e9abc38a-a374-4db6-b7fa-f2ddb5aa5564": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>LOGO\/ICONS + TEXT<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "e9abc38a-a374-4db6-b7fa-f2ddb5aa5564"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "0b8c5af4-502f-4bdb-ba84-25024ae81646": {
+      "type": "icons-text",
+      "blocks": {
+        "template--17571826696474__0b8c5af4-502f-4bdb-ba84-25024ae81646-1675686359d5d1ec36-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "template--17571826696474__0b8c5af4-502f-4bdb-ba84-25024ae81646-1675686359d5d1ec36-1": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "c2cabb3c-b979-4a47-809d-952b98fe1c70": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "404b3d84-e484-4e81-84f5-1a09974fee28": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "efc74f63-3381-47d9-9497-33895f9db8ff": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__0b8c5af4-502f-4bdb-ba84-25024ae81646-1675686359d5d1ec36-0",
+        "template--17571826696474__0b8c5af4-502f-4bdb-ba84-25024ae81646-1675686359d5d1ec36-1",
+        "c2cabb3c-b979-4a47-809d-952b98fe1c70",
+        "404b3d84-e484-4e81-84f5-1a09974fee28",
+        "efc74f63-3381-47d9-9497-33895f9db8ff"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "text_color": "dark"
+      }
+    },
+    "de40ee3a-a870-442d-aabe-815c0a4fc42d": {
+      "type": "rich-text",
+      "blocks": {
+        "583ffc5b-7ec9-4cf2-b94d-f63cd23aeb55": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>HIGHLIGHT MESSAGES<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "583ffc5b-7ec9-4cf2-b94d-f63cd23aeb55"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "05338cc0-5ab8-4d90-a9fc-1033e05cdad6": {
+      "type": "icons-text",
+      "blocks": {
+        "fb1acfaf-bef0-46fa-b5ce-e15de7152b8d": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Section Heading<\/p>"
+          }
+        },
+        "9cc0b2ef-28a7-45fd-b761-49e45b7f9c29": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "dcf35931-5f4e-4b10-932f-382d1cd3ee8e": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "5809257c-3b58-4826-b6cc-fd8a273fa029": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        },
+        "c88d1c9f-aee0-48c2-aa72-5e6391c3ce0d": {
+          "type": "logo",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim, turpis.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "fb1acfaf-bef0-46fa-b5ce-e15de7152b8d",
+        "9cc0b2ef-28a7-45fd-b761-49e45b7f9c29",
+        "dcf35931-5f4e-4b10-932f-382d1cd3ee8e",
+        "5809257c-3b58-4826-b6cc-fd8a273fa029",
+        "c88d1c9f-aee0-48c2-aa72-5e6391c3ce0d"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "",
+        "text_color": "dark"
+      }
+    },
+    "a9d6c38d-9efa-40bf-8db6-1d965ec4791b": {
+      "type": "rich-text",
+      "blocks": {
+        "b543876f-d28b-4cc1-9b9d-853a1f6dd771": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>PRODUCT FEED<\/p>",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl"
+          }
+        }
+      },
+      "block_order": [
+        "b543876f-d28b-4cc1-9b9d-853a1f6dd771"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "padded",
+        "background_color": "#050505",
+        "text_color": "light",
+        "position": "center",
+        "position_desktop": ""
+      }
+    },
+    "488504f2-a869-4c83-ba0d-a8861c3a2a5b": {
+      "type": "products-slider",
+      "blocks": {
+        "template--17571826696474__488504f2-a869-4c83-ba0d-a8861c3a2a5b-16756865570b8c380f-0": {
+          "type": "section_header",
+          "settings": {
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "heading": "<p>Lorem ipsum dolor sit amet<\/p>"
+          }
+        },
+        "7b6fdf72-66e2-4cad-9001-4857f656d8c7": {
+          "type": "list",
+          "settings": {
+            "list": [
+              "ambulance-toddler-backpack-with-rein",
+              "bee-toddler-backpack-with-rein",
+              "dinosaur-backpack-with-rein",
+              "dinosaur-toddler-backpack",
+              "dinosaur-toddler-backpack-with-rein",
+              "family-beach-shelter",
+              "fire-engine-toddler-backpack-with-rein",
+              "hi-vis-dinosaur-toddler-actionpak"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "template--17571826696474__488504f2-a869-4c83-ba0d-a8861c3a2a5b-16756865570b8c380f-0",
+        "7b6fdf72-66e2-4cad-9001-4857f656d8c7"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": ""
+      }
+    }
+  },
+  "order": [
+    "8984c9a9-e8d2-446b-a697-3feb2c90b505",
+    "146019e9-6973-4d54-8fe4-1237e6a4fdd7",
+    "1a47b4db-b724-441d-a3e6-cb4b070564f2",
+    "6d7ea9da-bebb-4ae0-bf57-6ad9fb7b955e",
+    "386f5a72-da48-40f6-ab12-69e3acecd69a",
+    "07a9fd8d-ba08-40de-aa44-197d81541bfe",
+    "45c6541c-348d-44dd-adba-88cba2c6ce48",
+    "bc3fb215-4dd4-4a8f-8c05-6a62ba188fec",
+    "9aa93c13-3c7b-433d-a940-2bece8d2478e",
+    "d83b2417-7c6e-4fa4-9598-6a43751dc134",
+    "6900393f-68ff-4e35-8f37-a20ff1a47240",
+    "e9d5f8a7-5ce0-4f91-95a2-d5846721866a",
+    "992fa42d-7c5d-45d7-a30b-4d90952a68ed",
+    "010556df-a68f-4c93-9ace-9235623b033f",
+    "335e723e-f951-47a7-8a19-d1b73fb877e8",
+    "f2cf2e83-de36-4590-a09d-25d912d1bab8",
+    "77ac4263-2e87-4748-85ab-9a9876f98a37",
+    "1beb5bb4-1214-4001-9bba-6c1d0382ce22",
+    "c81e7c1d-4d4b-4d77-9d1c-ebf8069947c0",
+    "0b8c5af4-502f-4bdb-ba84-25024ae81646",
+    "de40ee3a-a870-442d-aabe-815c0a4fc42d",
+    "05338cc0-5ab8-4d90-a9fc-1033e05cdad6",
+    "a9d6c38d-9efa-40bf-8db6-1d965ec4791b",
+    "488504f2-a869-4c83-ba0d-a8861c3a2a5b"
+  ]
+}

@@ -1,0 +1,14 @@
+{%- capture content -%}
+  <div class="kuLandingResultsViewSwitchContainer">
+    <a title="<%= helper.translate("Grid View") %>" class="kuViewSwitch kuGridViewBtn" data-value="grid">
+      <span class="icon-gridview"></span>
+    </a>
+    <a title="<%= helper.translate("List View") %>" class="kuViewSwitch kuListViewBtn" data-value="list">
+      <span class="icon-listview"></span>
+    </a>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_kuTemplateLandingResultsViewSwitch">
+  {{- content -}}
+</script>

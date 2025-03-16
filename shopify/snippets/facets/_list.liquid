@@ -1,0 +1,156 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Facets - List
+  -------------------------------------------------------------------------------
+  Accepts
+  - filter: {Object} (required)
+  - index: {Integer} (required)
+  - input_scope: {String} used with the Facets.js file, this declares whether
+    the input should be active on mobile or on desktop, possible values are
+    limited to 'desktop' or 'mobile' (required).
+  - form_id: {String} - attatches every input to an external form (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'facets_list',
+    filter: filter,
+    inex: index,
+    input_scope: 'input_scope',
+    form_id: 'form'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays list filters on the collection and search templates.
+{%- endcomment -%}
+
+{%- liquid
+  assign filter = filter
+  assign index = index
+  assign label = filter.label
+  assign label_standardised = filter.label | handleize
+  assign form_id = form_id
+  assign input_scope = input_scope | default: 'desktop'
+  assign input_js_class = input_js_class | default: 'js-facet-input-' | append: input_scope
+
+  # Label translation assignment for 'product type' filters as clients usually want to rename this.
+  if label_standardised == 'Product type'
+    assign label = 'snippets.facets.list.titles.product_type' | t
+  endif
+-%}
+
+<header class="flex items-center justify-between py-4 text-sm border-b border-solid select-none lg:px-5 lg:text-md border-border-light">
+  <p class="font-bold text-md">
+    {{- label -}}
+  </p>
+
+  {%- liquid
+    assign has_active_facet = false
+
+    for value in filter.values
+      if value.active
+        assign has_active_facet = true
+        break
+      endif
+    endfor
+  -%}
+
+  {%- if has_active_facet -%}
+    <a
+      class="underline hover:no-underline underline-offset-4 js-facet-remove"
+      href="{{ filter.url_to_remove }}"
+    >
+      {{- 'snippets.facets.list.reset' | t -}}
+    </a>
+  {%- endif -%}
+</header>
+
+<ul class="grid grid-cols-2 gap-3 py-5 lg:px-5">
+  {%- for value in filter.values -%}
+    {%- liquid
+      # Split here for tag values which are usually prepended by some text we don't want to see.
+      assign label_value = value.label | split: '_' | last
+      assign label_value_standardised = label_value | handleize
+
+      if label_standardised == 'color' or label_standardised == 'colour'
+        assign is_color_swatch = true
+      endif
+
+      capture cursor_class
+        if value.count == 0 and value.active == false
+          echo 'cursor-not-allowed'
+        endif
+      endcapture
+
+      capture status_classes
+        if value.count == 0 and value.active == false
+          # If it should be disabled...
+          echo 'o-input--disabled'
+        else
+          # If it should be active...
+          echo 'group-hover:border-highlight'
+        endif
+      endcapture
+
+      capture color_swatch_input_class
+        if label_standardised contains 'color' or label_standardised contains 'colour'
+          echo 'o-input--swatch'
+
+          if value.active
+            echo ' is-active'
+          endif
+        endif
+      endcapture
+
+      # Note: Inputs don't have 'disabled' added to the input if there are no returnable products because
+      # we're using the disabled attribute to disable inputs based on what viewport the customer is viewing on.
+    -%}
+
+    <li class="cursor-pointer group">
+      <div class="flex flex-col justify-center w-full {{ cursor_class }}">
+        <label class="o-input o-input--wrap {{ color_swatch_input_class }} {{ status_classes }}">
+          {%- capture input -%}
+            <input
+              class="o-input__checkbox {{ input_js_class }}"
+              type="checkbox"
+              name="{{ value.param_name }}"
+              value="{{ value.value }}"
+              id="{{ value.param_name }}-{{ value.value }}-{{ index }}-{{ form_id }}"
+              data-facets-identifier="{{ value.param_name }}-{{ value.value }}-{{ index }}"
+              {% if value.active %}
+                checked
+              {% endif %}
+              {% if form_id != blank %}
+                form="{{ form_id }}"
+              {% endif %}
+            >
+          {%- endcapture -%}
+
+          {%- if is_color_swatch -%}
+            <div
+              class="o-input__color"
+              data-swatch="{{ label_value_standardised | replace: '-', '_' }}"
+              {%- liquid
+                # Try converting color value to CSS hex, results in valid color or null
+                assign swatch_css_color = label_value_standardised | color_to_hex
+                if swatch_css_color != null
+                  echo 'style="--_fallback: linear-gradient([hex],[hex])"' | replace: '[hex]', swatch_css_color
+                endif
+              -%}
+            ></div>
+
+            <span class="text-sm select-none">
+              {{- label_value -}}
+            </span>
+
+            {{- input | replace: 'class="', 'class="hidden ' -}}
+          {%- else -%}
+            {{- input -}}
+
+            <span class="text-sm select-none">
+              {{- label_value -}}
+            </span>
+          {%- endif -%}
+        </label>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

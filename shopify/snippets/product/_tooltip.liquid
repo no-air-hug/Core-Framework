@@ -1,0 +1,51 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Tooltip
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} (required)
+  - block: {Object} passes block-level settings into the snippet (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_tooltip',
+    product: product,
+    block: block
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Utilised in the bundle-hotspots section, displays product information in
+  a small bubble that expands when interacted with.
+{%- endcomment -%}
+
+{%- capture id -%}tooltip-{{ block.id }}{%- endcapture -%}
+
+<product-tooltip
+  style="--marker-x: {{ block.settings.marker_x }}%; --marker-y: {{ block.settings.marker_y }}%;"
+  {{ block.shopify_attributes }}
+>
+  <button aria-describedby="{{ id }}" type="button">
+    <span class="sr-only">More details, {{ product.title }}</span>
+  </button>
+
+  <div id="{{ id }}" role="tooltip" class="flex items-center gap-4" hidden>
+    <div id="{{ id }}-arrow"></div>
+
+    {%-
+      render 'object_image' with product.featured_image,
+      sizes: '48px',
+      widths: '48,72,96',
+      aspect: '1 / 1',
+      class: 'flex-shrink-0 overflow-hidden w-13 h-13 rounded-2',
+    -%}
+
+    <div class="flex flex-col text-md">
+      <p class="font-bold">{{ product.title }}</p>
+      <p>
+        {{ product.price | money }}
+      </p>
+      <a class="o-button o-button--underline canhover:hidden" href="{{ product.url }}">
+        View product<span class="sr-only">, {{ product.title }}</span>
+      </a>
+    </div>
+  </div>
+</product-tooltip>

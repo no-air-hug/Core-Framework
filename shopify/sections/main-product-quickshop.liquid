@@ -1,0 +1,279 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'product-quickshop', thumbnails: true, viewport_classes: 'relative rounded-2 border bordeer-solid border-border-light'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+
+  # Data
+  assign product_form_id = 'product-form-' | append: section.id
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+
+  # Classes
+  capture media_wrapper_classes
+    echo 'flex flex-col max-w-xl'
+  endcapture
+
+  capture media_classes
+    echo 'relative grid w-full flex-shrink-0'
+  endcapture
+
+  # Product
+  assign product = section.settings.product | default: product
+-%}
+
+{{ slider_styling }}
+
+{%- # Only displays on the product.quickshop template -%}
+{%- liquid
+  capture template
+    assign template_name = template.name
+
+    if template.suffix != blank
+      assign template_name = template_name | append: '-' | append: template.suffix
+    endif
+
+    echo template_name
+  endcapture
+-%}
+<div
+  class="mx-auto max-w-[819px]"
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+>
+  <div class="grid grid-cols-2 gap-x-8">
+    {%- # Media -%}
+    <div>
+      {%- if product.media.size > 1 -%}
+        <embla-slider
+          class="{{ slider_classes }} sticky top-0 {{ media_wrapper_classes }}"
+          {{ slider_settings }}
+        >
+      {%- else -%}
+        <div class="sticky top-0 {{ media_wrapper_classes }}">
+      {%- endif -%}
+      <div class="absolute left-4 top-4 z-1 flex flex-wrap gap-1">
+        {%- render 'product_stickers', product: product -%}
+      </div>
+
+      {%- if product.metafields.info.badge -%}
+        <div class="absolute right-4 top-4 z-1 h-7 w-7 md:h-[42px] md:w-[42px]">
+          {%- render 'object_image' with product.metafields.info.badge, width: 42, height: 42 -%}
+        </div>
+      {%- endif -%}
+
+      <div {{ slider_viewport }}>
+        <ul class="{{ slider_track_class }}">
+          {%- if product.selected_or_first_available_variant.featured_media != null
+            and product.selected_or_first_available_variant.featured_media.media_type == 'image'
+          -%}
+            {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+            <li
+              class="{{ slider_item_class }} {{ media_classes }}"
+              data-thumbnail-source="{{ featured_media | image_url: width: 48, height: 48 }}"
+              data-thumbnail-height="48"
+              data-thumbnail-width="48"
+            >
+              {%- render 'object_image' with featured_media, aspect: '1/1', preload: true -%}
+            </li>
+          {%- endif -%}
+
+          {%- for media in product.images -%}
+            {% liquid
+              if media.id == product.selected_or_first_available_variant.featured_media.id
+                continue
+              endif
+
+              # Hide other variant images
+              if section.settings.hide_variants
+                if variant_images contains media.src
+                  continue
+                endif
+
+                # Hide images by alt tag
+                if section.settings.hide_variants_by_alt
+                  # TODO: This currently assumes that alt tag contains only ONE option value e.g. color
+                  assign alt = media.alt | downcase
+                  assign options = product.selected_or_first_available_variant.options | downcase
+                  unless options contains alt
+                    continue
+                  endunless
+                endif
+              endif
+            %}
+
+            <li
+              class="{{ media_classes }}"
+              data-thumbnail-source="{{ media | image_url: width: 84, height: 84 }}"
+              data-thumbnail-height="48"
+              data-thumbnail-width="48"
+            >
+              {%- render 'object_image' with media, aspect: '1/1' -%}
+            </li>
+          {% else %}
+            <li class="{{ media_classes }}">
+              {%- render 'object_image' -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      {%- if product.media.size > 1 -%}
+        </embla-slider>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- # Product Information -%}
+    <div class="details flex flex-col gap-6">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+
+          {%- when 'box_start' -%}
+            {%- liquid
+              echo '<div class="box-start flex flex-col gap-y-6 p-6 border rounded-[6px]" ' | append: block.shopify_attributes | append: '>'
+              assign box_close_tag = '</div>'
+            -%}
+
+          {%- when 'box_end' -%}
+            {%- liquid
+              echo box_close_tag
+              assign box_close_tag = null
+            -%}
+
+          {%- when 'header_start' -%}
+            {%- liquid
+              echo '<div class="flex flex-wrap items-center justify-between gap-y-2 gap-x-6" ' | append: block.shopify_attributes | append: '>'
+              assign header_close_tag = '</div>'
+            -%}
+
+          {%- when 'header_end' -%}
+            {%- liquid
+              echo header_close_tag
+              assign header_close_tag = null
+            -%}
+
+          {%- when 'divider' -%}
+            <hr class="o-hr" role="presentation" {{ block.shopify_attributes }}>
+
+          {%- when 'custom_liquid' -%}
+            {{ block.settings.custom_liquid }}
+
+          {%- when 'stickers' -%}
+            {%- render 'product_stickers', block: block, product: product -%}
+
+          {%- when 'title' -%}
+            <h1
+              class="w-full font-heading text-4xl font-extrabold leading-1 -tracking-2"
+              {{ block.shopify_attributes }}
+            >
+              {{ product.title | escape }}
+            </h1>
+
+          {%- when 'sku' -%}
+            {%- render 'product_sku', product: product -%}
+
+          {%- when 'inventory' -%}
+            {%- render 'product_inventory', section: section, block: block, product: product -%}
+
+          {%- when 'rating' -%}
+            {%- render 'product_rating', product: product -%}
+
+          {%- when 'price' -%}
+            <div class="flex gap-1 text-2xl" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              {%- render 'product_price', product: product, use_variant: true -%}
+            </div>
+
+          {%- when 'description' -%}
+            {%- if product.description != blank -%}
+              <div {{ block.shopify_attributes }}>
+                <h2 class="mb-2 font-heading font-bold">
+                  {{- 'sections.main_product_quickshop.description' | t -}}
+                </h2>
+                <div class="rte text-md text-secondary">
+                  {{- product.description -}}
+                </div>
+              </div>
+            {%- endif -%}
+
+          {%- when 'variant_picker' -%}
+            {%- assign size_guide = block.settings.size_guide_page -%}
+            {% render 'product_variant-picker',
+              block: block,
+              product: product,
+              size_guide: size_guide,
+              update_url: false
+            %}
+
+          {%- when 'buy_buttons' -%}
+            {%- render 'product_buy-buttons', block: block, product: product, product_form_id: product_form_id -%}
+
+          {%- when 'quantity_selector' -%}
+            <div class="flex flex-col gap-y-2" {{ block.shopify_attributes }}>
+              {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+              <label class="font-bold" for="Quantity-{{ section.id }}">
+                {{- 'sections.main_product_quickshop.quantity.label' | t -}}
+                <span class="sr-only{% if cart_qty == 0 %} hidden{% endif %}">
+                  {{- 'global.accessibility.quantity.in_cart_html' | t: quantity: cart_qty -}}
+                </span>
+              </label>
+
+              {%- render 'product_quantity-input', product_form_id: product_form_id -%}
+            </div>
+
+          {%- when 'collapsible_tab' -%}
+            {% if block.settings.text != blank or block.settings.page.content != blank %}
+              <details id="Details-{{ block.id }}-{{ section.id }}" class="group" {{ block.shopify_attributes }}>
+                <summary class="flex cursor-pointer items-center justify-between">
+                  <div class="flex items-center gap-x-2">
+                    {%- render 'theme_icons' with block.settings.icon, width: 18, height: 18 -%}
+                    <h2 class="font-heading font-bold">
+                      {{- block.settings.title | default: block.settings.page.title -}}
+                    </h2>
+                  </div>
+                  {%- render 'theme_icons' with 'chevron-right',
+                    width: 18,
+                    height: 18,
+                    class: 'group-open:rotate-90'
+                  -%}
+                </summary>
+
+                <div class="rte pt-3 text-md">
+                  {{ block.settings.text }}
+                  {{ block.settings.page.content }}
+                </div>
+              </details>
+            {% endif %}
+
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              <div {{ block.shopify_attributes }}>
+                {%- if block.settings.title -%}
+                  <h2 class="mb-3 font-heading font-bold">{{- block.settings.title -}}</h2>
+                {%- endif -%}
+                <div class="rte rte--check-list text-md">
+                  {{- block.settings.text -}}
+                </div>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>

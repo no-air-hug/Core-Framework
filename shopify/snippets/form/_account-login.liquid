@@ -1,0 +1,148 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Form - Login
+  -------------------------------------------------------------------------------
+  Accepts
+  - class {Object/String} additional classes (optional)
+  - title {Object/String} the form title (optional)
+  - text {Object/String} text describing the form (optional)
+  - submit_button_style {Object/String} the submission button style,
+    (primary, secondary, etc) (optional)
+  - forgot_button_style {Object/String} the forgot password form trigger button style,
+    (primary, secondary, etc) (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'form_account-login',
+    class: 'text-md',
+    title: 'Login Form',
+    text: 'Login here, or register below',
+    submit_button_style: 'primary',
+    forgot_button_style: 'underline'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  The site login form.
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class | prepend: 'form ' | strip
+  assign submit_button_style = submit_button_style | default: 'primary'
+  assign forgot_button_style = forgot_button_style | default: 'underline'
+
+  if title contains ' | t'
+    assign title = title | replace: ' | t' | t
+  endif
+
+  if text contains ' | t'
+    assign text = text | replace: ' | t' | t
+  endif
+-%}
+
+{%- form 'customer_login', class: class, id: 'LoginForm' -%}
+  {%- if title or text -%}
+    <header class="form__header">
+      {%- if title -%}
+        {%- if request.page_type contains 'customers' -%}
+          <h2 class="text-2xl font-bold font-heading">
+            {{- title -}}
+          </h2>
+        {%- else -%}
+          <p class="font-bold font-heading">
+            {{- title -}}
+          </p>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if text -%}
+        <p class="{% unless request.page_type contains 'customers' %}text-md text-text-section-secondary{% endunless %}">
+          {{- text -}}
+        </p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <ul class="form__fields">
+    <li class="form__field">
+      <label
+        class="o-input{%- if form.errors and form.errors != 'password' %} o-input--error{%- endif -%}"
+        data-field="input"
+      >
+        <span class="sr-only">
+          {{- 'global.forms.structure.email.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[email]"
+          value="{{ form.email }}"
+          type="email"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          required
+          aria-required="true"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="LoginEmail-error"
+          {% endif %}
+          placeholder="{{ 'global.forms.structure.email.placeholder' | t }}"
+        >
+
+        {%- if form.errors and form.errors != 'password' -%}
+          <small id="LoginEmail-error" class="o-input__error">
+            {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+            {{- form.errors | default_errors -}}
+          </small>
+        {%- endif -%}
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label class="o-input{%- if form.errors contains 'password' %} o-input--error{%- endif -%}" data-field="input">
+        <span class="sr-only">
+          {{- 'global.forms.structure.password.label' | t -}}
+        </span>
+
+        <input
+          class="o-input__field"
+          name="customer[password]"
+          value="{{ form.password }}"
+          type="password"
+          autocomplete="current-password"
+          required
+          aria-required="true"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="LoginPassword-error"
+          {% endif %}
+          placeholder="{{ 'global.forms.structure.password.placeholder' | t }}"
+        >
+
+        {%- if form.errors contains 'password' -%}
+          <small id="LoginPassword-error" class="o-input__error">
+            {%- render 'theme_icons' with 'error', width: 16, height: 16, class: 'stroke-validation-error' -%}
+            {{- form.errors.translated_fields.password | capitalize }}
+            {{ form.errors.messages.password -}}
+          </small>
+        {%- endif -%}
+      </label>
+    </li>
+  </ul>
+
+  <div class="mt-6 form__footer">
+    <button
+      class="o-button o-button--{{ submit_button_style }} o-button--full"
+      type="submit"
+    >
+      {{- 'snippets.form.account_login.log_in_button' | t -}}
+    </button>
+
+    <a
+      class="o-button o-button--{{ forgot_button_style }} o-button--full text-md justify-center"
+      href="#recover"
+      onclick="return Shopify.theme.showForgotPasswordForm();"
+    >
+      {{- 'snippets.form.account_login.recover_button' | t -}}
+    </a>
+  </div>
+{%- endform -%}

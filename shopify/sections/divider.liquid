@@ -1,0 +1,9 @@
+{%- render 'section_spacing-and-color', section: section -%}
+
+<hr
+  class="o-hr"
+  role="presentation"
+  {%- if section.settings.divider_color != 'rgba(0,0,0,0)' -%}
+    style="background-color: {{ section.settings.divider_color }}"
+  {%- endif -%}
+>

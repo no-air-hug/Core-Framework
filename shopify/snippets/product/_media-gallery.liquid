@@ -1,0 +1,137 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Media Gallery
+  -------------------------------------------------------------------------------
+  Accepts
+  - variant_images: {Object} images that are associated to a variant (required)
+  - media_fit: {String/Object} either: 'contain' or 'cover' (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_media-gallery',
+    variant_images: variant_images,
+    media_fit: media_fit
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders product imagery inside of a embla slideshow.
+{%- endcomment -%}
+
+{%- liquid
+  assign media_fit = media_fit
+  assign variant_images = variant_images
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'media-gallery', breakpoint: 'max-md', align: 'center', arrows: true, loop: true
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+-%}
+
+{{ slider_styling }}
+
+<embla-slider
+  class="{{ slider_classes }}"
+  {{ slider_settings }}
+>
+  <div {{ slider_viewport }}>
+    <ul class="{{ slider_track_class }}">
+      {%- liquid
+        assign img_class = 'o-img--' | append: media_fit
+        assign count = 0
+      -%}
+      {%- if product.selected_or_first_available_variant.featured_media != null -%}
+        {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+        <li
+          class="{{ slider_item_class }}"
+          {% if settings.enable_lightbox == 'true' %}
+            data-lightbox="{{ count }}"
+            {% assign count = count | plus: 1 %}
+          {% endif %}
+        >
+          {%- case featured_media.media_type -%}
+            {%- when 'image' -%}
+              {%- render 'object_image' with featured_media,
+                class: 'o-picture--fill',
+                img_class: img_class,
+                preload: true,
+                sizes: '(min-width: 768px) 50vw',
+                aspect: '1 / 1'
+              -%}
+
+            {%- when 'video', 'external_video' -%}
+              {%- render 'object_video' with featured_media,
+                class: 'h-full',
+                aspect: '1 / 1',
+                fit: media_fit,
+                play_overlay: true
+              -%}
+          {%- endcase -%}
+        </li>
+      {%- endif -%}
+
+      {%- for media in product.media -%}
+        {% liquid
+          if media.id == product.selected_or_first_available_variant.featured_media.id
+            continue
+          endif
+
+          # Hide other variant images
+          if section.settings.hide_variants
+            if variant_images contains media.src
+              continue
+            endif
+
+            # Hide images by alt tag
+            if section.settings.hide_variants_by_alt
+              # TODO: This currently assumes that alt tag contains only ONE option value e.g. color
+              assign alt = media.alt | downcase
+              assign options = product.selected_or_first_available_variant.options | downcase
+              unless options contains alt
+                continue
+              endunless
+            endif
+          endif
+        %}
+
+        <li
+          class="{{ slider_item_class }}"
+          {% if settings.enable_lightbox == 'true' %}
+            data-lightbox="{{ count }}"
+            {% assign count = count | plus: 1 %}
+          {% endif %}
+        >
+          {%- case media.media_type -%}
+            {%- when 'image' -%}
+              {%- render 'object_image' with media,
+                class: 'o-picture--fill',
+                img_class: img_class,
+                preload: forloop.first,
+                sizes: '(min-width: 768px) 50vw',
+                aspect: '1 / 1'
+              -%}
+
+            {%- when 'video', 'external_video' -%}
+              {%- render 'object_video' with media,
+                class: 'h-full',
+                aspect: '1 / 1',
+                fit: media_fit,
+                play_overlay: true
+              -%}
+          {%- endcase -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</embla-slider>

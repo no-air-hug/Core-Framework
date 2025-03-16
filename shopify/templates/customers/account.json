@@ -1,0 +1,176 @@
+{
+  "sections": {
+    "menu": {
+      "type": "main-account-menu",
+      "settings": {
+        "padding": "contained",
+        "background_color": "#f7f7f7",
+        "text_color": "dark",
+        "menu": "account-menu"
+      }
+    },
+    "spacer": {
+      "type": "spacer",
+      "settings": {
+        "background_color": "rgba(0,0,0,0)"
+      }
+    },
+    "main": {
+      "type": "main-account-orders",
+      "blocks": {
+        "8cac8618-da56-4b4b-b321-7ed2d45aa5d3": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>[icon=cart]My Orders<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "6c110299-506d-4b71-aa7d-5d8522a604df": {
+          "type": "orders",
+          "settings": {
+            "pagination_amount": 9,
+            "pagination_style": "text"
+          }
+        }
+      },
+      "block_order": [
+        "8cac8618-da56-4b4b-b321-7ed2d45aa5d3",
+        "6c110299-506d-4b71-aa7d-5d8522a604df"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "rgba(0,0,0,0)"
+      }
+    },
+    "57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0": {
+      "type": "collapsible-content",
+      "blocks": {
+        "template--15095437688875__57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0-section_header-1": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>[icon=help]FAQs<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "template--15095437688875__57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0-faq-1": {
+          "type": "collapsible",
+          "settings": {
+            "title": "How do I...?",
+            "body": "<p>We're here to help.<\/p>"
+          }
+        },
+        "45f1d4f6-4597-4f4a-a03e-ece3dcdd8d2e": {
+          "type": "collapsible",
+          "settings": {
+            "title": "How do I...?",
+            "body": "<p>We're here to help.<\/p>"
+          }
+        },
+        "19f30b34-0aa4-42f8-a3fe-588256625a9d": {
+          "type": "collapsible",
+          "settings": {
+            "title": "How do I...?",
+            "body": "<p>We're here to help.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095437688875__57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0-section_header-1",
+        "template--15095437688875__57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0-faq-1",
+        "45f1d4f6-4597-4f4a-a03e-ece3dcdd8d2e",
+        "19f30b34-0aa4-42f8-a3fe-588256625a9d"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark"
+      }
+    },
+    "4a38dadf-aa3a-4464-af1a-c9288700afda": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15179185094699__4a38dadf-aa3a-4464-af1a-c9288700afda-heading-1": {
+          "type": "heading",
+          "settings": {
+            "title": "<p>[icon=phone] Contact Us<\/p>",
+            "heading_size": "2xl",
+            "heading_size_desktop": ""
+          }
+        },
+        "template--15179185094699__4a38dadf-aa3a-4464-af1a-c9288700afda-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>You can reach us here...<\/p>",
+            "text_size": "base",
+            "text_size_desktop": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15179185094699__4a38dadf-aa3a-4464-af1a-c9288700afda-heading-1",
+        "template--15179185094699__4a38dadf-aa3a-4464-af1a-c9288700afda-text-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 752,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "position": "start",
+        "position_desktop": ""
+      }
+    }
+  },
+  "order": [
+    "menu",
+    "spacer",
+    "main",
+    "57d7e93e-40f8-42b4-a55a-2bc9dd8e48b0",
+    "4a38dadf-aa3a-4464-af1a-c9288700afda"
+  ]
+}

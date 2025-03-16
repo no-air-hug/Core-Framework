@@ -1,0 +1,390 @@
+{
+  "sections": {
+    "b2975697-9713-4c0d-a216-dc9d8fc23570": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "5a211d2b-ccd5-4f5e-a6e0-d146b0a39314": {
+          "type": "stickers",
+          "settings": {}
+        },
+        "5039068a-fbca-442d-a85e-e7453367c345": {
+          "type": "header_start",
+          "settings": {}
+        },
+        "a60d8832-57ba-4e09-8c94-9c0dea38ecbd": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_EmPyfi": {
+          "type": "rating",
+          "settings": {}
+        },
+        "9b89d674-1142-443d-a266-280cc60aa0d9": {
+          "type": "price",
+          "settings": {}
+        },
+        "aa9de256-56de-45ea-b1d3-057110155a6f": {
+          "type": "header_end",
+          "settings": {}
+        },
+        "528aa02b-8d69-46ef-9021-1da6b7ddc356": {
+          "type": "box_start",
+          "settings": {}
+        },
+        "c2f1d25f-6c41-4474-8bfd-56f134e25ce2": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type_default": "button",
+            "picker_type_swatch": "color, colour",
+            "size_guide_page": "{{ product.metafields.custom.size_guide.value }}"
+          }
+        },
+        "c21b4224-c014-4c50-b4ec-7164c3edc8b4": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "2938f57f-afd4-447d-a1a4-0dd7143cbf6a": {
+          "type": "estimated_delivery",
+          "settings": {}
+        },
+        "3356bcc9-af1f-4e33-bd33-984b8e074b08": {
+          "type": "box_end",
+          "settings": {}
+        },
+        "57430b82-8501-432e-baaf-fde1a417f629": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "c04aa32d-8172-422e-80fc-dcca6e8fbb1d": {
+          "type": "usps",
+          "settings": {
+            "title_1": "",
+            "image_1": "shopify://shop_images/mega-menu-placeholder.png",
+            "title_2": "",
+            "image_2": "shopify://shop_images/2023-03-01_15-04-01.png",
+            "title_3": "",
+            "image_3": "shopify://shop_images/base.png"
+          }
+        },
+        "e7a0f5e7-8294-47da-bbcc-b564b42e97d5": {
+          "type": "divider",
+          "settings": {}
+        },
+        "620fe3cc-2d38-49b5-8296-b6f91d5c9a8e": {
+          "type": "description",
+          "settings": {
+            "title": "Description",
+            "text": ""
+          }
+        },
+        "f89c9c97-0c35-4c0d-a088-f2f51ff8768b": {
+          "type": "divider",
+          "settings": {}
+        },
+        "e164e67f-9375-49b3-9310-570e3b39ea7d": {
+          "type": "text",
+          "settings": {
+            "title": "Features",
+            "text": "{{ product.metafields.custom.feature_list | metafield_tag }}"
+          }
+        },
+        "5f489bb0-b6ba-4cf4-bd37-3674cade8e6e": {
+          "type": "divider",
+          "settings": {}
+        },
+        "c2c88bc1-0130-4c1b-8846-dc13e8047a71": {
+          "type": "popup",
+          "settings": {
+            "icon": "truck",
+            "title": "",
+            "page": "delivery-returns-pdp"
+          }
+        },
+        "b6273460-010c-4eff-af0d-093e2e4c18e6": {
+          "type": "divider",
+          "settings": {}
+        },
+        "ddc4f400-8a82-43c6-8288-f5f263b667e3": {
+          "type": "share",
+          "settings": {
+            "title": "Share on"
+          }
+        },
+        "7ccb4389-e1d4-4e2d-a6da-c1d7b9556a55": {
+          "type": "divider",
+          "settings": {}
+        },
+        "597e1d69-89eb-4356-afc6-7a986468d2f7": {
+          "type": "complementary",
+          "settings": {
+            "title": "Complete the package",
+            "implementation": "meta",
+            "products": [
+              "accessories",
+              "bundle-tes-product",
+              "bundles-test",
+              "cardigans-jumpers",
+              "hoodies-sweatshirts",
+              "jackets-coats",
+              "nightwear-loungewear",
+              "strange-product",
+              "shirts",
+              "2018-bordeaux"
+            ],
+            "limit": 2,
+            "buy_button_style": "primary"
+          }
+        },
+        "ba28744d-695d-4a9f-8bd1-26b56cee360e": {
+          "type": "popup",
+          "settings": {
+            "icon": "arrow-right",
+            "title": "",
+            "page": "size-guide-0-2"
+          }
+        }
+      },
+      "block_order": [
+        "5a211d2b-ccd5-4f5e-a6e0-d146b0a39314",
+        "5039068a-fbca-442d-a85e-e7453367c345",
+        "a60d8832-57ba-4e09-8c94-9c0dea38ecbd",
+        "rating_EmPyfi",
+        "9b89d674-1142-443d-a266-280cc60aa0d9",
+        "aa9de256-56de-45ea-b1d3-057110155a6f",
+        "528aa02b-8d69-46ef-9021-1da6b7ddc356",
+        "c2f1d25f-6c41-4474-8bfd-56f134e25ce2",
+        "c21b4224-c014-4c50-b4ec-7164c3edc8b4",
+        "2938f57f-afd4-447d-a1a4-0dd7143cbf6a",
+        "3356bcc9-af1f-4e33-bd33-984b8e074b08",
+        "57430b82-8501-432e-baaf-fde1a417f629",
+        "c04aa32d-8172-422e-80fc-dcca6e8fbb1d",
+        "e7a0f5e7-8294-47da-bbcc-b564b42e97d5",
+        "620fe3cc-2d38-49b5-8296-b6f91d5c9a8e",
+        "f89c9c97-0c35-4c0d-a088-f2f51ff8768b",
+        "e164e67f-9375-49b3-9310-570e3b39ea7d",
+        "5f489bb0-b6ba-4cf4-bd37-3674cade8e6e",
+        "c2c88bc1-0130-4c1b-8846-dc13e8047a71",
+        "b6273460-010c-4eff-af0d-093e2e4c18e6",
+        "ddc4f400-8a82-43c6-8288-f5f263b667e3",
+        "7ccb4389-e1d4-4e2d-a6da-c1d7b9556a55",
+        "597e1d69-89eb-4356-afc6-7a986468d2f7",
+        "ba28744d-695d-4a9f-8bd1-26b56cee360e"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "secondary_background_color": "#f7f7f7",
+        "text_color": "dark",
+        "enable_sticky_info": true,
+        "constrain_to_viewport": false,
+        "media_fit": "contain",
+        "hide_variants": true,
+        "hide_variants_by_alt": false
+      }
+    },
+    "29121c0f-28ac-4eb9-84b5-e10672631cf9": {
+      "type": "details-table",
+      "blocks": {
+        "template--15095467442219__29121c0f-28ac-4eb9-84b5-e10672631cf9-16771666103de83d9a-0": {
+          "type": "section_header",
+          "settings": {
+            "aside_cta": true,
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "4xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Technical Details</p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "29381f1e-23aa-4c6c-ac27-e23f557821ee": {
+          "type": "item",
+          "settings": {
+            "text": "Lorem ipsum:",
+            "info": "Lorem ipsum dolor sit"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467442219__29121c0f-28ac-4eb9-84b5-e10672631cf9-16771666103de83d9a-0",
+        "29381f1e-23aa-4c6c-ac27-e23f557821ee"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 800,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "16771670277f81fc8e": {
+      "type": "apps",
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 800,
+        "background_color": "",
+        "color_spacing": false
+      }
+    },
+    "9de19bea-7000-42d1-9069-fcf89781638a": {
+      "type": "collapsible-content",
+      "blocks": {
+        "template--15095467442219__9de19bea-7000-42d1-9069-fcf89781638a-16771679931679f1ed-0": {
+          "type": "section_header",
+          "settings": {
+            "aside_cta": true,
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "center",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "4xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Frequently Asked Questions</p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "template--15095467442219__9de19bea-7000-42d1-9069-fcf89781638a-16771679931679f1ed-1": {
+          "type": "collapsible",
+          "settings": {
+            "title": "How do I...?",
+            "body": "<p>We're here to help.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467442219__9de19bea-7000-42d1-9069-fcf89781638a-16771679931679f1ed-0",
+        "template--15095467442219__9de19bea-7000-42d1-9069-fcf89781638a-16771679931679f1ed-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 880,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "124e1caf-8b68-4e05-9733-5de0035bf6de": {
+      "type": "products-slider",
+      "blocks": {
+        "template--15095467442219__124e1caf-8b68-4e05-9733-5de0035bf6de-167716946181c94bf3-0": {
+          "type": "section_header",
+          "settings": {
+            "aside_cta": true,
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "dark",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>Lorem ipsum dolor sit amet</p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "3386f194-61fc-44d8-952c-9dafa7e214ac": {
+          "type": "recommended",
+          "settings": {
+            "intent": "related",
+            "limit": 10
+          }
+        }
+      },
+      "block_order": [
+        "template--15095467442219__124e1caf-8b68-4e05-9733-5de0035bf6de-167716946181c94bf3-0",
+        "3386f194-61fc-44d8-952c-9dafa7e214ac"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark",
+        "full_width": false,
+        "slider_loop": true,
+        "slider_autoplay": 0,
+        "slider_arrows": false,
+        "slider_arrows_color": "#000000",
+        "slider_arrows_bg": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "b2975697-9713-4c0d-a216-dc9d8fc23570",
+    "main",
+    "29121c0f-28ac-4eb9-84b5-e10672631cf9",
+    "16771670277f81fc8e",
+    "9de19bea-7000-42d1-9069-fcf89781638a",
+    "124e1caf-8b68-4e05-9733-5de0035bf6de"
+  ]
+}

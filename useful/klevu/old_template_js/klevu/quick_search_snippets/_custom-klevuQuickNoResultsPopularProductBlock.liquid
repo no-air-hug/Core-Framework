@@ -1,0 +1,81 @@
+{%- capture content -%}
+  <%
+    var updatedProductName = dataLocal.name;
+    if(klevu.search.modules.kmcInputs.base.getSkuOnPageEnableValue()) {
+        if(klevu.dom.helpers.cleanUpSku(dataLocal.sku)) {
+            updatedProductName += klevu.dom.helpers.cleanUpSku(dataLocal.sku);
+        }
+    }
+  %>
+  <li class="klevuPopularProduct" data-id="<%=dataLocal.id%>">
+    <a target="_self" href="<%=dataLocal.url%>" data-id="<%=dataLocal.id%>"  class="klevuQuickPopularProductInnerBlock trackProductClick klevuProductClick kuTrackRecentView">
+      <div class="klevuPopularProductItemTop">
+        <div class="klevuQuickImgWrap">
+          <div class="klevuQuickDiscountBadge">
+            <strong>
+              <%=dataLocal.stickyLabelHead%>
+            </strong>
+          </div>
+          <img src="<%=dataLocal.image%>" origin="<%=dataLocal.image%>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" alt="<%=updatedProductName%>" />
+        </div>
+      </div>
+      <div class="klevuPopularProductItemBottom">
+        <div class="klevuQuickPopularProductDescBlock">
+          <div title="<%= updatedProductName %>" class="klevuQuickProductName kuClippedOne">
+            <%= updatedProductName %>
+          </div>
+          <div class="klevu-desc-l2 kuClippedOne">
+            <%=dataLocal.shortDesc%>
+          </div>
+          <% if(dataLocal.inStock && dataLocal.inStock != "yes") { %>
+            <%=helper.render('quickProductStock', scope, data, dataLocal) %>
+          <% } else { %>
+            <% if(klevu.search.modules.kmcInputs.base.getShowPrices()) { %>
+              <div class="klevuQuickProductPrice kuClippedOne">
+                <%
+                  var kuTotalVariants = klevu.dom.helpers.cleanUpPriceValue(dataLocal.totalVariants);
+                  var kuStartPrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.startPrice,dataLocal.currency);
+                  var kuSalePrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.salePrice,dataLocal.currency);
+                  var kuPrice = klevu.dom.helpers.cleanUpPriceValue(dataLocal.price,dataLocal.currency);
+                %>
+                <% if(!Number.isNaN(kuTotalVariants) && !Number.isNaN(kuStartPrice)) { %>
+                  <div class="klevuQuickSalePrice kuStartPrice">
+                    <span class="klevuQuickPriceGreyText">
+                      <%=helper.translate("Starting at")%>
+                    </span>
+                    <span>
+                      <%=helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.startPrice))%>
+                    </span>
+                  </div>
+                <% } else if(!Number.isNaN(kuSalePrice) && !Number.isNaN(kuPrice) && (kuPrice > kuSalePrice)){ %>
+                  <span class="klevuQuickOrigPrice">
+                    <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.price)) %>
+                  </span>
+                  <span class="klevuQuickSalePrice klevuQuickSpecialPrice">
+                    <%=helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.salePrice))%>
+                  </span>
+                <% } else if(!Number.isNaN(kuSalePrice)) { %>
+                  <span class="klevuQuickSalePrice">
+                    <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.salePrice)) %>
+                  </span>
+                <% } else if(!Number.isNaN(kuPrice)) { %>
+                  <span class="klevuQuickSalePrice">
+                    <%= helper.processCurrency(dataLocal.currency,parseFloat(dataLocal.price)) %>
+                  </span>
+                <% } %>
+              </div>
+              <%=helper.render('searchResultProductVATLabelQuick', scope, data, dataLocal) %>
+            <% } %>
+          <% } %>
+          <%=helper.render('klevuQuickProductRating',scope,data,dataLocal) %>
+        </div>
+      </div>
+      <div class="kuClearLeft"></div>
+    </a>
+  </li>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickNoResultsPopularProductBlock">
+  {{- content -}}
+</script>
+

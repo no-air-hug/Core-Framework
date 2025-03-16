@@ -1,0 +1,35 @@
+<nav
+  class="py-3"
+  role="navigation"
+  aria-label="breadcrumbs"
+  itemscope
+  itemtype="http://schema.org/BreadcrumbList"
+>
+  <ul class="text-xs font-futura">
+    <li
+      class="inline opacity-40"
+      itemprop="itemListElement"
+      itemscope
+      itemtype="http://schema.org/ListItem"
+    >
+      <meta itemprop="position" content="1">
+      <span itemprop="name">
+        <a itemprop="item" href="/" title="Home">
+          {{- 'general.breadcrumbs.home' | t -}}
+        </a>
+      </span>
+    </li>
+
+    <li class="inline" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span class="opacity-40" aria-hidden="true">
+        &nbsp;/
+      </span>
+
+      <meta itemprop="position" content="2">
+      <span itemprop="name">
+        <% const crumbs_translation = 'Search results for "##"' %>
+        <%= helper.translate(crumbs_translation.replace('##', data.settings.term)) %>
+      </span>
+    </li>
+  </ul>
+</nav>

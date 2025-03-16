@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "9be12938-d423-47d4-b17f-6172f0bf62f3": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "text_color": "dark"
+      }
+    },
+    "main-header": {
+      "type": "main-blog-header",
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark"
+      }
+    },
+    "main-posts": {
+      "type": "main-blog",
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "layout": "collage",
+        "show_image": true,
+        "show_date": true,
+        "show_author": true
+      }
+    }
+  },
+  "order": [
+    "9be12938-d423-47d4-b17f-6172f0bf62f3",
+    "main-header",
+    "main-posts"
+  ]
+}

@@ -1,0 +1,13 @@
+{%- capture content -%}
+  <%
+    var outOfStockCaption = klevu.search.modules.kmcInputs.base.getOutOfStockCaptionValue();
+    var productStockStatus =  helper.translate(outOfStockCaption);
+  %>
+  <div class="kuClippedOne kuQuickCaptionStockOut">
+    <%= productStockStatus %>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_quickSearchResultProductStock">
+  {{- content -}}
+</script>

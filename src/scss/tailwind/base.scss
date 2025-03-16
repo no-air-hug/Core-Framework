@@ -1,0 +1,6 @@
+@tailwind base;
+
+// TODO: We need to drop this some time soon and use default tailwind styles
+:where(*, ::before, ::after) {
+  border: 0 solid var(--c-border-light);
+}

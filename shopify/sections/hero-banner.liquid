@@ -1,0 +1,80 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Media Aspect Ratios
+  capture media_aspect_dsk
+    render 'section_aspect-ratios', target: section.settings
+  endcapture
+
+  capture media_aspect_mob
+    render 'section_aspect-ratios', target: section.settings, setting: 'aspect_ratio_mob'
+  endcapture
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'hero-banner'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+-%}
+
+{{ slider_styling }}
+
+<embla-slider
+  class="{{ slider_classes }}"
+  {{ slider_settings }}
+>
+  <div {{ slider_viewport }}>
+    <ul class="{{ slider_track_class }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          capture item_styling
+            # Background Color Application
+            if block.settings.background_color != blank
+              echo 'style="background: #;"' | replace: '#', block.settings.background_color
+            endif
+          endcapture
+        -%}
+
+        <li
+          class="{{ slider_item_class }} relative grid w-full flex-shrink-0 items-center"
+          {{ item_styling }}
+          {{ block.shopify_attributes }}
+        >
+          {%- liquid
+            if block.settings.background_color == blank
+              assign preload = forloop.first
+              if preload and section.index > 1
+                assign preload = false
+              endif
+              render 'section_media', target: block.settings, image_picture_class: 'o-picture--fill', image_preload: preload, aspect: media_aspect_dsk, aspect_mobile: media_aspect_mob
+            endif
+          -%}
+
+          {%- render 'object_content',
+            block: block.settings,
+            attributes: block.shopify_attributes,
+            class: 'absolute z-2 inset-0 px-row py-9'
+          -%}
+
+          {%- render 'shop-the-look',
+            products: block.settings.stl_products,
+            position: block.settings.stl_position,
+            title: block.settings.stl_title
+          -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</embla-slider>

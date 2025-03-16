@@ -1,0 +1,21 @@
+
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Klevu - Quick Search - Trigger (Mobile)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'klevu_quick-search-trigger-mobile' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays the site's quick search trigger, intended for usage on mobile.
+{%- endcomment -%}
+
+<button
+  type="button"
+  class="flex lg:hidden h-[44px] w-[44px] cursor-pointer items-center justify-center bg-transparent max-lg:flex"
+  aria-label="{{- 'klevu.quick_search.triggers.open.accessibility' | t -}}"
+  id="klevu-quick-search-trigger-mobile"
+>
+  {%- render 'theme_icons' with 'search', class: 'stroke-black w-6 h-6' -%}
+  <label class="sr-only">{{- 'klevu.quick_search.triggers.open.accessibility' | t -}}</label>
+</button>

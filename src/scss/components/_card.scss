@@ -1,0 +1,58 @@
+.card {
+  @apply relative flex flex-col gap-y-5 w-full h-full;
+
+  // This prevents the cards overlapping onto the next section.
+  .shopify-section--content-cards & {
+    @apply h-fit;
+  }
+
+  &--banner-grid {
+    @apply grid;
+
+    .card__content {
+      grid-area: 1 / 1;
+
+      @apply p-8 lg:p-10 w-full justify-center flex z-1;
+    }
+
+    .card__media {
+      @apply max-lg:mt-auto;
+    }
+  }
+
+  &--banner-grid-carousel {
+    @apply grid;
+
+    .card__content {
+      grid-area: 1 / 1;
+
+      @apply p-8 lg:p-10 w-full justify-center flex z-1;
+    }
+
+    .card__media {
+      grid-area: 1 / 1;
+
+      @apply max-lg:mt-auto;
+    }
+  }
+
+  &__media {
+    @apply flex self-stretch w-full;
+  }
+
+  &__content {
+    --content-gap: theme("spacing.2");
+
+    @apply flex-grow;
+
+    .rte:not(:last-child) {
+      margin-bottom: theme("spacing.5");
+    }
+
+    &--journal {
+      .rte:not(:last-child) {
+        margin-bottom: theme("spacing.2");
+      }
+    }
+  }
+}

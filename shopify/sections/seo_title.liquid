@@ -1,0 +1,34 @@
+<h1>
+  {{ section.settings.title }}
+</h1>
+
+{% schema %}
+{
+  "name": "SEO Title",
+  "tag": "section",
+  "class": "sr-only",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "custom.dialogs"
+    ]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Use this section to add SEO friendly H1 title to a page (visually hidden)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "H1 Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SEO Title"
+    }
+  ]
+}
+{% endschema %}

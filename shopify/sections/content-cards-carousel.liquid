@@ -1,0 +1,72 @@
+{%- liquid
+  render 'theme_assets' with 'section-content-cards.min.css'
+  render 'section_spacing-and-color', section: section
+
+  capture section_header
+    render 'section_header', section: section
+  endcapture
+
+  echo section_header
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'content-cards-carousel'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+
+  # Media Aspect Ratios
+  capture media_aspect_dsk
+    render 'section_aspect-ratios', target: section.settings
+  endcapture
+
+  capture media_aspect_mob
+    render 'section_aspect-ratios', target: section.settings, setting: 'aspect_ratio_mob'
+  endcapture
+-%}
+
+{{ slider_styling }}
+
+<embla-slider
+  class="{{ slider_classes }}"
+  {{ slider_settings }}
+>
+  <div {{ slider_viewport }}>
+    <ul class="{{ slider_track_class }} content-cards content-cards--carousel">
+      {%- assign blocks = section.blocks | where: 'type', 'card' -%}
+      {%- for block in blocks -%}
+        <li class="{{ slider_item_class }}" {{ block.shopify_attributes }}>
+          <div class="card">
+            {%- liquid
+              render 'section_media', target: block.settings, aspect: media_aspect_dsk, aspect_mobile: media_aspect_mob
+
+              assign heading_tag = 'h2'
+
+              if section_header != blank
+                assign heading_tag = 'h3'
+              endif
+            -%}
+
+            {%- render 'object_content',
+              block: block.settings,
+              attributes: block.shopify_attributes,
+              class: 'card__content',
+              heading_tag: heading_tag
+            -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</embla-slider>

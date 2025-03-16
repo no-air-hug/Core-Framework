@@ -1,0 +1,14 @@
+{% schema %}
+  {
+    "name": "klevu-search-landing"
+  }
+  {% endschema %}
+
+  {%- liquid
+    render 'section_spacing-and-color', section: section
+
+    # Grid Spacing, Structure
+    render 'section_grid', section: section
+  -%}
+
+  <div class="klevuLanding"></div>

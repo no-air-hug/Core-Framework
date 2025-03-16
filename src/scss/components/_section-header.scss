@@ -1,0 +1,69 @@
+.section-header {
+  /* Applied by Arrows.ts when a slider adds arrows */
+  &--has-arrows {
+    grid-template: "content arrows" / 1fr auto;
+
+    @apply relative grid;
+
+    .content {
+      grid-area: content;
+
+      &[data-position-desktop="center"] {
+        @screen lg {
+          + .slider-arrows {
+            @apply absolute;
+          }
+        }
+      }
+    }
+
+    .slider-arrows {
+      grid-area: arrows;
+
+      @apply w-fit justify-self-end;
+    }
+  }
+
+  /* When the button should be positioned aside to the content - but this is overridden by the presence of arrows */
+  &--aside-cta:not(.section-header--has-arrows) {
+    .content {
+      /* ...and CTAS */
+      &:has(> .o-ctas) {
+        @screen md {
+          grid-template: "content buttons" / auto 1fr;
+
+          @apply grid items-center justify-normal gap-x-4;
+
+          .content__overline,
+          .content__heading,
+          .content__text {
+            grid-area: content;
+
+            @apply row-auto;
+          }
+
+          .o-ctas {
+            grid-area: buttons;
+            grid-row: 1;
+
+            /* Important: pt-0 & mt-0 remove the CTA Spacing */
+            @apply mt-0 justify-end pt-0;
+          }
+
+          &:has(:nth-child(2)) {
+            .o-ctas {
+              grid-row: 1;
+            }
+          }
+
+          &:has(:nth-child(3)),
+          &:has(:nth-child(4)) {
+            .o-ctas {
+              grid-row: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+}

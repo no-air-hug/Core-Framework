@@ -1,0 +1,144 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Image
+  -------------------------------------------------------------------------------
+  Accepts
+  - object_image: {Object} Image Liquid object (required)
+  - mobile_image: {Object} Image Liquid object (optional)
+  - width: {Number} the image width (optional)
+  - height: {Number} the image height (optional)
+  - class: {String} additional class names (optional)
+  - img_class: {String} class names for img (optional)
+  - widths: {String/Array} generates the srcset (optional)
+  - sizes: {String} applies media queries (optional)
+  - crop: {Strings} applies a crop to the image (optional)
+  - placeholder_selection {String} choose an alternate placeholder
+    selection to the default selection (optional)
+  - visible_placeholder: {String} provides option to show/hide a svg
+    placeholder (optional)
+  - aspect: {String} set a standard aspect ratio for the image.
+  - aspect_mobile: {String} set a mobile-only aspect ratio for the image.
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_image' with object_image,
+    mobile_image: image_mobile,
+    class: 'class',
+    img_class: image_class,
+    overlay: overlay,
+    width: width,
+    height: height,
+    widths: widths,
+    sizes: sizes,
+    crop: crop,
+    aspect: aspect,
+    aspect_mobile: aspect_mobile,
+    preload: preload
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Generates a responsive image.
+{%- endcomment -%}
+
+{%- liquid
+  # Image
+  assign image = image | default: object_image
+  assign mobile_image = mobile_image
+
+  assign width = width | default: image.width
+  assign height = height
+
+  assign class = class | prepend: 'o-picture '
+  assign img_class = img_class | prepend: 'o-img '
+
+  assign widths = widths | default: '375,550,750,900,1100,1250,1500,1780,1950,2100'
+  assign sizes = sizes | default: null
+  assign crop = crop | default: null
+  assign aspect = aspect
+  assign aspect_mobile = aspect_mobile | default: aspect
+
+  # Placeholder
+  assign placeholder_selection = placeholder_selection | default: 'image'
+  assign visible_placeholder = visible_placeholder | default: true, allow_false: true
+
+  # Loading
+  assign preload = preload | default: false
+  assign loading = 'eager'
+  assign fetchpriority = 'high'
+  assign decoding = 'auto'
+
+  if preload == false and template.suffix != 'ajax'
+    assign sizes = 'auto'
+    assign loading = 'lazy'
+    assign fetchpriority = 'auto'
+    assign decoding = 'async'
+    assign img_class = img_class | append: ' js-lazyload'
+  endif
+
+  # Overlay Class
+  assign overlay = overlay
+  if overlay != blank
+    assign class = class | prepend: 'o-picture--overlay '
+  endif
+
+  # Style Attributes
+  capture picture_styling
+    if aspect != blank or aspect_mobile != blank
+      echo '--ar: ' | append: aspect | append: ';'
+      echo '--ar-mob: ' | append: aspect_mobile | append: ';'
+    endif
+
+    if overlay != blank
+      echo '--overlay: ' | append: overlay | append: ';'
+    endif
+
+    # Placeholder width
+    if image == blank and mobile_image == blank and width != blank
+      echo 'width: ' | append: width | append: 'px;'
+    endif
+  endcapture
+-%}
+
+{%- if image or mobile_image -%}
+  <picture
+    class="{{ class }}"
+    style="{{ picture_styling }}"
+  >
+    {%- liquid
+      if mobile_image
+        assign mobile_source = mobile_image | image_url: width: width, height: height, crop: crop | image_tag: widths: widths, sizes: sizes, preload: preload, loading: loading, fetchpriority: fetchpriority, decoding: decoding | replace: '<img', '<source media="(max-width: 680px)"'
+        if mobile_source contains 'srcset='
+          assign mobile_source = mobile_source | replace: 'src=', 'data-ignore='
+        else
+          # TODO: data-src for non preloaded sources
+          if loading == 'lazy'
+            assign mobile_source = mobile_source | replace: 'src=', 'data-srcset='
+          else
+            assign mobile_source = mobile_source | replace: 'src=', 'srcset='
+          endif
+        endif
+        echo mobile_source
+
+        # Do not preload desktop image
+        assign preload = false
+      endif
+
+      assign image_tag = image | default: mobile_image | image_url: width: width, height: height, crop: crop | image_tag: widths: widths, sizes: sizes, class: img_class, preload: preload, loading: loading, fetchpriority: fetchpriority, decoding: decoding
+      if loading == 'lazy'
+        assign placeholder = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 [w] [h]"/>' | replace: '[w]', width | replace: '[h]', height | base64_encode | prepend: 'src="data:image/svg+xml;base64,' | append: '" data-src='
+        assign image_tag = image_tag | replace: 'src=', placeholder | replace: 'srcset=', 'data-srcset='
+      endif
+      echo image_tag
+    -%}
+  </picture>
+
+{%- elsif request.design_mode or request.visual_preview_mode or visible_placeholder == true -%}
+  <div
+    class="{{ class }}"
+    style="{{ picture_styling }}"
+  >
+    {%- liquid
+      assign placeholder_class = placeholder_class | append: img_class | append: ' bg-grey-90 block w-full h-full"'
+      echo placeholder_selection | placeholder_svg_tag: placeholder_class
+    -%}
+  </div>
+{%- endif -%}

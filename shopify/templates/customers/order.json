@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "menu": {
+      "type": "main-account-menu",
+      "settings": {
+        "padding": "contained",
+        "background_color": "#f7f7f7",
+        "menu": "account-menu"
+      }
+    },
+    "spacer": {
+      "type": "spacer",
+      "settings": {
+        "background_color": "rgba(0,0,0,0)"
+      }
+    },
+    "main": {
+      "type": "main-account-order",
+      "blocks": {
+        "8cac8618-da56-4b4b-b321-7ed2d45aa5d3": {
+          "type": "section_header",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "position": "start",
+            "position_desktop": "",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "",
+            "heading": "<p>[icon=file]Order [[order_number]]<\/p>",
+            "text": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false
+          }
+        },
+        "6c110299-506d-4b71-aa7d-5d8522a604df": {
+          "type": "order",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "8cac8618-da56-4b4b-b321-7ed2d45aa5d3",
+        "6c110299-506d-4b71-aa7d-5d8522a604df"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "menu",
+    "spacer",
+    "main"
+  ]
+}

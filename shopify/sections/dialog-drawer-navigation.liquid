@@ -1,0 +1,174 @@
+<drawer-navigation
+  class="dialog dialog--drawer dialog--drawer-left"
+  id="DrawerNavigation"
+  hidden
+  {% if section.settings.testing %}data-testing{% endif %}
+>
+  <div
+    class="dialog-overlay"
+    data-a11y-dialog-hide
+  ></div>
+
+  <div role="document">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'header-open' -%}
+          <header data-dialog-element="header">
+
+        {%- when 'header-controls' -%}
+          <div class="nav-mobile__header">
+            <button class="nav-mobile__header-prev js-nav-prev" aria-hidden="true">
+              {%- render 'theme_icons' with 'chevron-left' -%}
+              <span class="sr-only">Go back</span>
+            </button>
+
+            <div class="nav-mobile__header-current">
+              <span class="js-nav-current" aria-hidden="true"></span>
+              {%- liquid
+                if section.settings.brand_image != blank or section.settings.brand_logo != blank
+                  render 'theme_brand-logos', target: section, class: 'nav-mobile__header-logo', preload: true, height: 19
+                endif
+              -%}
+            </div>
+
+            <button
+              data-dialog-element="close"
+              type="button"
+              tabindex="-1"
+              data-a11y-dialog-hide
+            >
+              {%- render 'theme_icons' with 'close' -%}
+              <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'navigation' -}}</span>
+            </button>
+          </div>
+
+        {%- when 'header-close' -%}
+          </header>
+
+        {%- when 'main-open' -%}
+          <div data-dialog-element="main">
+
+        {%- when 'navigation' -%}
+          <nav class="nav-mobile max-lg:text-primary js-mobile-navigation">
+            <ul class="nav-mobile__list js-nav-list">
+              {%- for link in linklists[section.settings.main_menu].links -%}
+                <li class="nav-mobile__item nav-mobile__item--top lg:text-md{%- if link.links.size > 0 %} js-nav-submenu{% endif -%}">
+                  {%- if link.links.size > 0 -%}
+                    <button class="nav-mobile__link nav-mobile__link--top js-nav-submenu-open" type="button">
+                      <span>{{ link.title }}</span>
+                      {%- render 'theme_icons' with 'chevron-right' -%}
+                    </button>
+
+                    <div class="o-row nav-mobile__submenu js-submenu">
+                      {%- for child_link in link.links -%}
+                        <ul class="nav-mobile__submenu-list max-lg:text-primary text-secondary">
+                          <li class="font-bold text-primary">{{ child_link.title }}</li>
+                          {%- for grand_child_link in child_link.links -%}
+                            <li class="nav-mobile__item">
+                              <a class="nav-mobile__link" href="{{ grand_child_link.url }}">
+                                <span>{{- grand_child_link.title -}}</span>
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endfor -%}
+
+                      {%- assign menu_menu_blocks = section.blocks | where: 'type', 'mega_menu' -%}
+                      {%- for block in menu_menu_blocks -%}
+                        {%- if block.settings.parent == link.title -%}
+                          {%- for n in (1..3) -%}
+                            {%- liquid
+                              assign imageKey = 'image_' | append: n
+                              assign titleKey = 'title_' | append: n
+                              assign linkKey = 'link_' | append: n
+                              # Make sure there is an image added in CMS
+                              unless block.settings[imageKey]
+                                continue
+                              endunless
+                            -%}
+                            <div class="nav-mobile__submenu-block" {{ block.shopify_attributes }}>
+                              {%- render 'object_image' with block.settings[imageKey],
+                                width: 402,
+                                height: 420,
+                                aspect: '1 / 1'
+                              -%}
+
+                              {%- if block.settings[titleKey] != blank -%}
+                                <a class="font-bold text-md text-primary" href="{{ block.settings[linkKey] }}">
+                                  {%- liquid
+                                    echo block.settings[titleKey]
+                                    render 'theme_icons' with 'chevron-right', width: 14, height: 14
+                                  -%}
+                                </a>
+                              {%- endif -%}
+                            </div>
+                          {%- endfor -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    <a class="nav-mobile__link nav-mobile__link--top" href="{{ link.url }}">
+                      <span>{{- link.title -}}</span>
+                    </a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+
+              {%- if settings.enable_markets -%}
+                <li class="nav-mobile__item nav-mobile__item--top">
+                  <div class="nav-mobile__link nav-mobile__link--top">
+                    <button
+                      is="dialog-trigger"
+                      dialog-selector="#ModalMarkets"
+                      class="items-center w-full o-button gap-x-2 js-nav-markets-trigger"
+                    >
+                    </button>
+                  </div>
+                </li>
+              {%- endif -%}
+            </ul>
+          </nav>
+
+        {%- when 'main-close' -%}
+          </div>
+
+        {%- when 'footer-open' -%}
+          <footer data-dialog-element="footer">
+
+        {%- when 'user-buttons' -%}
+          <div class="flex gap-[20%] justify-center">
+            <a
+              class="flex items-center gap-2 font-bold"
+              href="{{ routes.account_url }}"
+            >
+              {%- liquid
+                render 'theme_icons' with block.settings.left_button_icon
+
+                if customer
+                  echo block.settings.account_text
+                else
+                  echo block.settings.login_text
+                endif
+              -%}
+            </a>
+
+            <a
+              class="flex items-center gap-2 font-bold"
+              href="{{ routes.account_register_url }}"
+            >
+              {%- liquid
+              render 'theme_icons' with block.settings.right_button_icon
+                echo block.settings.register_text
+              -%}
+            </a>
+          </div>
+
+        {%- when 'footer-close' -%}
+          </footer>
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</drawer-navigation>
+

@@ -1,0 +1,36 @@
+/* stylelint-disable custom-property-pattern */
+
+.o-picture {
+  &--overlay {
+    @apply relative;
+
+    &::before {
+      content: "";
+      background: var(--overlay);
+
+      @apply absolute w-full h-full inset-0;
+    }
+  }
+
+  &--fill {
+    @apply w-full h-full;
+  }
+}
+
+.o-img {
+  --_ratio: var(--ar-mob, var(--ar));
+
+  aspect-ratio: var(--_ratio);
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+
+  @screen sm {
+    --_ratio: var(--ar);
+  }
+
+  &--contain {
+    object-fit: contain;
+  }
+}

@@ -1,0 +1,80 @@
+<div class="header__main text-grey-40">
+  {%- if settings.enable_markets -%}
+    <button
+      is="dialog-trigger"
+      dialog-selector="#ModalMarkets"
+      class="items-center header__language o-button gap-x-2"
+    ></button>
+  {%- endif -%}
+
+  <button
+    is="dialog-trigger"
+    dialog-selector="#DrawerNavigation"
+    class="items-center header__burger o-button gap-x-2 js-nav-open"
+  >
+    {%- render 'theme_icons' with 'hamburger' -%}
+    <span class="sr-only">{{- 'global.dialogs.accessibility.actions.open' | t: dialog: 'navigation' -}}</span>
+  </button>
+
+  <a class="header__logo" href="{{ routes.root_url }}">
+    {%- liquid
+      if section.settings.brand_image != blank or section.settings.brand_logo != blank
+        render 'theme_brand-logos', target: section, preload: true, height: 19
+      endif
+    -%}
+    <span class="sr-only">{{ shop.name }}</span>
+  </a>
+
+  <div class="header__functions">
+    {%- liquid
+      case settings.sitewide_search_method
+        when "standard"
+          render 'header_predictive-search'
+        when "klevu"
+          render 'klevu_quick-search-trigger-mobile'
+          render 'klevu_quick-search-trigger-desktop'
+      endcase
+    -%}
+
+    <a
+      class="hidden lg:flex lg:items-center lg:justify-center"
+      href="{{ routes.account_url }}"
+      {%- if customer == null %}
+        onclick="return DrawerAccount.show()"
+      {%- endif -%}
+    >
+      {%- render 'theme_icons' with 'user', width: 20, height: 20 -%}
+      <span class="sr-only">{{- 'global.dialogs.accessibility.actions.open' | t: dialog: 'account' -}}</span>
+    </a>
+
+    <a
+      href="{{ routes.cart_url }}"
+      onclick="return DrawerCart.show();"
+      class="text-highlight"
+    >
+      {%- render 'theme_icons' with 'shopping-bag' -%}
+      <span
+        class="flex items-center justify-center shrink-0 -ml-2 -translate-y-1 -translate-x-[2px] w-4 h-4 text-2xs bg-highlight text-white text-center font-bold rounded-full"
+      >
+        {%- render 'cart_item-count' -%}
+      </span>
+      <span class="sr-only">{{- 'global.dialogs.accessibility.actions.open' | t: dialog: 'cart' -}}</span>
+    </a>
+
+    {%- if settings.sitewide_search_method == "standard" -%}
+      <div
+        class="fixed transition-opacity duration-700 opacity-0 pointer-events-none inset-header-group z-1 bg-overlay h-screen-d-minus-header js-search-overlay"
+      ></div>
+    {%- endif -%}
+  </div>
+
+  <div class="header__nav">
+    {%- render 'header_nav-desktop' -%}
+  </div>
+</div>
+
+{%- liquid
+  if settings.sitewide_search_method == "klevu"
+    render 'klevu_quick-search'
+  endif
+-%}

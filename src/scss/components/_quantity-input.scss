@@ -1,0 +1,60 @@
+.quantity-input {
+  grid-template-columns: 20% 60% 20%;
+  height: 52px;
+  box-shadow: inset 0 0 0 1px theme("colors.grey.80");
+
+  @apply grid rounded-2 p-rem text-center text-md font-bold;
+
+  @screen lg {
+    max-width: 214px;
+  }
+
+  > button {
+    @apply items-center justify-center;
+
+    svg {
+      @apply w-4;
+    }
+  }
+
+  > input {
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button {
+      @apply hidden;
+    }
+  }
+
+  &--small {
+    max-width: 91px;
+    height: 40px;
+
+    @apply w-full;
+
+    > button {
+      isolation: isolate;
+    }
+  }
+
+  &--tiny {
+    width: 100%;
+    max-width: 91px;
+    height: 31px;
+
+    @apply w-full px-2 py-1;
+
+    > button {
+      isolation: isolate;
+    }
+  }
+
+  &--list{
+    width: 100%;
+    height: 46px;
+    border-radius: 0;
+
+    @screen lg{
+      max-width: 110px;
+    }
+  }
+}

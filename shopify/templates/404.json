@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 500,
+        "background_color": "",
+        "text_color": "dark",
+        "content_width": 0,
+        "offset_heading": 0,
+        "content_gap": 24,
+        "content_gap_desktop": 24,
+        "cta_spacing": 32,
+        "cta_spacing_desktop": 32,
+        "cta_sizes": "full",
+        "cta_sizes_desktop": "medium",
+        "position": "center",
+        "position_desktop": "",
+        "vertical_position": "center",
+        "heading_size": "6xl",
+        "heading_size_desktop": "6xl",
+        "text_size": "md",
+        "text_size_desktop": "lg",
+        "overline": "",
+        "heading": "<p>Whoops, there's something not right here...<\/p>",
+        "text": "<p>Sorry, the page you are looking for cannot be found.<\/p>",
+        "cta_1_text": "Go to homepage",
+        "cta_1_icon": "home",
+        "cta_1_icon-position": "right",
+        "cta_1_link": "\/",
+        "cta_1_link_style": "primary",
+        "cta_1_target": false,
+        "cta_2_text": "Contact us",
+        "cta_2_icon": "phone",
+        "cta_2_icon-position": "right",
+        "cta_2_link": "shopify:\/\/pages\/contact",
+        "cta_2_link_style": "secondary",
+        "cta_2_target": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

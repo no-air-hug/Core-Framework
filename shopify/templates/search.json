@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "klevu_search_landing": {
+      "type": "klevu-search-landing",
+      "settings": {}
+    },
+    "search_input": {
+      "type": "main-search",
+      "settings": {
+        "spacing": "sm",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "secondary_background_color": "#f7f7f7",
+        "text_color": "dark"
+      }
+    },
+    "search_products": {
+      "type": "main-search-products",
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "text_color": "dark",
+        "facets_layout": "vertical",
+        "filtering": true,
+        "sorting": true,
+        "sort_relevance": true,
+        "sort_price": true,
+        "results_none": "Sorry, there are no products in this collection",
+        "results_one": "//count// result",
+        "results_other": "//count// results",
+        "aspect_ratio": "square",
+        "custom_aspect_ratio": "",
+        "aspect_ratio_mob": "square",
+        "custom_aspect_ratio_mob": "",
+        "mob_gap_x": 8,
+        "mob_gap_y": 8,
+        "tab_gap_x": 8,
+        "tab_gap_y": 8,
+        "dsk_gap_x": 8,
+        "dsk_gap_y": 8,
+        "xl_dsk_gap_x": 8,
+        "xl_dsk_gap_y": 8,
+        "mob_per_row": "2",
+        "tab_per_row": "3",
+        "dsk_per_row": "3",
+        "xl_dsk_per_row": "4",
+        "pagination_amount": 16,
+        "pagination_style": "text"
+      }
+    }
+  },
+  "order": ["klevu_search_landing", "search_input", "search_products"]
+}

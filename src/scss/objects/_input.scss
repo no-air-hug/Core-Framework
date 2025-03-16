@@ -1,0 +1,128 @@
+.o-input {
+  --input-height: 55px;
+
+  @apply relative inline-grid w-full grid-cols-1 items-center gap-2 overflow-hidden rounded-2 text-start text-md text-section-primary;
+
+  .header & {
+    --input-height: 40px;
+  }
+
+  // Applies a chevron to select tags inside o-input.
+  &:has(> select) {
+    &::after {
+      content: "";
+      bottom: calc(var(--input-height) / 2);
+      background-image: url("data:image/svg+xml,%3Csvg role='presentation' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 48 48' width='16' height='16' %3E%3Cpath d='M12 20L24 32L36 20' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' stroke='currentColor'/%3E%3C/svg%3E");
+      background-size: 16px;
+
+      @apply pointer-events-none absolute right-2 block h-7 w-7 translate-y-1/2 rounded-2 bg-white bg-center bg-no-repeat pr-3;
+    }
+
+    select {
+      @apply cursor-pointer select-none;
+    }
+  }
+
+  &__color {
+    @apply h-4 w-4 rounded-1 border border-solid border-border-light;
+
+    .modal & {
+      @apply h-3 w-3;
+    }
+  }
+
+  &__label-text {
+    @apply text-md;
+  }
+
+  &__checkbox {
+    @apply h-6 w-6 cursor-pointer rounded-1 border border-solid border-border-light transition-colors;
+
+    @include hover {
+      @apply border-highlight;
+    }
+
+    &:checked {
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='10' viewBox='0 0 13 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.33363 6.98823L1.58947 4.24406L0.411133 5.42239L4.33363 9.34489L12.4228 1.25573L11.2445 0.0773926L4.33363 6.98823Z' fill='%23222222'/%3E%3C/svg%3E%0A");
+      background-size: 10px 10px;
+
+      @apply border-highlight bg-center bg-no-repeat;
+    }
+  }
+
+  &__field {
+    height: var(--input-height);
+
+    @apply flex w-full items-center rounded-2 border border-solid border-border-light bg-white px-4 py-1 leading-base text-primary;
+
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      @apply hidden;
+    }
+
+    &:where(select):invalid,
+    &::placeholder {
+      @apply text-grey-60;
+    }
+
+    &--narrow {
+      @apply py-2;
+    }
+
+    &--newsletter {
+      @apply h-10 text-primary;
+    }
+
+    .o-input--error & {
+      @apply inline-flex gap-1 border-validation-error;
+    }
+  }
+
+  &__arrow {
+    @apply absolute bottom-3 right-2;
+  }
+
+  &__error {
+    @apply flex items-center gap-x-2 text-validation-error;
+  }
+
+  &--wrap {
+    @apply flex rounded-0;
+  }
+
+  &--disabled {
+    @apply pointer-events-none opacity-50 saturate-50;
+  }
+
+  &--swatch {
+    @apply h-9 w-full gap-x-3 rounded-2 border border-solid border-border-light pl-2 transition-colors;
+
+    .o-input__checkbox {
+      @apply mr-2 border-0;
+
+      &:checked {
+        background-size: 12px 12px;
+      }
+    }
+
+    &.is-active {
+      @apply border-highlight;
+    }
+  }
+}
+
+// Price Range Styles
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  @apply appearance-none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply pointer-events-auto h-4 w-4 cursor-pointer appearance-none rounded-full bg-highlight shadow-1;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply pointer-events-auto h-4 w-4 cursor-pointer appearance-none rounded-full border-none bg-highlight shadow-1;
+}

@@ -1,0 +1,91 @@
+{%- render 'section_spacing-and-color', section: section -%}
+
+{%- liquid
+  # Position
+  assign position = position | default: section.settings.position | default: 'start'
+  assign position_desktop = position_desktop | default: section.settings.position_desktop | default: position
+-%}
+
+<div
+  class="content gap-y-6"
+  data-position="{{ position }}"
+  data-position-desktop="{{ position_desktop }}"
+>
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'overline' -%}
+        <p class="font-semibold tracking-wide uppercase content__overline text-md" {{ block.shopify_attributes }}>
+          {{-
+            block.settings.text
+            | replace: '[highlight]', '<span class="text-highlight">'
+            | replace: '[/highlight]', '</span>'
+          -}}
+        </p>
+
+      {%- when 'heading' -%}
+        {%- liquid
+          assign heading_class = ' text-' | append: block.settings.heading_size
+
+          if block.settings.heading_size_desktop != blank
+            assign heading_class = ' lg:text-' | append: block.settings.heading_size_desktop | prepend: heading_class
+          endif
+
+          assign cms_heading = 'h2'
+
+          if block.settings.title contains '<h'
+            assign cms_heading = 'div'
+          endif
+        -%}
+
+        <{{ cms_heading }}
+          class="content__heading leading-1 tracking-wide font-medium flex items-center gap-x-2 {{ heading_class }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- capture prepped_heading -%}
+            {{-
+              block.settings.title
+              | replace: 'h1>', 'span>'
+              | replace: 'h2>', 'span>'
+              | replace: 'h3>', 'span>'
+              | replace: 'h4>', 'span>'
+              | replace: 'h5>', 'span>'
+              | replace: 'h6>', 'span>'
+              | replace: 'p>', 'span>'
+              | replace: '[highlight]', '<span class="text-highlight">'
+              | replace: '[/highlight]', '</span>'
+            -}}
+          {%- endcapture -%}
+
+          {%- liquid
+            assign resolved_heading = prepped_heading | split: ']'
+            if resolved_heading[0] contains 'icon='
+              assign icon = resolved_heading[0] | replace: '[icon=', '' | strip_html
+              render 'theme_icons' with icon, class: 'stroke-current', width: '1.15em', height: '1.15em'
+              echo resolved_heading[1]
+            else
+              echo resolved_heading[0]
+            endif
+          -%}
+        </{{ cms_heading }}>
+
+      {%- when 'text' -%}
+        {%- liquid
+          assign text_class = ' text-' | append: block.settings.text_size | prepend: text_class
+          if block.settings.text_size_desktop != blank
+            assign text_class = ' lg:text-' | append: block.settings.text_size_desktop | prepend: text_class
+          endif
+        -%}
+
+        <div class="rte content__text {{ text_class }}" {{ block.shopify_attributes }}>
+          {{-
+            block.settings.text
+            | replace: '[highlight]', '<span class="text-highlight">'
+            | replace: '[/highlight]', '</span>'
+          -}}
+        </div>
+
+      {%- when 'ctas' -%}
+        {%- render 'object_ctas', settings: block.settings, last_cta_index: 2 -%}
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

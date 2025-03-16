@@ -1,0 +1,19 @@
+{%- capture content -%}
+  <% var queryParam = klevu.getGlobalSetting("url.queryParam"); %>
+  <div class="kuSearchResultsSearchBarContainer kuHideExtraSearch">
+    <form action="/" method="get">
+      <input
+        type="text"
+        name="<%= queryParam %>"
+        id="search"
+        class="kuSearchInput header-bar__search-input"
+        placeholder="<%=helper.translate("Search text")%>"
+      />
+    </form>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplateSearchBar">
+  {{- content -}}
+</script>
+

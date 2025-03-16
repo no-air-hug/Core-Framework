@@ -1,0 +1,20 @@
+{%- capture content -%}
+  <div class="kuQuickSearchNoRecordFound">
+    <div class="kuQuickNoResults">
+        <div class="kuQuickNoResultsInner">
+            <div class="kuQuickNoResultsMessage">
+                <%= helper.translate(data.noResultsFoundMsg) %>
+            </div>
+        </div>
+    </div>
+    <div class="kuDividerLine"></div>
+    <%=helper.render('quickNoResultsPopularProducts', scope, data) %>
+    <%=helper.render('quickNoResultsFoundBanners', scope, data) %>
+    <%=helper.render('quickNoResultsPopularSearches', scope, data) %>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuTemplateNoResultFoundQuick">
+  {{- content -}}
+</script>
+

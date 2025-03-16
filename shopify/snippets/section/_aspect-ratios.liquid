@@ -1,0 +1,46 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Section - Aspect Ratios
+  -------------------------------------------------------------------------------
+  Accepts
+  - target: {Object} the section or block object that you're inheriting
+    the aspect-ratio settings from (required)
+  - setting: {String} the setting name, by default this is set to
+    the desktop aspect_ratio setting, but you could point it to
+    the mobile one instead by passing 'aspect_ratio' (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- liquid
+    capture media_aspect
+      render 'section_aspect-ratios', target: section.settings, setting: 'aspect_ratio_mob'
+    endcapture
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Keeps consistent aspect ratio settings across the site, use with the
+  ...aspectRatios() part.
+{%- endcomment -%}
+
+{%- liquid
+  assign target = target | default: section.settings
+  assign setting = setting | default: 'aspect_ratio'
+
+  assign custom_setting = setting | prepend: 'custom_'
+
+  case target[setting]
+    when 'square'
+      echo '450 / 444'
+    when 'portrait'
+      echo '692 / 932'
+    when 'landscape-small'
+      echo '1680 / 672'
+    when 'landscape-large'
+      echo '16 / 9'
+    when 'mobile-small'
+      echo '414 / 552'
+    when 'mobile-large'
+      echo '2 / 3'
+    when 'custom'
+      echo target[custom_setting]
+  endcase
+-%}

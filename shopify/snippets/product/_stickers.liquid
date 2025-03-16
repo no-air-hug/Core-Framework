@@ -1,0 +1,83 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Stickers
+  -------------------------------------------------------------------------------
+  Accepts
+  - product: {Object} (required)
+  - block: {Object} passes block.shopify_attributes down
+    onto the DOM elements (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'product_stickers',
+    product: product,
+    block: block
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders product stickers that are relevant to the product's status (new, etc)
+{%- endcomment -%}
+
+{%- liquid
+  assign prefix = 'badge_'
+
+  assign compare_at_price = product.compare_at_price
+  assign price = product.price
+
+  assign show_stickers = false
+  if compare_at_price > price
+    assign show_stickers = true
+  endif
+
+  if product.available == false
+    assign show_stickers = true
+  endif
+
+  assign badges = product.tags | where: prefix
+  if badges.size > 0
+    assign show_stickers = true
+  endif
+-%}
+
+{%- if show_stickers -%}
+  {%- capture sticker_html -%}
+    <span class="py-[1px] px-[5px] rounded-1" data-sticker="[handle]">
+      [label]
+    </span>
+  {%- endcapture -%}
+
+  <div
+    class="flex flex-wrap gap-2 text-sm font-bold"
+    {%- liquid
+      if block
+        echo block.shopify_attributes
+      endif
+    -%}
+  >
+    {%- liquid
+      # On sale
+      if compare_at_price > price
+        assign on_sale_label = 'global.products.stickers.on_sale' | t
+        echo sticker_html | replace: '[handle]', 'sale' | replace: '[label]', on_sale_label
+      endif
+
+      # Sold out
+      unless product.available
+        assign sold_out_label = 'global.products.stickers.sold_out' | t
+        echo sticker_html | replace: '[handle]', 'sold_out' | replace: '[label]', sold_out_label
+      endunless
+
+      # Tag stickers
+      for badge in badges
+        assign badge_text = badge | remove: prefix
+        assign badge_handle = badge_text | handleize | replace: '-', '_'
+        capture label
+          echo 'global.products.stickers.' | append: badge_handle | t
+        endcapture
+        if label contains 'Translation missing'
+          assign label = badge_text
+        endif
+        echo sticker_html | replace: '[handle]', badge_handle | replace: '[label]', label
+      endfor
+    -%}
+  </div>
+{%- endif -%}

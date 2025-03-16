@@ -1,0 +1,123 @@
+{%- if request.page_type contains 'collection' or request.page_type contains 'search' -%}
+  {%- liquid
+    if collection != blank
+      assign results = collection
+      assign results_url = results.url | append: '?sort_by=' | append: results.sort_by
+    elsif search != blank
+      assign results = search
+      assign results_url = routes.search_url | append: '?q=' | append: results.terms | append: '&sort_by=' | append: results.sort_by
+    endif
+  -%}
+
+  <drawer-facets
+    class="dialog dialog--drawer dialog--drawer-right js-facets-dialog-drawer"
+    id="DrawerFacets"
+    hidden
+  {% if section.settings.testing %}data-testing{% endif %}
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'header-open' -%}
+            <header data-dialog-element="header">
+
+          {%- when 'header-controls' -%}
+            <div class="flex items-center justify-between">
+              <h3 class="flex items-center gap-x-2">
+                {{- block.settings.title -}}
+
+                {%- # Results Count -%}
+                {%- assign count = results.products_count | default: results.results_count -%}
+                {%- render 'object_count',
+                  count: count,
+                  results_none: block.settings.results_none,
+                  results_one: block.settings.results_one,
+                  results_other: block.settings.results_other
+                -%}
+              </h3>
+
+              <button
+                data-dialog-element="close"
+                type="button"
+                tabindex="-1"
+                data-a11y-dialog-hide
+              >
+                {%- render 'theme_icons' with 'close' -%}
+                <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'facets' -}}</span>
+              </button>
+            </div>
+
+          {%- when 'header-close' -%}
+            </header>
+
+          {%- when 'main-open' -%}
+            <div data-dialog-element="main">
+
+          {%- when 'facets' -%}
+            <ul>
+              {%- for filter in results.filters -%}
+                <li class="max-lg:py-4 max-lg:first:pt-0 max-lg:border-b max-lg:border-solid max-lg:border-border-light">
+                  {%- liquid
+                    case filter.type
+                      when 'list'
+                        render 'facets_list', filter: filter, index: forloop.index, form_id: 'Facets', input_scope: 'mobile'
+                      when 'price_range'
+                        render 'facets_price-range', filter: filter, form_id: 'Facets', input_scope: 'mobile'
+                    endcase
+                  -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+
+          {%- when 'main-close' -%}
+            </div>
+
+          {%- when 'footer-open' -%}
+            <footer data-dialog-element="footer">
+
+          {%- when 'clear-button' -%}
+            {%- liquid
+              assign active_filters = 0
+
+              for filter in results.filters
+                if filter.min_value.value != null and filter.max_value.value != null
+                  assign active_filters = active_filters | plus: 1
+
+                  break
+                endif
+
+                if filter.active_values.size > 0
+                  assign active_filters = active_filters | plus: 1
+
+                  break
+                endif
+              endfor
+
+              capture clear_all_disabled_attr
+                if active_filters == 0
+                  echo 'disabled'
+                endif
+              endcapture
+            -%}
+
+            <a
+              class="o-button o-button--secondary o-button--full js-facet-remove"
+              href="{{ results_url }}"
+              {{ clear_all_disabled_attr }}
+            >
+              {{- 'sections.dialog_drawer_facets.facets.clear_all' | t -}}
+            </a>
+
+          {%- when 'footer-close' -%}
+            </footer>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </drawer-facets>
+{%- endif -%}

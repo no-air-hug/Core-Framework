@@ -1,0 +1,42 @@
+.o-accordion {
+  &__heading {
+    @apply flex justify-between items-center py-6 cursor-pointer;
+
+    @screen lg {
+      @apply pb-0;
+    }
+
+    // Mobile Only Declarations
+    .o-accordion--mobile & {
+      @screen lg {
+        @apply cursor-default pointer-events-none pt-0;
+      }
+    }
+
+    &-icon {
+      @apply rotate-180 transition-all inline-block;
+
+      .is-open & {
+        @apply rotate-90;
+      }
+
+      // Mobile Only Declarations
+      .o-accordion--mobile & {
+        @screen lg {
+          @apply hidden;
+        }
+      }
+    }
+  }
+
+  &__content {
+    @apply max-h-0 overflow-hidden transition-all;
+
+    // Mobile Only Declarations
+    .o-accordion--mobile & {
+      @screen lg {
+        max-height: initial;
+      }
+    }
+  }
+}

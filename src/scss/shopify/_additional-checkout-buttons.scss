@@ -1,0 +1,12 @@
+/* stylelint-disable declaration-no-important */
+.additional-checkout-buttons {
+  ul {
+    display: flex !important;
+    flex-direction: column !important;
+    row-gap: theme("spacing.4") !important;
+  }
+
+  li {
+    display: contents !important;
+  }
+}

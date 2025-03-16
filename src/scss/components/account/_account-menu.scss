@@ -1,0 +1,36 @@
+.account-menu {
+
+  @mixin active-account-menu-link {
+    @apply text-current opacity-75;
+
+    &::before {
+      content: "";
+
+      @apply absolute w-full bg-current top-0 h-[2px];
+
+      @screen lg {
+        @apply -left-8 w-1 h-6 -translate-x-1/2;
+      }
+    }
+  }
+
+  top: var(--header-group-height);
+
+  &__link {
+    @apply py-4 flex gap-x-3 items-center font-bold leading-none;
+
+    @screen lg {
+      @apply py-0 border-t-0 h-6;
+    }
+
+    @include hover {
+      @include active-account-menu-link;
+    }
+
+    &.is-active {
+      @include active-account-menu-link;
+    }
+  }
+
+  @apply sticky transition-all pr-8;
+}

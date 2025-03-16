@@ -1,0 +1,61 @@
+.form {
+  @apply flex w-full flex-col justify-center gap-y-4;
+
+  &__header {
+    &-title {
+      @apply text-grey-10;
+    }
+
+    &-text {
+      @apply text-grey-20;
+    }
+  }
+
+  &__fields {
+    @apply grid w-full grid-cols-2 items-center gap-y-4;
+  }
+
+  &__field {
+    @apply col-span-2 flex w-full;
+
+    &--half {
+      @apply col-span-1;
+    }
+
+    &:has(> .o-input[hidden]) {
+      @apply hidden;
+    }
+
+    &[data-position="start"] {
+      @apply justify-start;
+    }
+
+    &[data-position-desktop="start"] {
+      @apply justify-start;
+    }
+
+    &[data-position="center"] {
+      @apply justify-center;
+    }
+
+    &[data-position-desktop="center"] {
+      @apply justify-center;
+    }
+
+    &[data-position="end"] {
+      @apply justify-end;
+    }
+
+    &[data-position-desktop="end"] {
+      @apply justify-end;
+    }
+  }
+
+  &__footer {
+    @apply flex w-full flex-col gap-4;
+  }
+
+  &__buttons {
+    @apply flex w-full justify-center pt-2;
+  }
+}

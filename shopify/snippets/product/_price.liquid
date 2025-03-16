@@ -1,0 +1,67 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Product - Price
+  -------------------------------------------------------------------------------
+  Accepts
+  - product {Object} the product object to inherit the price from (required)
+  - class {Object/String} additional classes (optional)
+  - use_variant {Boolean} whether or not to use the price objects on the
+    variant-level, vs the product-level (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'price',
+    product: product,
+    class: 'class',
+    use_variant: true
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a list of product's price (regular, sale)
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class
+  assign use_variant = use_variant
+  assign is_card = is_card
+
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign money_price = price | money
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+  endif
+
+  if target == product and product.price_varies
+    assign money_price = 'global.products.prices.from_price_html' | t: price: money_price
+  endif
+-%}
+
+<div class="inline-flex gap-x-2 leading-1 {{ class }} {% if is_card == true %} flex-col-reverse justify-end leading-base md:text-right md:row-span-2{% endif %}">
+  {%- if compare_at_price > price -%}
+    {%- unless product.price_varies == false and product.compare_at_price_varies %}
+      <span class="sr-only">{{ 'global.products.prices.regular_price' | t }}</span>
+      <span>
+        <s class="text-section-compare -tracking-2">
+          {{- compare_at_price | money -}}
+        </s>
+      </span>
+    {%- endunless -%}
+
+    <span class="sr-only">{{ 'global.products.prices.sale_price' | t }}</span>
+    <span class="tracking-1{% if is_card == true %} text-section-sale{% else %} font-extrabold{% endif %}">
+      {{- money_price -}}
+    </span>
+
+  {%- else -%}
+    <span class="sr-only">{{ 'global.products.prices.regular_price' | t }}</span>
+    <span class="{% if is_card == true %} {% else %} font-extrabold{% endif %} tracking-1">
+      {{- money_price -}}
+    </span>
+  {%- endif -%}
+</div>

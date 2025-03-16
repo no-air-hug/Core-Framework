@@ -1,0 +1,258 @@
+{
+  "type": "custom.dialogs",
+  "name": "Dialogs",
+  "sections": {
+    "drawer-account": {
+      "type": "dialog-drawer-account",
+      "blocks": {
+        "7aba8d153-d046-46e3-86c6-b36428038569": {
+          "type": "header-open",
+          "settings": {}
+        },
+        "ba55cc068-0fc8-4457-b5b7-d15f482e965d": {
+          "type": "header-controls",
+          "settings": {
+            "title": "Your bag",
+            "count_one_item_text": "item",
+            "count_multi_item_text": "items"
+          }
+        },
+        "3a5a75131-0ddf-42c0-b466-fbdafaeeb057": {
+          "type": "header-close",
+          "settings": {}
+        },
+        "5abf3b665-cb22-4cd1-9840-047fec94e13c": {
+          "type": "main-open",
+          "settings": {}
+        },
+        "7ab21c3d3-d6fe-4ab2-9d77-b1150c195b8f": {
+          "type": "account-tabs",
+          "settings": {}
+        },
+        "2a32168c6-a0cc-45cc-a216-3e068256329f": {
+          "type": "main-close",
+          "settings": {}
+        },
+        "0caa16eb-fa9f-4456-80e4-ae6a35e8f302": {
+          "type": "footer-open",
+          "settings": {}
+        },
+        "4ae1ac40d-0955-480d-a4cc-f3f35847b086": {
+          "type": "footer-close",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "7aba8d153-d046-46e3-86c6-b36428038569",
+        "ba55cc068-0fc8-4457-b5b7-d15f482e965d",
+        "3a5a75131-0ddf-42c0-b466-fbdafaeeb057",
+        "5abf3b665-cb22-4cd1-9840-047fec94e13c",
+        "7ab21c3d3-d6fe-4ab2-9d77-b1150c195b8f",
+        "2a32168c6-a0cc-45cc-a216-3e068256329f",
+        "0acaa16eb-fa9f-4456-80e4-ae6a35e8f302",
+        "4ae1ac40d-0955-480d-a4cc-f3f35847b086"
+      ],
+      "settings": {
+        "testing": false
+      }
+    },
+    "drawer-cart": {
+      "type": "dialog-drawer-cart",
+      "blocks": {
+        "7ba8d153-d046-46e3-86c6-b36428038569": {
+          "type": "header-open",
+          "settings": {}
+        },
+        "b55cc068-0fc8-4457-b5b7-d15f482e965d": {
+          "type": "header-controls",
+          "settings": {
+            "title": "Your bag",
+            "count_one_item_text": "item",
+            "count_multi_item_text": "items"
+          }
+        },
+        "35a75131-0ddf-42c0-b466-fbdafaeeb057": {
+          "type": "header-close",
+          "settings": {}
+        },
+        "5bf3b665-cb22-4cd1-9840-047fec94e13c": {
+          "type": "main-open",
+          "settings": {}
+        },
+        "7b21c3d3-d6fe-4ab2-9d77-b1150c195b8f": {
+          "type": "cart-items",
+          "settings": {}
+        },
+        "052f04b5-13da-466f-aaaa-28d8c3b2cf77": {
+          "type": "recommendations",
+          "settings": {}
+        },
+        "232168c6-a0cc-45cc-a216-3e068256329f": {
+          "type": "main-close",
+          "settings": {}
+        },
+        "0caa16eb-fa9f-4456-80e4-ae6a35e8f302": {
+          "type": "footer-open",
+          "settings": {}
+        },
+        "61d16e6f-75d2-418e-a447-1497a72393d9": {
+          "type": "free-delivery",
+          "settings": {}
+        },
+        "317380ca-40a4-4d67-b219-7b73a6475850": {
+          "type": "cart-totals",
+          "settings": {}
+        },
+        "9d568a52-e2c8-4366-ae28-d641e117ea74": {
+          "type": "delivery-countdown",
+          "disabled": true,
+          "settings": {}
+        },
+        "2cab419c-215d-4321-b32a-fd30d89eff81": {
+          "type": "submit-buttons",
+          "settings": {}
+        },
+        "4e1ac40d-0955-480d-a4cc-f3f35847b086": {
+          "type": "footer-close",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "7ba8d153-d046-46e3-86c6-b36428038569",
+        "b55cc068-0fc8-4457-b5b7-d15f482e965d",
+        "35a75131-0ddf-42c0-b466-fbdafaeeb057",
+        "5bf3b665-cb22-4cd1-9840-047fec94e13c",
+        "7b21c3d3-d6fe-4ab2-9d77-b1150c195b8f",
+        "052f04b5-13da-466f-aaaa-28d8c3b2cf77",
+        "232168c6-a0cc-45cc-a216-3e068256329f",
+        "0caa16eb-fa9f-4456-80e4-ae6a35e8f302",
+        "61d16e6f-75d2-418e-a447-1497a72393d9",
+        "317380ca-40a4-4d67-b219-7b73a6475850",
+        "9d568a52-e2c8-4366-ae28-d641e117ea74",
+        "2cab419c-215d-4321-b32a-fd30d89eff81",
+        "4e1ac40d-0955-480d-a4cc-f3f35847b086"
+      ],
+      "settings": {
+        "testing": false
+      }
+    },
+    "drawer-facets": {
+      "type": "dialog-drawer-facets",
+      "settings": {}
+    },
+    "drawer-navigation": {
+      "type": "dialog-drawer-navigation",
+      "blocks": {
+        "4c0b4629-6a80-43bf-899b-6827f23fe5a7": {
+          "type": "header-open",
+          "settings": {}
+        },
+        "10639b94-ae8d-4bfa-b537-d5b6c722ea51": {
+          "type": "header-controls",
+          "settings": {}
+        },
+        "9dda29a7-dcf2-4359-843f-4a67ea607c7c": {
+          "type": "header-close",
+          "settings": {}
+        },
+        "b7aa72e0-dfdb-4ba9-8f0e-67c3f9b853ef": {
+          "type": "main-open",
+          "settings": {}
+        },
+        "77f57ba4-2f4a-49d9-ae34-dcd2fd7d9120": {
+          "type": "navigation",
+          "settings": {}
+        },
+        "999471e1-48cb-42b8-81e2-2a206148af1f": {
+          "type": "mega_menu",
+          "settings": {
+            "parent": "Templates",
+            "image_1": "shopify://shop_images/TP40366-ROS_4_1280x1280_7fac4206-b9b2-418f-a3da-1548d020286b.jpg",
+            "title_1": "Templates",
+            "link_1": "shopify://collections",
+            "title_2": "",
+            "link_2": "",
+            "title_3": "",
+            "link_3": ""
+          }
+        },
+        "6f13d335-3f84-411c-b856-6fee966d5858": {
+          "type": "main-close",
+          "settings": {}
+        },
+        "5c71389a-f88c-471e-be1e-0adce59a2ec1": {
+          "type": "footer-open",
+          "settings": {}
+        },
+        "82bc37a8-fb8d-496d-8f9f-39535130b1f0": {
+          "type": "user-buttons",
+          "settings": {
+            "left_button_icon": "user",
+            "login_text": "Log In",
+            "account_text": "Account",
+            "right_button_icon": "pen",
+            "register_text": "Register"
+          }
+        },
+        "f645231f-52a5-404c-b8ed-f016ad33b670": {
+          "type": "footer-close",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "4c0b4629-6a80-43bf-899b-6827f23fe5a7",
+        "10639b94-ae8d-4bfa-b537-d5b6c722ea51",
+        "9dda29a7-dcf2-4359-843f-4a67ea607c7c",
+        "b7aa72e0-dfdb-4ba9-8f0e-67c3f9b853ef",
+        "77f57ba4-2f4a-49d9-ae34-dcd2fd7d9120",
+        "999471e1-48cb-42b8-81e2-2a206148af1f",
+        "6f13d335-3f84-411c-b856-6fee966d5858",
+        "5c71389a-f88c-471e-be1e-0adce59a2ec1",
+        "82bc37a8-fb8d-496d-8f9f-39535130b1f0",
+        "f645231f-52a5-404c-b8ed-f016ad33b670"
+      ],
+      "settings": {
+        "testing": false,
+        "main_menu": "main-menu",
+        "brand_logo": "standard-logo",
+        "logo_colour": "#161616"
+      }
+    },
+    "modal-markets": {
+      "type": "dialog-modal-markets",
+      "blocks": {
+        "145130c7-996f-4e03-897e-1272e239aefd": {
+          "type": "market",
+          "settings": {
+            "title": "United Kingdom",
+            "code": "GB",
+            "currency": "",
+            "country_codes": "GB,UK",
+            "domain": ""
+          }
+        }
+      },
+      "block_order": ["145130c7-996f-4e03-897e-1272e239aefd"],
+      "settings": {
+        "default_market": "GB"
+      }
+    },
+    "modal-quickshop": {
+      "type": "dialog-modal-quickshop",
+      "settings": {}
+    },
+    "modal-lightbox": {
+      "type": "dialog-modal-lightbox",
+      "settings": {}
+    }
+  },
+  "order": [
+    "drawer-account",
+    "drawer-cart",
+    "drawer-facets",
+    "drawer-navigation",
+    "modal-markets",
+    "modal-quickshop",
+    "modal-lightbox"
+  ]
+}

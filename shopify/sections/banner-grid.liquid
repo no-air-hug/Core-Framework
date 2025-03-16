@@ -1,0 +1,122 @@
+{%- liquid
+  render 'theme_assets' with 'section-banner-grid.min.css'
+  render 'section_spacing-and-color', section: section
+
+  capture section_header
+    render 'section_header', section: section
+  endcapture
+
+  echo section_header
+
+  # Grid Spacing, Structure
+  render 'section_grid', section: section
+-%}
+
+<ul class="banner-grid section-grid flex flex-wrap md:grid md:grid-cols-12">
+  {%- assign blocks = section.blocks | where: 'type', 'card' -%}
+  {%- for block in blocks -%}
+    {%- liquid
+      capture item_width
+        case block.settings.width
+          when 'full'
+            echo 'md:col-span-full'
+          when 'two-thirds'
+            echo 'md:col-span-8'
+          when 'half'
+            echo 'md:col-span-6'
+          when 'one-third'
+            echo 'md:col-span-4'
+          when 'quarter'
+            echo 'md:col-span-3'
+          when 'one-sixth'
+            echo 'md:col-span-2'
+        endcase
+      endcapture
+
+      capture item_styling
+        # Background Color and Minimum Height Application
+        echo 'style="'
+        echo 'border-radius: #px;' | replace: '#', block.settings.border_radius
+        echo 'border: 1px solid #;' | replace: '#', block.settings.border_color
+        echo '"'
+      endcapture
+
+      capture card_grid
+        case block.settings.width
+          when 'full', 'two-thirds'
+            # Ensures the media is moved aside
+            if block.settings.image != blank or block.settings.video_file != blank or block.settings.video_url != blank
+              echo 'grid-cols-1 lg:grid-cols-2'
+            endif
+          else
+            echo 'grid-cols-1'
+        endcase
+      endcapture
+    -%}
+
+    {%- # Card Height -%}
+    {%- style -%}
+      #shopify-section-{{ section.id }} #BannerGrid_Item-{{ forloop.index0 }} {
+        min-height: {{ block.settings.minimum_height_mob }}px;
+      }
+
+      @media (min-width: 768px) {
+        #shopify-section-{{ section.id }} #BannerGrid_Item-{{ forloop.index0 }} {
+          min-height: {{ block.settings.minimum_height_tab }}px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #shopify-section-{{ section.id }} #BannerGrid_Item-{{ forloop.index0 }} {
+          min-height: {{ block.settings.minimum_height_dsk }}px;
+        }
+      }
+    {%- endstyle -%}
+
+    <li
+      class="max-md:w-full {{ item_width }} overflow-hidden bg-cover bg-center"
+      id="BannerGrid_Item-{{ forloop.index0 }}"
+      {{ item_styling }}
+      {{ block.shopify_attributes }}
+    >
+      <div class="card card--banner-grid {{ card_grid }}">
+        <div
+          class="absolute inset-0"
+          {% if block.settings.background_color != blank %}
+            style="background: {{ block.settings.background_color }}"
+          {% endif %}
+        >
+          {%- liquid
+            # Background Media
+            if block.settings.background_color == blank
+              render 'section_media', target: block.settings, prefix: 'background_', image_visible_placeholder: false, image_picture_class: 'o-picture--fill'
+            endif
+          -%}
+        </div>
+
+        {%- liquid
+          capture media_content
+            render 'section_media', target: block.settings, image_visible_placeholder: false
+          endcapture
+        -%}
+
+        {%- if media_content != blank -%}
+          <div class="z-1 flex h-full w-full">
+            {{- media_content -}}
+          </div>
+        {%- endif -%}
+
+        {%- liquid
+          # Content
+          assign heading_tag = 'h2'
+
+          if section_header != blank
+            assign heading_tag = 'h3'
+          endif
+
+          render 'object_content', block: block.settings, attributes: block.shopify_attributes, class: 'card__content', heading_tag: heading_tag
+        -%}
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

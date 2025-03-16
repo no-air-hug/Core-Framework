@@ -1,0 +1,362 @@
+{%- liquid
+  render 'theme_assets' with 'section-product.min.css', preload: true
+  render 'section_spacing-and-color', section: section, set_padding: false
+
+  # Data
+  assign product_form_id = 'product-form-' | append: section.id
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+-%}
+
+<div
+  id="MainProduct-{{ section.id }}"
+  class="product"
+  data-section="{{ section.id }}"
+>
+  <div class="product__media">
+    {%- if product.metafields.info.badge -%}
+      <div class="product__media-badge">
+        {%- render 'object_image' with product.metafields.info.badge -%}
+      </div>
+    {%- endif -%}
+
+    {%- render 'product_media-gallery',
+      variant_images: variant_images,
+      media_fit: section.settings.media_fit,
+      image_zoom: section.settings.image_zoom
+    -%}
+  </div>
+
+  <div class="product__details flex flex-col gap-6 {% if section.settings.enable_sticky_info %}md:sticky{% endif %}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+
+        {%- when 'box_start' -%}
+          {%- liquid
+            echo '<div class="box-start flex flex-col gap-y-6 p-6 border rounded-[6px]" ' | append: block.shopify_attributes | append: '>'
+            assign box_close_tag = '</div>'
+          -%}
+
+        {%- when 'box_end' -%}
+          {%- liquid
+            echo box_close_tag
+            assign box_close_tag = null
+          -%}
+
+        {%- when 'header_start' -%}
+          {%- liquid
+            echo '<div class="flex flex-wrap items-center justify-between gap-y-2 gap-x-6" ' | append: block.shopify_attributes | append: '>'
+            assign header_close_tag = '</div>'
+          -%}
+
+        {%- when 'header_end' -%}
+          {%- liquid
+            echo header_close_tag
+            assign header_close_tag = null
+          -%}
+
+        {%- when 'divider' -%}
+          <hr class="o-hr" role="presentation" {{ block.shopify_attributes }}>
+
+        {%- when 'custom_liquid' -%}
+          {{ block.settings.custom_liquid }}
+
+        {%- when 'stickers' -%}
+          {%- render 'product_stickers', block: block, product: product -%}
+
+        {%- when 'title' -%}
+          <h1 class="w-full text-4xl font-extrabold leading-1 -tracking-2 font-heading" {{ block.shopify_attributes }}>
+            {{ product.title | escape }}
+          </h1>
+
+        {%- when 'sku' -%}
+          {%- render 'product_sku', product: product -%}
+
+        {%- when 'inventory' -%}
+          {%- render 'product_inventory', section: section, block: block, product: product -%}
+
+        {%- when 'rating' -%}
+          {%- render 'product_rating', product: product -%}
+
+        {%- when 'price' -%}
+          <div class="flex gap-1 text-2xl" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+            {%- render 'product_price', product: product, use_variant: true -%}
+          </div>
+
+        {%- when 'description' -%}
+          {%- if product.description != blank -%}
+            <div {{ block.shopify_attributes }}>
+              <h2 class="mb-2 font-bold font-heading">
+                {{- 'sections.main_product.description' | t -}}
+              </h2>
+              <div class="rte section-text-secondary text-md">
+                {{- product.description -}}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'variant_picker' -%}
+          {%- assign size_guide = block.settings.size_guide_page -%}
+          {% render 'product_variant-picker', block: block, product: product, size_guide: size_guide %}
+
+        {%- when 'estimated_delivery' -%}
+          <delivery-countdown
+            class="flex items-center{% unless box_close_tag %} px-5{% endunless %} gap-x-3 text-md"
+            cutoff="{{ settings.estimate_delivery_cutoff }}"
+            excludedDates="{{ settings.estimate_delivery_excluded_dates }}"
+            nextdaylabel="{{ 'global.products.delivery_estimate.nextday_delivery_html' | t: time: '[time]', date: '[date]' }}"
+            nextweeklabel="{{ 'global.products.delivery_estimate.weekday_delivery_html' | t: day: '[day]' }}"
+            {{ block.shopify_attributes }}
+            {% unless settings.estimate_delivery_enabled %}
+              hidden
+            {% endunless %}
+          >
+            <svg
+              class="text-highlight"
+              width="20"
+              height="20"
+              fill="currentcolor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 1.667c-4.596 0-8.334 3.738-8.334 8.333 0 4.595 3.738 8.333 8.333 8.333 4.595 0 8.334-3.738 8.334-8.333 0-4.595-3.739-8.333-8.334-8.333Zm0 15A6.674 6.674 0 0 1 3.332 10a6.674 6.674 0 0 1 6.666-6.667A6.674 6.674 0 0 1 16.666 10a6.674 6.674 0 0 1-6.667 6.667Z" />
+              <path d="M10.833 5.833H9.166v4.512l2.744 2.744 1.178-1.178-2.255-2.256V5.833Z" />
+            </svg>
+            <p class="invisible">
+              {{- 'global.products.delivery_estimate.nextday_delivery_html' | t: time: '[time]', date: '[date]' -}}
+            </p>
+          </delivery-countdown>
+
+        {%- when 'buy_buttons' -%}
+          {%- render 'product_buy-buttons', block: block, product: product, product_form_id: product_form_id -%}
+
+        {%- when 'pickup_availability' -%}
+          {%- render 'product_pickup-availability' -%}
+
+        {%- when 'quantity_selector' -%}
+          <div class="flex flex-col gap-y-2" {{ block.shopify_attributes }}>
+            {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+            <label class="font-bold" for="Quantity-{{ section.id }}">
+              {{- 'sections.main_product.quantity.label' | t -}}
+              <span class="sr-only{% if cart_qty == 0 %} hidden{% endif %}">
+                {{- 'global.accessibility.quantity.in_cart_html' | t: quantity: cart_qty -}}
+              </span>
+            </label>
+
+            {%- render 'product_quantity-input', product_form_id: product_form_id -%}
+          </div>
+
+        {%- when 'share' -%}
+          <div class="flex items-center justify-between" {{ block.shopify_attributes }}>
+            <h2 class="font-bold font-heading">{{ block.settings.title }}</h2>
+            {%- liquid
+              assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
+              render 'social_share-items', share_url: share_url
+            -%}
+          </div>
+
+        {%- when 'popup' -%}
+          <h2 class="flex font-heading" {{ block.shopify_attributes }}>
+            <button
+              is="dialog-trigger"
+              dialog-selector="#PopupModal-{{ block.id }}"
+              id="ProductPopup-{{ block.id }}"
+              class="justify-between o-button o-button--full"
+              type="button"
+              aria-haspopup="dialog"
+            >
+              <span class="flex items-center font-bold gap-x-2">
+                {%- render 'theme_icons' with block.settings.icon, width: 18, height: 18 -%}
+                {{ block.settings.title | default: block.settings.page.title }}
+              </span>
+              {%- render 'theme_icons' with 'chevron-right' -%}
+            </button>
+          </h2>
+
+        {%- when 'collapsible_tab' -%}
+          {% if block.settings.text != blank or block.settings.page.content != blank %}
+            <details id="Details-{{ block.id }}-{{ section.id }}" class="group" {{ block.shopify_attributes }}>
+              <summary class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-x-2">
+                  {%- render 'theme_icons' with block.settings.icon, width: 18, height: 18 -%}
+                  <h2 class="font-bold font-heading">
+                    {{ block.settings.title | default: block.settings.page.title }}
+                  </h2>
+                </div>
+                {%- render 'theme_icons' with 'chevron-right', width: 18, height: 18, class: 'group-open:rotate-90' -%}
+              </summary>
+
+              <div class="pt-3 rte text-md">
+                {{ block.settings.text }}
+                {{ block.settings.page.content }}
+              </div>
+            </details>
+          {% endif %}
+
+        {%- when 'usps' -%}
+          {%- for n in (1..3) -%}
+            {%- liquid
+              assign usps_html = usps_html | default: ''
+              assign title = 'title_' | append: n
+              assign image_key = 'image_' | append: n
+            -%}
+            {%- if block.settings[image_key] != blank -%}
+              {%- capture usps_html -%}
+                {{ usps_html }}
+
+                {%- if usps_html != '' -%}
+                  <li class="o-hr o-hr--vertical" aria-hidden="true"></li>
+                {%- endif -%}
+
+                <li class="flex-grow flex flex-col items-center gap-y-2 text-center max-w-[148px] px-2">
+                  {%- render 'object_image' with block.settings[image_key], width: 56, height: 56, sizes: '56px', widths: '56, 84', class: 'only:my-auto' -%}
+                  {%- if block.settings[title] != blank -%}
+                    <span class="text-xs font-bold" >{{ block.settings[title] }}</span>
+                  {%- endif -%}
+                </li>
+              {%- endcapture -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if usps_html != '' -%}
+            <ul class="flex justify-between gap-x-2" {{ block.shopify_attributes }}>
+              {{ usps_html }}
+            </ul>
+          {%- endif -%}
+
+        {%- when 'text' -%}
+          {%- if block.settings.text != blank -%}
+            <div {{ block.shopify_attributes }}>
+              {%- if block.settings.title -%}
+                <h2 class="mb-3 font-bold font-heading">{{ block.settings.title }}</h2>
+              {%- endif -%}
+              <div class="text-md rte rte--check-list">
+                {{ block.settings.text }}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'complementary' -%}
+          {% case block.settings.implementation %}
+            {% when 'api' %}
+              <product-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.limit }}&intent=complementary">
+                {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                  <aside
+                    class="js-complementary-products"
+                    aria-label="{{ 'sections.main_product.complementary_products' | t }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <h2 class="mb-3 font-bold font-heading">{{ block.settings.title }}</h2>
+
+                    {%- render 'product_complementary',
+                      complementary_products: recommendations.products,
+                      button_style: 'primary',
+                      limit: 6
+                    -%}
+                  </aside>
+                {%- endif -%}
+              </product-recommendations>
+
+            {% when 'meta' %}
+              {% if block.settings.products.count > 0 %}
+                <aside
+                  class="js-complementary-products"
+                  aria-label="{{ 'sections.main_product.complementary_products' | t }}"
+                  {{ block.shopify_attributes }}
+                >
+                  <h2 class="mb-3 font-bold font-heading">{{ block.settings.title }}</h2>
+
+                  {%- render 'product_complementary',
+                    complementary_products: block.settings.products,
+                    button_style: block.settings.buy_button_style,
+                    limit: 6
+                  -%}
+                </aside>
+              {% endif %}
+          {% endcase %}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- assign popups = section.blocks | where: 'type', 'popup' -%}
+{%- for block in popups -%}
+  {% assign block_title = block.settings.title | default: block.settings.page.title %}
+  <dialog-element
+    id="PopupModal-{{ block.id }}"
+    class="dialog dialog--modal"
+    modal-style="mega"
+    hidden
+    aria-labelledby="dialog-{{ block_title | handleize }}"
+    {{ block.shopify_attributes }}
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document">
+      <header data-dialog-element="header">
+        <h1 id="dialog-{{ block_title | handleize }}" class="font-bold font-heading">
+          {{ block_title }}
+        </h1>
+
+        <button
+          data-dialog-element="close"
+          type="button"
+          tabindex="-1"
+          data-a11y-dialog-hide
+        >
+          {%- render 'theme_icons' with 'close' -%}
+          <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: block_title -}}</span>
+        </button>
+      </header>
+
+      <div data-dialog-element="main">
+        <div class="rte" style="--rte-gap: 16px;">
+          {{ block.settings.page.content }}
+        </div>
+      </div>
+    </div>
+  </dialog-element>
+{%- endfor -%}
+
+{%- if size_guide -%}
+  <dialog-element
+    id="PopupModal-{{ size_guide.handle }}"
+    class="dialog dialog--modal"
+    modal-style="mega"
+    hidden
+    aria-labelledby="dialog-{{ size_guide.title | handleize }}"
+  >
+    <div
+      class="dialog-overlay"
+      data-a11y-dialog-hide
+    ></div>
+
+    <div role="document">
+      <header data-dialog-element="header">
+        <h1 id="dialog-{{ size_guide.title | handleize }}" class="font-bold font-heading">
+          {{ size_guide.title }}
+        </h1>
+
+        <button
+          data-dialog-element="close"
+          type="button"
+          tabindex="-1"
+          data-a11y-dialog-hide
+        >
+          {%- render 'theme_icons' with 'close' -%}
+          <span class="sr-only">{{- 'global.dialogs.accessibility.actions.close' | t: dialog: 'size guide' -}}</span>
+        </button>
+      </header>
+
+      <div data-dialog-element="main">
+        <div class="rte" style="--rte-gap: 16px;">
+          {{ size_guide.content }}
+        </div>
+      </div>
+    </div>
+  </dialog-element>
+{%- endif -%}

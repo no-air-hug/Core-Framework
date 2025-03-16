@@ -1,0 +1,254 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Form - Edit Address
+  -------------------------------------------------------------------------------
+  Accepts
+  - address: {Object} the address to be edited (required)
+  - class: {Object/String} additional classes (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'form_account-address-edit',
+    class: 'text-md'
+    address: address
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a edit address form
+{%- endcomment -%}
+
+{%- assign class = class | prepend: 'form ' -%}
+
+{%- form 'customer_address', address, class: class -%}
+  <ul class="form__fields">
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressFirstName_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.first_name.placeholder' | t }}*"
+          id="AddressFirstName_{{ form.id }}"
+          name="address[first_name]"
+          value="{{ form.first_name }}"
+          autocomplete="given-name"
+          aria-required="true"
+          required
+        >
+        <span class="sr-only">{{ 'global.forms.structure.first_name.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressLastName_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.last_name.placeholder' | t }}*"
+          id="AddressLastName_{{ form.id }}"
+          name="address[last_name]"
+          value="{{ form.last_name }}"
+          autocomplete="family-name"
+          aria-required="true"
+          required
+        >
+        <span class="sr-only">{{ 'global.forms.structure.last_name.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressCompany_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.company.placeholder' | t }}"
+          id="AddressCompany_{{ form.id }}"
+          name="address[company]"
+          value="{{ form.company }}"
+          autocomplete="organization"
+        >
+        <span class="sr-only">{{ 'global.forms.structure.company.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressAddress1_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.address1.placeholder' | t }}*"
+          id="AddressAddress1_{{ form.id }}"
+          name="address[address1]"
+          value="{{ form.address1 }}"
+          autocomplete="address-line1"
+          aria-required="true"
+          required
+        >
+        <span class="sr-only">{{ 'global.forms.structure.address1.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressAddress2_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.address2.placeholder' | t }}"
+          id="AddressAddress2_{{ form.id }}"
+          name="address[address2]"
+          value="{{ form.address2 }}"
+          autocomplete="address-line2"
+        >
+        <span class="sr-only">{{ 'global.forms.structure.address2.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressCity_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="text"
+          placeholder="{{ 'global.forms.structure.city.placeholder' | t }}*"
+          id="AddressCity_{{ form.id }}"
+          name="address[city]"
+          value="{{ form.city }}"
+          autocomplete="address-level2"
+          aria-required="true"
+          required
+        >
+        <span class="sr-only">{{ 'global.forms.structure.city.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressCountry_{{ form.id }}"
+      >
+        {%- assign country_translation = 'global.forms.structure.country.placeholder' | t | append: '*' -%}
+        <select
+          class="o-input__field js-address-country-selector"
+          id="AddressCountry_{{ form.id }}"
+          name="address[country]"
+          data-default="{{ form.country }}"
+          autocomplete="country"
+          aria-required="true"
+          data-initial-value="{{ country_translation }}"
+          required
+        >
+          {{ country_option_tags | replace: '---', country_translation }}
+        </select>
+        <span class="sr-only">{{ 'global.forms.structure.country.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="hidden o-input js-address-province-wrapper"
+        for="AddressProvince_{{ form.id }}"
+      >
+        <select
+          id="AddressProvince_{{ form.id }}"
+          class="o-input__field js-address-province-selector"
+          name="address[province]"
+          data-default="{{ form.province }}"
+          autocomplete="address-level1"
+        ></select>
+        <span class="sr-only">{{ 'global.forms.structure.province.label' | t }}</span>
+      </label>
+    </li>
+
+    <li class="relative form__field">
+      <label
+        class="o-input"
+        for="AddressZip_{{ form.id }}"
+      >
+        <input
+          class="o-input__field js-address-zip"
+          type="text"
+          placeholder="{{ 'global.forms.structure.zip.placeholder' | t }}*"
+          id="AddressZip_{{ form.id }}"
+          name="address[zip]"
+          value="{{ form.zip }}"
+          autocapitalize="characters"
+          autocomplete="postal-code"
+          aria-required="true"
+          required
+        >
+        <span class="sr-only">{{ 'global.forms.structure.zip.label' | t }}</span>
+      </label>
+
+      <span class="absolute hidden text-sm -translate-y-1/2 top-1/2 text-validation-error right-5 js-address-zip-error">
+        {{- 'global.forms.structure.zip.error' | t -}}
+      </span>
+    </li>
+
+    <li class="form__field">
+      <label
+        class="o-input"
+        for="AddressPhone_{{ form.id }}"
+      >
+        <input
+          class="o-input__field"
+          type="tel"
+          pattern="[0-9]+"
+          placeholder="{{ 'global.forms.structure.phone.placeholder' | t }}"
+          id="AddressPhone_{{ form.id }}"
+          name="address[phone]"
+          value="{{ form.phone }}"
+          autocomplete="tel"
+        >
+        <span class="sr-only">{{ 'global.forms.structure.phone.label' | t }}</span>
+      </label>
+    </li>
+
+    {%- unless address == customer.default_address -%}
+      <li class="form__field">
+        <div class="py-4 o-input o-input--wrap">
+          {{- form.set_as_default_checkbox | replace: '<input', '<input class="o-input__checkbox" ' -}}
+          <label
+            class="cursor-pointer select-none hover:underline underline-offset-4"
+            for="address_default_address_{{ form.id }}"
+          >
+            {{- 'global.forms.structure.set_default' | t -}}
+          </label>
+        </div>
+      </li>
+    {%- endunless -%}
+
+    <li class="form__field">
+      <div class="flex flex-col w-full gap-2 lg:flex-row {% if address == customer.default_address %} pt-4{% endif %}">
+        {%- # Disabled to validate the postcode within AddressDirectory.ts -%}
+        <button
+          class="o-button o-button--primary o-button--full js-address-new-update-button"
+          type="submit"
+          disabled
+        >
+          {{- 'snippets.form.account_address_edit.update' | t -}}
+        </button>
+        <button
+          class="o-button o-button--secondary o-button--full js-address-edit-cancel-button"
+          type="button"
+        >
+          {{- 'snippets.form.account_address_edit.cancel' | t -}}
+        </button>
+      </div>
+    </li>
+  </ul>
+{%- endform -%}

@@ -1,0 +1,91 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section, set_padding: false
+
+  # - Section Padding Setting
+  case section.settings.padding
+    when 'full'
+      assign section_classes = section_classes | append: ' '
+    when 'padded'
+      assign section_classes = section_classes | append: ' px-row py-block-padding'
+    when 'contained'
+      assign section_classes = section_classes | append: ' px-row'
+  endcase
+
+  assign text_block = section.blocks | where: 'type', 'text' | first
+-%}
+
+<div class="relative grid lg:flex lg:gap-x-9 {{ section_classes }}">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'text' -%}
+        {%- liquid
+          # Internal padding is applied when the section padding is set to full.
+          case section.settings.padding
+            when 'full'
+              if forloop.first
+                assign text_block_classes = text_block_classes | append: ' lg:pl-row'
+              else
+                assign text_block_classes = text_block_classes | append: ' lg:pr-row'
+              endif
+          endcase
+
+          if text_block.settings.overlay_text
+            assign text_block_classes = text_block_classes | prepend: 'absolute inset-0 w-full h-full z-2 px-row'
+          else
+            assign text_block_classes = text_block_classes | prepend: 'max-lg:px-row py-9 grid h-auto lg:w-min flex-grow'
+          endif
+        -%}
+
+        <div
+          class="{{ text_block_classes }} "
+          {{ block.shopify_attributes }}
+        >
+          {%- render 'object_content',
+            block: block.settings,
+            heading: collection.title,
+            text: collection.description,
+            attributes: block.shopify_attributes
+          -%}
+        </div>
+
+      {%- when 'media' -%}
+        {%- liquid
+          # Media Width
+          capture media_width
+            if text_block.settings.overlay_text
+              echo '100'
+            else
+              case block.settings.media_width
+                when 'half'
+                  echo '50'
+                when 'two-thirds'
+                  echo '66.6'
+                when 'custom'
+                  echo block.settings.custom_media_width
+              endcase
+            endif
+          endcapture
+
+          # Media First Setting
+          if block.settings.media_first
+            assign media_block_classes = media_block_classes | append: ' max-lg:row-start-1'
+          endif
+        -%}
+
+        {%- style -%}
+          @media (min-width: 1024px) {
+            #shopify-section-{{ section.id }} .media-block {
+              width: {{ media_width }}%;
+            }
+          }
+        {%- endstyle -%}
+
+        <div
+          class="media-block relative {{ media_block_classes }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- render 'section_media', target: block.settings, image_preload: true -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

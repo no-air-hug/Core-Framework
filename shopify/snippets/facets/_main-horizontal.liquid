@@ -1,0 +1,271 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Facets - Main (Horizontal)
+  -------------------------------------------------------------------------------
+  Accepts
+  - section: {Object} the section object (required)
+  - product_grid: {Object} the product grid content, usually submitted
+  as a capture (required)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'facets_main-horizontal',
+  section: section,
+  product_grid: product_grid
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders a horizontal facets bar, the section settings are reliant on
+  the facets.js part
+{%- endcomment -%}
+
+{%- liquid
+  assign product_grid = product_grid | default: 'You need to submit a capture of the content to interface with the facets'
+
+  if collection != blank
+    assign results = collection
+  elsif search != blank
+    assign results = search
+  endif
+
+  # Section Padding Classes
+  capture container_class
+    if section.settings.padding != 'full'
+      echo '-ml-row w-[calc(100%+(var(--row-space)*2))]'
+    endif
+  endcapture
+-%}
+
+{%- if section.settings.filtering or section.settings.sorting -%}
+  {%- # Facets -%}
+  <div class="js-facets border-y border-solid border-border-light py-4 {{ container_class }}">
+    {%- # Filters Form -%}
+    {%- liquid
+      capture justification_class
+        if results.filters.size == 0 or section.settings.filtering == false
+          echo 'justify-center lg:justify-between'
+        else
+          echo 'justify-between lg:justify-between'
+        endif
+      endcapture
+    -%}
+
+    <form
+      class="flex items-center {{ justification_class }} js-facets-form px-row lg:gap-x-4"
+      data-filtering="{{ section.settings.filtering }}"
+      data-sorting="{{ section.settings.filtering }}"
+      id="Facets"
+    >
+      {%- # Filters -%}
+      {%- if results.terms -%}
+        <input
+          type="hidden"
+          name="q"
+          value="{{ results.terms | escape }}"
+        >
+        <input
+          type="hidden"
+          name="options[prefix]"
+          value="last"
+        >
+      {%- endif -%}
+
+      {%- if results.current_vendor or results.current_type -%}
+        <input
+          type="hidden"
+          name="q"
+          value="{{ results.current_vendor }}{{ results.current_type }}"
+        >
+      {%- endif -%}
+
+      {%- if section.settings.filtering -%}
+        {%- # Results Count -%}
+        {%- assign count = results.products_count | default: results.results_count -%}
+        {%- render 'object_count',
+          class: 'max-lg:hidden',
+          count: count,
+          results_none: section.settings.results_none,
+          results_one: section.settings.results_one,
+          results_other: section.settings.results_other
+        -%}
+
+        {%- # Filters -%}
+        {%- if results.filters.size > 0 -%}
+          {%- # Mobile Drawer Trigger -%}
+          {%- liquid
+            capture mobile_classes
+              if section.settings.sorting
+                echo 'border-r border-solid border-border-light w-1/2'
+              else
+                echo 'w-full'
+              endif
+            endcapture
+          -%}
+
+          <button
+            class="items-center justify-center gap-2 py-4 font-bold {{ mobile_classes }} select-none text-md lg:hidden"
+            onclick="return DrawerFacets.show()"
+            type="button"
+          >
+            {{- 'snippets.facets.main_horizontal.mobile_drawer.trigger' | t -}}
+            {%- render 'theme_icons' with 'filter',
+              width: 16,
+              height: 16,
+              class: 'stroke-current pointer-events-none'
+            -%}
+          </button>
+
+          {%- # Desktop -%}
+          <span class="text-sm font-medium max-lg:hidden">Filters:</span>
+          <ul
+            class="flex min-h-[47px] flex-grow flex-wrap items-center gap-x-2 gap-y-2 max-lg:hidden"
+            id="DesktopInputs"
+          >
+            {%- for filter in results.filters -%}
+              <li class="border-grey-200 border px-4 py-2">
+                {%- liquid
+                  case filter.type
+                    when 'list'
+                      render 'facets_list-disclosure', index: forloop.index, filter: filter, input_scope: 'desktop'
+                    when 'price_range'
+                      render 'facets_price-range-disclosure', index: forloop.index, filter: filter, input_scope: 'desktop'
+                  endcase
+                -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- # Results Count -%}
+        {%- assign count = results.products_count | default: results.results_count -%}
+        {%- render 'object_count',
+          count: count,
+          results_none: section.settings.results_none,
+          results_one: section.settings.results_one,
+          results_other: section.settings.results_other
+        -%}
+      {%- endif -%}
+
+      {%- if section.settings.sorting -%}
+        {%- # Sort By (Desktop) -%}
+        <div class="max-lg:hidden">
+          {%- render 'facets_sort-by-dropdown', input_scope: 'desktop' -%}
+        </div>
+
+        {%- # Sort By (Mobile) -%}
+        <div class="max-lg:w-1/2 lg:hidden">
+          {%- render 'facets_sort-by-text', input_scope: 'mobile' -%}
+        </div>
+      {%- endif -%}
+    </form>
+
+    {%- # Active Filters -%}
+    {%- if results.filters.size > 0 -%}
+      {%- liquid
+        assign active_filters = 0
+
+        for filter in results.filters
+          if filter.min_value.value != null and filter.max_value.value != null
+            assign active_filters = active_filters | plus: 1
+
+            break
+          endif
+
+          if filter.active_values.size > 0
+            assign active_filters = active_filters | plus: 1
+
+            break
+          endif
+        endfor
+      -%}
+
+      <div class="js-facets-active">
+        {%- if active_filters > 0 -%}
+          {%- liquid
+            # Slider
+            # -[Start]
+            capture slider_snippet
+              render 'section_slider', target: section, name: 'facets-active-facets-horizontal'
+            endcapture
+
+            assign slider_snippet = slider_snippet | split: ' ** '
+
+            assign slider_settings = slider_snippet[0]
+            assign slider_classes = slider_snippet[1]
+            assign slider_styling = slider_snippet[2]
+            assign slider_components = slider_snippet[3] | split: '::'
+
+            assign slider_viewport = slider_components[0]
+            assign slider_track_class = slider_components[1] | append: ' px-row'
+            # -[End]
+          -%}
+
+          {{ slider_styling }}
+
+          <embla-slider
+            class="{{ slider_classes }} mt-4 gap-3 border-t border-solid border-border-light pt-4"
+            {{ slider_settings }}
+          >
+            <div {{ slider_viewport }}>
+              <ul class="{{ slider_track_class }}">
+                {%- liquid
+                  assign bubble_classes = 'flex min-w-max items-center hover:border-highlight transition-colors px-[14px] py-[6px] py-1 text-xs font-semibold border select-none rounded-[50px] o-button gap-x-1 hover:bg-grey-100 js-facet-remove'
+                  assign slide_index = 0
+                  assign clear_all_translation = 'snippets.facets.main_horizontal.facets.clear_filter' | t
+                -%}
+
+                {%- for filter in results.filters -%}
+                  {%- for value in filter.active_values -%}
+                    {%- assign slide_index = slide_index | plus: 1 -%}
+                    <li class="slider__item" data-slide-index="{{ slide_index }}">
+                      <a href="{{ value.url_to_remove }}" class="{{ bubble_classes }}">
+                        {{- value.label | escape | remove: '[Clothing]' | upcase -}}
+                        {%- render 'theme_icons' with 'close',
+                          width: 14,
+                          height: 14,
+                          class: 'stroke-current pointer-events-none'
+                        -%}
+                        <span class="sr-only">{{- clear_all_translation -}}</span>
+                      </a>
+                    </li>
+                  {%- endfor -%}
+
+                  {%- if filter.type == 'price_range' -%}
+                    {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                      {%- assign slide_index = slide_index | plus: 1 -%}
+                      <li class="slider__item" data-slide-index="{{ slide_index }}">
+                        <a href="{{ filter.url_to_remove }}" class="{{ bubble_classes }}">
+                          {%- liquid
+                            assign min = filter.min_value.value | default: 0 | money | upcase | replace: ',', '.'
+                            assign max = filter.max_value.value | default: filter.range_max | money | upcase | replace: ',', '.'
+
+                            echo min | append: ' - ' | append: max
+                          -%}
+
+                          {%- render 'theme_icons' with 'close', width: 14, height: 14, class: 'stroke-current' -%}
+                          <span class="sr-only">{{- clear_all_translation -}}</span>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+          </embla-slider>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{%- assign count = results.products_count | default: results.results_count -%}
+{%- render 'object_count',
+  class: 'lg:hidden mt-6',
+  count: count,
+  results_none: section.settings.results_none,
+  results_one: section.settings.results_one,
+  results_other: section.settings.results_other
+-%}
+
+{%- # Product Grid -%}
+<div class="pt-6 lg:pt-8">
+  {{ product_grid }}
+</div>

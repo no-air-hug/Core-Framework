@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "2523c3e7-0ae8-43d0-8310-76e45257b806": {
+      "type": "text-media",
+      "blocks": {
+        "template--15192208932907__2523c3e7-0ae8-43d0-8310-76e45257b806-text-1": {
+          "type": "text",
+          "settings": {
+            "content_width": 0,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "cta_align": "vertical",
+            "cta_align_desktop": "horizontal",
+            "position": "start",
+            "position_desktop": "",
+            "vertical_position": "center",
+            "color": "light",
+            "heading_size": "2xl",
+            "heading_size_desktop": "",
+            "text_size": "md",
+            "text_size_desktop": "",
+            "overline": "XXX",
+            "heading": "<p>XXX<\/p>",
+            "text": "<p>XXX<\/p>",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "cta_2_text": "",
+            "cta_2_icon": "none",
+            "cta_2_icon-position": "right",
+            "cta_2_link": "",
+            "cta_2_link_style": "secondary",
+            "cta_2_target": false
+          }
+        },
+        "template--15192208932907__2523c3e7-0ae8-43d0-8310-76e45257b806-media-1": {
+          "type": "media",
+          "settings": {
+            "image_fit": "cover",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_muted": true,
+            "stl_products": [
+
+            ],
+            "stl_title": "",
+            "stl_position": "bottom-left"
+          }
+        }
+      },
+      "block_order": [
+        "template--15192208932907__2523c3e7-0ae8-43d0-8310-76e45257b806-text-1",
+        "template--15192208932907__2523c3e7-0ae8-43d0-8310-76e45257b806-media-1"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "#222222",
+        "color_spacing": true,
+        "media_first": true,
+        "media_width": "half"
+      }
+    }
+  },
+  "order": [
+    "2523c3e7-0ae8-43d0-8310-76e45257b806"
+  ]
+}

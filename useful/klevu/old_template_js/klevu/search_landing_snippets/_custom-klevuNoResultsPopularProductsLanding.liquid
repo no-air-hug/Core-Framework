@@ -1,0 +1,87 @@
+{%- capture content -%}
+  <div class="kuNoResultsProductRecommendationSlider kuNoResultsPopularProducts" data-section="noResultsFoundPopularProductList">
+    <%
+      var popularProductList = klevu.getObjectPath(data,"query.noResultsFoundPopularProductList.result");
+    %>
+    <% if(popularProductList && popularProductList.length) { %>
+      <div class="klevuNoResultsRecs" title="<%= helper.translate(data.landingNoResultsPopularHeading) %>">
+        <h3>
+          <%= helper.translate(data.landingNoResultsPopularHeading) %>
+        </h3>
+      </div>
+      <div class="klevuNoResultsRecsWrap">
+        <div class="klevuNoResultsRecsResults">
+          <div class="klevuNoResultsRecsResultsInner">
+            <% helper.each(popularProductList, function(key, product){ %>
+              <%
+                var updatedProductName = product.name;
+
+                if(klevu.search.modules.kmcInputs.base.getSkuOnPageEnableValue()) {
+                  if(klevu.dom.helpers.cleanUpSku(product.sku)) {
+                    updatedProductName += klevu.dom.helpers.cleanUpSku(product.sku);
+                  }
+                }
+              %>
+
+              <div class="klevuNoResultsRecs-itemWrap klevuRecommendedProduct klevuProduct" data-id="<%= product.id %>">
+                <div class="klevuNoResultsRecs-item">
+                  <div class="klevuNoResultsRecs-itemImg">
+                    <a href="<%= product.url %>" class="klevuProductClick kuTrackRecentView klevuNoResultsRecsImg" data-id="<%= product.id %>">
+                      <img src="<%= product.image %>" origin="<%= product.image %>" onerror="klevu.dom.helpers.cleanUpProductImage(this)" alt="<%= updatedProductName %>" class="prodImg" width="100%" />
+                    </a>
+                  </div>
+                </div>
+                <div class="klevuNoResultsRecs-itemDesc">
+                  <a href="<%= product.url %>" title="<%= updatedProductName %>" data-id="<%= product.id %>" class="klevuProductClick kuTrackRecentView klevuNoResultsRecsTitle">
+                    <%= updatedProductName %>
+                  </a>
+                  <% if(klevu.search.modules.kmcInputs.base.getShowPrices()) { %>
+                    <div class="klevuNoResultsRecs-itemPrice">
+                      <%
+                        var kuTotalVariants = klevu.dom.helpers.cleanUpPriceValue(product.totalVariants);
+                        var kuStartPrice = klevu.dom.helpers.cleanUpPriceValue(product.startPrice,product.currency);
+                        var kuSalePrice = klevu.dom.helpers.cleanUpPriceValue(product.salePrice,product.currency);
+                        var kuPrice = klevu.dom.helpers.cleanUpPriceValue(product.price,product.currency);
+                      %>
+
+                      <% if(!Number.isNaN(kuTotalVariants) && !Number.isNaN(kuStartPrice)) { %>
+                        <div class="kuSalePrice kuStartPrice">
+                          <span class="klevuQuickPriceGreyText">
+                            <%=helper.translate("Starting at")%>
+                          </span>
+                          <span>
+                            <%=helper.processCurrency(product.currency,parseFloat(product.startPrice))%>
+                          </span>
+                        </div>
+                      <% } else if(!Number.isNaN(kuSalePrice) && !Number.isNaN(kuPrice) && (kuPrice > kuSalePrice)){ %>
+                        <span class="kuOrigPrice kuClippedOne">
+                          <%= helper.processCurrency(product.currency,parseFloat(product.price)) %>
+                        </span>
+                        <span class="kuSalePrice kuSpecialPrice kuClippedOne">
+                          <%=helper.processCurrency(product.currency,parseFloat(product.salePrice))%>
+                        </span>
+                      <% } else if(!Number.isNaN(kuSalePrice)) { %>
+                        <span class="kuSalePrice kuSpecialPrice">
+                          <%= helper.processCurrency(product.currency,parseFloat(product.salePrice)) %>
+                        </span>
+                      <% } else if(!Number.isNaN(kuPrice)) { %>
+                        <span class="kuSalePrice">
+                          <%= helper.processCurrency(product.currency,parseFloat(product.price)) %>
+                        </span>
+                      <% } %>
+                      <%=helper.render('searchResultProductVATLabel', scope, data, product) %>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuNoResultsPopularProductsLanding">
+  {{- content -}}
+</script>

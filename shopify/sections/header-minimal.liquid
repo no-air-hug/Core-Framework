@@ -1,0 +1,23 @@
+<div class="px-0 border-b border-solid header__main border-border-light mx-row">
+  <a class="header__logo" href="{{ routes.root_url }}">
+    {%- liquid
+      if section.settings.brand_image != blank or section.settings.brand_logo != blank
+        render 'theme_brand-logos', target: section, preload: true, height: 19
+      endif
+    -%}
+
+    <span class="sr-only">{{- shop.name -}}</span>
+  </a>
+
+  <div class="header__functions">
+    <div class="header__ctas">
+      {%- render 'object_ctas',
+        settings: section.settings,
+        class: 'header__ctas',
+        size_mob: 'small',
+        size_dsk: 'small',
+        last_cta_index: 2
+      -%}
+    </div>
+  </div>
+</div>

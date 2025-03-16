@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "text_color": "dark"
+      }
+    },
+    "main-help-center": {
+      "type": "main-help-center",
+      "settings": {
+        "spacing": "lg",
+        "padding": "contained",
+        "width": 773,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "author": "Help Centre"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main-help-center"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "4d165411-6c67-40db-82aa-e6549ae5bebf": {
+          "type": "text",
+          "settings": {
+            "overlay_text": false,
+            "content_border": "",
+            "content_b_radius": 0,
+            "content_padding_left": "",
+            "content_padding_right": "",
+            "content_width": 580,
+            "offset_heading": 0,
+            "content_gap": 16,
+            "content_gap_desktop": 16,
+            "cta_spacing": 20,
+            "cta_spacing_desktop": 20,
+            "cta_sizes": "full",
+            "cta_sizes_desktop": "small",
+            "cta_align": "vertical",
+            "cta_align_desktop": "horizontal",
+            "position": "start",
+            "position_desktop": "",
+            "vertical_position_mob": "center",
+            "vertical_position": "center",
+            "content_alignment": "start",
+            "content_alignment_desktop": "",
+            "heading_tag": "h2",
+            "heading_size": "3xl",
+            "heading_size_desktop": "5xl",
+            "text_size": "md",
+            "text_size_desktop": "lg",
+            "word_break": "break-normal",
+            "overline": "",
+            "cta_1_text": "",
+            "cta_1_icon": "none",
+            "cta_1_icon-position": "right",
+            "cta_1_link": "",
+            "cta_1_link_style": "primary",
+            "cta_1_target": false,
+            "cta_2_text": "",
+            "cta_2_icon": "none",
+            "cta_2_icon-position": "right",
+            "cta_2_link": "",
+            "cta_2_link_style": "secondary",
+            "cta_2_target": false
+          }
+        },
+        "dc1c096b-c5c5-43bc-b242-f4591792bef2": {
+          "type": "media",
+          "settings": {
+            "media_first": true,
+            "media_width": "half",
+            "custom_media_width": 33,
+            "aspect_ratio": "landscape-large",
+            "custom_aspect_ratio": "",
+            "aspect_ratio_mob": "landscape-large",
+            "custom_aspect_ratio_mob": "",
+            "image": "{{ collection.image }}",
+            "image_overlay": "linear-gradient(360deg, rgb(25 25 25 / 50%) 0%, rgb(25 25 25 / 0%) 72.5%)",
+            "image_fit": "cover",
+            "video_url": "",
+            "video_fit": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "video_muted": true,
+            "video_play_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "4d165411-6c67-40db-82aa-e6549ae5bebf",
+        "dc1c096b-c5c5-43bc-b242-f4591792bef2"
+      ],
+      "settings": {
+        "spacing": "lg",
+        "padding": "full",
+        "width": 0,
+        "background_color": "#f6f6f6",
+        "color_spacing": false,
+        "text_color": "dark"
+      }
+    },
+    "2eba6c47-fc6f-4595-af82-6d5149b0fff2": {
+      "type": "main-collection-features",
+      "settings": {
+        "spacing": "sm",
+        "padding": "full",
+        "background_color": "rgba(0,0,0,0)",
+        "color_spacing": false,
+        "secondary_background_color": "#f7f7f7",
+        "text_color": "dark",
+        "feature_collections": ["all", "test-2", "test-3", "test-4"]
+      }
+    },
+    "main_list_products_Kaqdyz": {
+      "type": "main-list-products",
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "background_color": "#ffffff",
+        "color_spacing": false,
+        "text_color": "dark",
+        "facets_layout": "horizontal",
+        "filtering": true,
+        "sorting": true,
+        "sort_manual": true,
+        "sort_best_selling": true,
+        "sort_title": true,
+        "sort_price": true,
+        "sort_created": true,
+        "results_none": "Sorry, there are no products in this collection",
+        "results_one": "//count// result",
+        "results_other": "//count// results",
+        "pagination_amount": 16,
+        "pagination_style": "dynamic"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "banner",
+    "2eba6c47-fc6f-4595-af82-6d5149b0fff2",
+    "main_list_products_Kaqdyz"
+  ]
+}

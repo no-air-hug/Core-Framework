@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "login": {
+      "type": "main-account-form-login",
+      "blocks": {
+        "fa16b8d0-6fb0-4dc1-bb47-e716ca28d282": {
+          "type": "media",
+          "settings": {
+            "mobile_hidden": true,
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "fa16b8d0-6fb0-4dc1-bb47-e716ca28d282"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "submit_button_style": "primary",
+        "guest_button_style": "tertiary",
+        "register_button_style": "secondary"
+      }
+    },
+    "forgot": {
+      "type": "main-account-form-forgot-password",
+      "blocks": {
+        "1593af49-a9dc-4a04-8a97-5a542cfff921": {
+          "type": "media",
+          "settings": {
+            "mobile_hidden": true,
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "1593af49-a9dc-4a04-8a97-5a542cfff921"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark",
+        "submit_button_style": "primary",
+        "login_button_style": "underline"
+      }
+    }
+  },
+  "order": [
+    "login",
+    "forgot"
+  ]
+}

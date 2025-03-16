@@ -1,0 +1,83 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  assign media_block = section.blocks | where: 'type', 'media' | first
+
+  capture height_class
+    echo 'min-h-screen-d-minus-header'
+  endcapture
+-%}
+
+<div class="grid lg:grid-cols-2 gap-y-9 {{ height_class }} text-section-primary">
+  {%- if media_block != blank -%}
+    <div class="-ml-row max-lg:-mr-row{%- if media_block.settings.mobile_hidden %} hidden lg:flex{%- endif -%}">
+      {%- render 'object_image' with media_block.settings.image,
+        mobile_image: media_block.settings.image_mobile,
+        class: 'o-picture--fill',
+        aspect: '840 / 745',
+        aspect_mobile: '1 / 1',
+        preload: true,
+        img_class: 'o-picture--fill'
+      -%}
+    </div>
+  {%- endif -%}
+
+  <div class="flex justify-center px-6 py-9 md:px-13 md:py-13 only:col-span-2">
+    <div class="max-w-[512px] w-full self-center max-md:items-center">
+      <h1 id="login" tabindex="-1" class="text-5xl font-bold mb-9 font-heading">
+        {{- 'sections.main_account_form_login.title' | t -}}
+      </h1>
+
+      {%- render 'form_account-login',
+        class: 'mb-11',
+        title: 'sections.main_account_form_login.subtitle | t',
+        text: 'sections.main_account_form_login.subtext | t',
+        submit_button_style: section.settings.submit_button_style,
+        forgot_button_style: section.settings.forgot_button_style
+      -%}
+
+      {%- if shop.checkout.guest_login -%}
+        <div class="mb-11">
+          <h2 class="text-2xl font-bold mb-[32px] font-heading">
+            {{- 'sections.main_account_form_login.guest_subtitle' | t -}}
+          </h2>
+
+          {%- form 'guest_login' -%}
+            <button class="o-button o-button--{{ section.settings.guest_button_style }} o-button--full">
+              {{- 'sections.main_account_form_login.guest_continue' | t -}}
+            </button>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+
+      <div class="flex flex-col gap-[32px]">
+        <div>
+          <h2 class="mb-2 text-2xl font-bold font-heading">
+            {{- 'sections.main_account_form_login.register_subtitle' | t -}}
+          </h2>
+          <p>{{- 'sections.main_account_form_login.register_subtext' | t -}}</p>
+        </div>
+
+        <div class="rte rte--check-list">
+          {%- assign benefits_list = 'sections.main_account_form_login.register_benefits' | t | split: '|' -%}
+          <ul aria-label="{{ 'sections.main_account_form_login.register_benefits_title' | t }}">
+            {%- for benefit in benefits_list -%}
+              <li class="flex items-end">
+                <span class="font-normal">
+                  {{- benefit -}}
+                </span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <a
+          class="o-button o-button--{{ section.settings.register_button_style }} o-button--full justify-center text-md"
+          href="{{ routes.account_register_url }}"
+        >
+          {{- 'sections.main_account_form_login.register_cta_text' | t -}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+{%- capture content -%}
+  <% var hasNoResultFound = klevu.getObjectPath(data,"modules.promotionalBanner.hasNoResultFound"); %>
+  <% var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth; %>
+  <%
+    if(data.banners && data.banners[dataLocal] && data.banners[dataLocal].length && !hasNoResultFound) {
+      klevu.each(data.banners[dataLocal], function(index, banner){
+  %>
+  <%
+    var imageUrl = banner.bannerImg;
+    var imageAltText = klevu.dom.helpers.getBannerAltTagText(banner);
+
+    if (screenWidth < 768 && !!banner.mobileBannerImageUrl) {
+      imageUrl = banner.mobileBannerImageUrl;
+      imageAltText = banner.mobileBannerAltTag;
+    }
+  %>
+    <div class="kuBannerAd kuBannerContainer">
+      <% if(!!banner.redirectUrl) { %>
+        <a role="banner" area-label="Promotion Banner label" class="kuTrackBannerClick" target="_self" data-id="<%= banner.bannerRef %>" data-name="<%= banner.bannerName %>" data-image="<%= imageUrl %>" data-redirect="<%= banner.redirectUrl %>" href="<%= banner.redirectUrl %>" alt="<%= imageAltText %>" title="<%= imageAltText %>" >
+          <img src="<%= imageUrl %>" alt="<%= imageAltText %>" />
+        </a>
+      <% } else { %>
+        <span role="banner" area-label="Promotion Banner label" class="kuTrackBannerClick" target="_self" data-id="<%= banner.bannerRef %>" data-name="<%= banner.bannerName %>" data-image="<%= imageUrl %>" data-redirect="<%= banner.redirectUrl %>" alt="<%= imageAltText %>" title="<%= imageAltText %>" >
+          <img src="<%= imageUrl %>" alt="<%= imageAltText %>" />
+        </span>
+      <% } %>
+    </div>
+  <% }); } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingPromotionBanner">
+  {{- content -}}
+</script>

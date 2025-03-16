@@ -1,0 +1,66 @@
+.before-after {
+  --position: 50%;
+
+  position: relative;
+  overflow: hidden;
+  display: grid;
+
+  &__wrapper {
+    overscroll-behavior-x: none;
+    display: grid;
+  }
+
+  &__img {
+    user-select: none;
+    grid-area: 1 / 1;
+
+    &--before {
+      clip-path: polygon(0 0, var(--position) 0, var(--position) 100%, 0% 100%);
+    }
+  }
+
+  &__slider {
+    cursor: pointer;
+    position: absolute;
+    inset: 0;
+    overscroll-behavior-x: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    &:focus-visible ~ &-button {
+      outline: 5px solid black;
+      outline-offset: 3px;
+    }
+
+    &-line {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: var(--position);
+      transform: translateX(-50%);
+      width: 0.2rem;
+      height: 100%;
+      background-color: theme("colors.black");
+    }
+
+    &-button {
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      left: var(--position);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      padding: 0.5rem;
+      color: theme("colors.white");
+      background-color: theme("colors.highlight");
+      border-radius: 100vw;
+      box-shadow: 1px 1px 1px hsl(0deg 50% 2% / 50%);
+
+      &-svg {
+        max-width: unset;
+      }
+    }
+  }
+}

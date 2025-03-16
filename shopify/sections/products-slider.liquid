@@ -1,0 +1,88 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Slider
+  # - [Start]
+  capture slider_snippet
+    render 'section_slider', target: section, name: 'products-slider'
+  endcapture
+
+  assign slider_snippet = slider_snippet | split: ' ** '
+
+  assign slider_settings = slider_snippet[0]
+  assign slider_classes = slider_snippet[1]
+  assign slider_styling = slider_snippet[2]
+  assign slider_components = slider_snippet[3] | split: '::'
+
+  assign slider_viewport = slider_components[0]
+  assign slider_track_class = slider_components[1]
+  assign slider_item_class = slider_components[2]
+  # - [End]
+-%}
+
+{{ slider_styling }}
+
+<embla-slider
+  class="{{ slider_classes }} products-slider"
+  {{ slider_settings }}
+>
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'list' -%}
+        <div {{ slider_viewport }}>
+          <ul class="{{ slider_track_class }}">
+            {%- for item in block.settings.list -%}
+              <li class="{{ slider_item_class }}">
+                {%- render 'card_product', product: item -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        {%- break -%}
+
+      {%- when 'collection' -%}
+        <div {{ slider_viewport }} {{ block.shopify_attributes }}>
+          <ul class="{{ slider_track_class }}">
+            {%- for item in block.settings.collection.products limit: 8 -%}
+              <li class="{{ slider_item_class }}">
+                {%- render 'card_product', product: item -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        {%- break -%}
+
+      {% when 'recommended' %}
+        {% liquid
+          assign product_id = product.id
+          if request.page_type == 'cart'
+            assign product_id = cart.items.first.product_id
+          endif
+        %}
+        <product-recommendations
+          class="slider__viewport"
+          data-slider="viewport"
+          data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product_id }}&limit={{ block.settings.limit }}&intent={{ block.settings.intent }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if recommendations.performed and recommendations.products_count > 0 -%}
+            <ul class="slider__track">
+              {%- for item in recommendations.products -%}
+                <li class="slider__item">
+                  {%- render 'card_product', product: item -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {% else %}
+            <style>
+              #shopify-section-{{ section.id }} {
+                display: none;
+              }
+            </style>
+          {%- endif -%}
+        </product-recommendations>
+    {%- endcase -%}
+  {%- endfor -%}
+</embla-slider>

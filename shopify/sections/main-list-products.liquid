@@ -1,0 +1,75 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  # Media Aspect Ratios
+  capture media_aspect
+    render 'section_aspect-ratios', target: section.settings
+  endcapture
+
+  # Grid Spacing, Structure
+  render 'section_grid', section: section
+-%}
+
+{%- # Product Grid -%}
+{%- capture product_grid -%}
+  <div
+    class="js-paginatable js-products"
+    section="{{ section.id }}"
+  >
+    {%- assign page_size = section.settings.pagination_amount -%}
+    {%- paginate collection.products by page_size -%}
+      <div class="js-product-grid mb-11 lg:mb-13">
+        {%- if collection.products.size == 0 -%}
+        <h2 class="flex h-17 items-center justify-center pt-7 text-center font-heading">
+            {{- 'sections.main_collection_products.results.none' | t -}}
+          </h2>
+        {%- else -%}
+          <div>
+            <div class="border-gray-200 flex items-center gap-2 border px-4 py-rem max-lg:hidden">
+              <div class="flex w-4/6 items-center gap-2" href="{{ product.url }}">
+                <p class="w-1/4 flex-shrink-0 font-bold">Stock code</p>
+                <p class="w-2/4 font-bold">Product name</p>
+                <p class="w-1/4 font-bold">Price</p>
+              </div>
+              <div class="w-min-[415px] flex w-2/6 justify-end text-end">
+                <p class="w-[110px] font-bold">Qty</p>
+                <p class="w-[190px] font-bold">Add</p>
+              </div>
+              </div>
+            <ul class="js-paginatable-list grid max-md:grid-cols-1 md:grid-cols-2 max-lg:gap-6 lg:grid-cols-1">
+              {%- for product in collection.products -%}
+                <li class="js-paginatable-ite lg:border-gray-200 lg:border-x">
+                  {% comment %} {%- render 'card_product', product: product, aspect_ratio: media_aspect -%} {% endcomment %}
+                  {%- render 'card_list-product', product: product, index: forloop.index0 -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- liquid
+        # Converts string to integer
+        assign pagination_visibility = settings.pagination_visibility | plus: 0
+
+        if paginate.pages > pagination_visibility
+          case section.settings.pagination_style
+            when 'text'
+              render 'pagination_text', paginate: paginate
+            when 'dynamic'
+              render 'pagination_dynamic', paginate: paginate, items_word: 'products'
+          endcase
+        endif
+      -%}
+    {%- endpaginate -%}
+  </div>
+{%- endcapture -%}
+{%- liquid
+  # Facets
+  case section.settings.facets_layout
+    when 'horizontal'
+      render 'facets_main-horizontal', section: section, product_grid: product_grid
+    when 'vertical'
+      render 'facets_main-vertical', section: section, product_grid: product_grid
+  endcase
+-%}

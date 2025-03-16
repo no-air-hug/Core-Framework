@@ -1,0 +1,19 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+-%}
+
+{%- assign app_blocks = section.blocks | where: 'type', '@app' -%}
+
+{% for app in app_blocks %}
+  {% render app %}
+{% else %}
+  <ul class="flex gap-px max-md:grid max-md:grid-cols-2">
+    {%- for i in (1..4) -%}
+      <li class="flex-1">
+        {%- render 'object_image', aspect: '1 / 1' -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+{% endfor %}

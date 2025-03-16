@@ -1,0 +1,48 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Section - Header
+  -------------------------------------------------------------------------------
+  Accepts
+  - section: {Object} the section object that utilises the ...sectionHeader()
+    part (required)
+  - header_classes: {String} apply optional classes to the section-header container
+    (optional).
+  - to_replace: {String} a string to replace in the heading/text/overline
+    (optional)
+  - replace_with: {String/Object} requires content specified in to_replace
+    with something else (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'section_header', section: section -%}
+  -------------------------------------------------------------------------------
+  Description
+  Used to generate consistent section headers
+{%- endcomment -%}
+
+{%- liquid
+  assign to_replace = to_replace
+  assign replace_with = replace_with
+  assign default_header_classes = 'section-header '
+
+  # Prevents header from hugging left/right of the screen when the container is set to full.
+  if section.settings.padding == 'full'
+    assign default_header_classes = default_header_classes | append: 'px-row '
+  endif
+
+  assign section_header = section.blocks | where: 'type', 'section_header' | first
+
+  if section_header
+    # Positions the CTA on the right rather than stacking it with content. Disables position-related settings.
+    if section_header.settings.aside_cta
+      assign default_header_classes = default_header_classes | append: 'section-header--aside-cta '
+    endif
+
+    assign header_classes = header_classes | default: 'mb-9' | prepend: default_header_classes
+
+    assign overline = section_header.settings.overline | replace: to_replace, replace_with
+    assign heading = section_header.settings.heading | replace: to_replace, replace_with
+    assign text = section_header.settings.text | replace: to_replace, replace_with
+
+    render 'object_content', block: section_header.settings, heading: heading, text: text, overline: overline, attributes: section_header.shopify_attributes, class: header_classes
+  endif
+-%}

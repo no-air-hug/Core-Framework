@@ -1,0 +1,481 @@
+<script type="text/javascript">
+  var klevuSettings = {
+    theme: {
+      setTemplates: [
+        // Custom Templates
+        // Docs: https://docs.klevu.com/template-js/reference
+        // ...for Quick Search!
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateBase",
+          name: "klevuTemplateBase"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuSearchPersonalizations",
+          name: "klevuSearchPersonalizations"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickAutoSuggestions",
+          name: "klevuQuickAutoSuggestions"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickPageSuggestions",
+          name: "klevuQuickPageSuggestions"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickCategorySuggestions",
+          name: "klevuQuickCategorySuggestions"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickProducts",
+          name: "klevuQuickProducts"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickProductBlockTitleHeader",
+          name: "klevuQuickProductBlockTitleHeader"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickProductBlock",
+          name: "klevuQuickProductBlock"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplatePagination",
+          name: "klevuQuickTemplatePagination"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateResultsHeadingTitle",
+          name: "klevuQuickTemplateResultsHeadingTitle"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickPromotioBanner",
+          name: "klevuQuickPromotionBanner"
+        },
+        //  - Popular searches template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_kuTemplatePopularSearches",
+          name: "kuTemplatePopularSearches"
+        },
+        //  - Recent searches template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_kuTemplateRecentSearches",
+          name: "kuTemplateRecentSearches"
+        },
+        //  - Product block template for Trending products in Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTrendingProductBlock",
+          name: "klevuQuickTrendingProductBlock"
+        },
+        //  - Trending products template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_klevuTrendingProducts",
+          name: "klevuTrendingProducts"
+        },
+        //  - Product block template for Recently viewed products in Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickRecentViewedProductBlock",
+          name: "klevuQuickRecentViewedProductBlock"
+        },
+        //  - Recent viewed products template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_klevuRecentViewedProducts",
+          name: "klevuRecentViewedProducts"
+        },
+        //  - No Results Found template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_klevuTemplateNoResultFoundQuick",
+          name: "noResultsFoundQuick"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickNoResultsPopularProducts",
+          name: "quickNoResultsPopularProducts"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickNoResultsPopularProductBlock",
+          name: "quickNoResultsPopularProductBlock"
+        },
+        //  - Popular searches template for Quick Search Results
+        {
+          scope: "quick",
+          selector: "#custom_kuQuickNoResultsPopularSearches",
+          name: "quickNoResultsPopularSearches"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickNoResultsFoundBanners",
+          name: "quickNoResultsFoundBanners"
+        },
+        //  - Search result Product stock availability label template file
+        {
+          scope: "quick",
+          selector: "#custom_quickSearchResultProductStock",
+          name: "quickProductStock"
+        },
+        //  - Search result Product VAT label template file
+        {
+          scope: "quick",
+          selector: "#custom_searchResultProductVATLabelQuick",
+          name: "searchResultProductVATLabelQuick"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateFilters",
+          name: "klevuQuickTemplateFilters"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickOtherContent",
+          name: "klevuQuickOtherContent"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateContentBlock",
+          name: "klevuQuickTemplateContentBlock"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateTabResults",
+          name: "klevuQuickTemplateTabResults"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateSortBy",
+          name: "klevuQuickTemplateSortBy"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_kuTemplateQuickResultsViewSwitch",
+          name: "kuTemplateQuickResultsViewSwitch"
+        },
+        //  - Quick search add to cart button template
+        {
+          scope: "quick",
+          selector: "#custom_quickSearchProductAddToCart",
+          name: "quickSearchProductAddToCart"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickTemplateInfiniteScrollDown",
+          name: "klevuQuickTemplateInfiniteScrollDown"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickImageSearchContent",
+          name: "klevuQuickImageSearchContent"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickProductRating",
+          name: "klevuQuickProductRating"
+        },
+        {
+          scope: "quick",
+          selector: "#custom_klevuQuickProductRatingCount",
+          name: "klevuQuickProductRatingCount"
+        },
+        // ...for Search Landing!
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateBase",
+          name: "klevuTemplateLanding"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplatePagination",
+          name: "pagination"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateProductBlock",
+          name: "productBlock"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateResultsHeadingTitle",
+          name: "klevuLandingTemplateResultsHeadingTitle"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateResults",
+          name: "results"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateFilters",
+          name: "filters"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateTopFilters",
+          name: "filtersTop"
+        },
+        //  - Landing page add to cart button template
+        {
+          scope: "landing",
+          selector: "#custom_landingPageProductAddToCart",
+          name: "landingPageProductAddToCart"
+        },
+        //  - Color swatch template for landing page products
+        {
+          scope: "landing",
+          selector: "#custom_landingPageProductColorSwatches",
+          name: "landingProductSwatch"
+        },
+        //  - Color swatch for Product Quick view.
+        {
+          scope: "landing",
+          selector: "#custom_quickViewProductColorSwatches",
+          name: "quickViewProductSwatch"
+        },
+        //  - Search result Product stock availability label template file
+        {
+          scope: "landing",
+          selector: "#custom_landingSearchResultProductStock",
+          name: "landingProductStock"
+        },
+        //  - Search result Product VAT label template file
+        {
+          scope: "landing",
+          selector: "#custom_searchResultProductVATLabel",
+          name: "searchResultProductVATLabel"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateContentBlock",
+          name: "contentBlock"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateTabResults",
+          name: "tab-results"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateSortBy",
+          name: "sortBy"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateLimit",
+          name: "limit"
+        },
+        //  - Search result Product badge template file
+        {
+          scope: "landing",
+          selector: "#custom_searchResultProductBadge",
+          name: "landingProductBadge"
+        },
+        //  - Landing page banner template
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingPromotionBanner",
+          name: "klevuLandingPromotionBanner"
+        },
+        //  - No Results Found template for Landing Search Results
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateNoResultFound",
+          name: "noResultsFoundLanding"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuNoResultsPopularProductsLanding",
+          name: "noResultsLandingPopularProductsTemplate"
+        },
+        //  - Popular searches template for Landing Search Results
+        {
+          scope: "landing",
+          selector: "#custom_kuNoResultsPopularSearchesLanding",
+          name: "noResultsLandingPopularSearches"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingNoResultsFoundBanners",
+          name: "landingNoResultsFoundBanners"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_kuFilterTagsTemplate",
+          name: "kuFilterTagsTemplate"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_kuTemplateLandingResultsViewSwitch",
+          name: "kuTemplateLandingResultsViewSwitch"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateSearchBar",
+          name: "klevuLandingTemplateSearchBar"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_landingImageRollover",
+          name: "landingImageRollover"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_landingQuickViewImageRollover",
+          name: "landingQuickViewImageRollover"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingTemplateInfiniteScrollDown",
+          name: "klevuLandingTemplateInfiniteScrollDown"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingImageSearchUploadBanner",
+          name: "klevuLandingImageSearchUploadBanner"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingProductRating",
+          name: "klevuLandingProductRating"
+        },
+        {
+          scope: "landing",
+          selector: "#custom_klevuLandingProductRatingCount",
+          name: "klevuLandingProductRatingCount"
+        },
+      ],
+      modules: {
+        resultInfiniteScroll: {
+          quickSearch: {
+            enable: true,
+          },
+          searchResultsPage: {
+            enable: false,
+          },
+          categoryPage: {
+            enable: false,
+          },
+        },
+      },
+    },
+    search: {
+      minChars: 0,
+      searchBoxSelector: 'input[name=q], .kuSearchInput', // Search Input Selector
+      searchBoxTarget: document.querySelector('klevu-quick-search'), // Search Rendering Target
+    },
+    events: { defaultDelay: 100 },
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Request Modifiers
+    // Docs: https://docs.klevu.com/template-js/modify-search-query
+
+    /* This modifier suppies image urls to the returned CMS results data,
+     * without this, images will be returned as an empty string */
+    klevu.modifyRequest('quick', (data, scope) => {
+      klevu.setObjectPath(data, 'localOverrides.query.cmsCompressed.settings.fields', [
+        'id',
+        'name',
+        'shortDesc',
+        'url',
+        'typeOfRecord',
+        'image', // Custom
+      ]);
+    });
+  });
+</script>
+
+{%- liquid
+  # Customised Templates
+  # -- -- -- -- -- -- -- -- -- -- --
+
+  # -- Quick Search -- #
+  render 'klevu_custom-klevuQuickAutoSuggestions'
+  render 'klevu_custom-klevuQuickCategorySuggestions'
+  render 'klevu_custom-klevuQuickImageSearchContent'
+  render 'klevu_custom-klevuQuickNoResultsFoundBanners'
+  render 'klevu_custom-klevuQuickNoResultsPopularProductBlock'
+  render 'klevu_custom-klevuQuickNoResultsPopularProducts'
+  render 'klevu_custom-klevuQuickOtherContent'
+  render 'klevu_custom-klevuQuickPageSuggestions'
+  render 'klevu_custom-klevuQuickProductBlock'
+  render 'klevu_custom-klevuQuickProductBlockTitleHeader'
+  render 'klevu_custom-klevuQuickProductRating'
+  render 'klevu_custom-klevuQuickProductRatingCount'
+  render 'klevu_custom-klevuQuickProducts'
+  render 'klevu_custom-klevuQuickPromotionBanner'
+  render 'klevu_custom-klevuQuickRecentViewedProductBlock'
+  render 'klevu_custom-klevuQuickTemplateBase'
+  render 'klevu_custom-klevuQuickTemplateContentBlock'
+  render 'klevu_custom-klevuQuickTemplateFilters'
+  render 'klevu_custom-klevuQuickTemplateInfiniteScrollDown'
+  render 'klevu_custom-klevuQuickTemplatePagination'
+  render 'klevu_custom-klevuQuickTemplateResultsHeadingTitle'
+  render 'klevu_custom-klevuQuickTemplateSortBy'
+  render 'klevu_custom-klevuQuickTemplateTabResults'
+  render 'klevu_custom-klevuQuickTrendingProductBlock'
+  render 'klevu_custom-klevuRecentViewedProducts'
+  render 'klevu_custom-klevuSearchPersonalizations'
+  render 'klevu_custom-klevuTemplateNoResultFoundQuick'
+  render 'klevu_custom-klevuTrendingProducts'
+  render 'klevu_custom-kuQuickNoResultsPopularSearches'
+  render 'klevu_custom-kuTemplatePopularSearches'
+  render 'klevu_custom-kuTemplateQuickResultsViewSwitch'
+  render 'klevu_custom-kuTemplateRecentSearches'
+  render 'klevu_custom-quickSearchProductAddToCart'
+  render 'klevu_custom-quickSearchResultProductStock'
+  render 'klevu_custom-searchResultProductVATLabelQuick'
+
+  # -- Search Landing -- #
+  assign is_search_landing = false
+  case template.suffix
+    when 'klevu-search', 'search'
+      assign is_search_landing = true
+  endcase
+
+  if is_search_landing
+    render 'klevu_custom-klevuLandingImageSearchUploadBanner'
+    render 'klevu_custom-klevuLandingNoResultsFoundBanners'
+    render 'klevu_custom-klevuLandingProductRating'
+    render 'klevu_custom-klevuLandingProductRatingCount'
+    render 'klevu_custom-klevuLandingPromotionBanner'
+    render 'klevu_custom-klevuLandingTemplateBase'
+    render 'klevu_custom-klevuLandingTemplateContentBlock'
+    render 'klevu_custom-klevuLandingTemplateFilters'
+    render 'klevu_custom-klevuLandingTemplateInfiniteScrollDown'
+    render 'klevu_custom-klevuLandingTemplateNoResultFound'
+    render 'klevu_custom-klevuLandingTemplatePagination'
+    render 'klevu_custom-klevuLandingTemplateProductBlock'
+    render 'klevu_custom-klevuLandingTemplateResults'
+    render 'klevu_custom-klevuLandingTemplateResultsHeadingTitle'
+    render 'klevu_custom-klevuLandingTemplateSearchBar'
+    render 'klevu_custom-klevuLandingTemplateSortBy'
+    render 'klevu_custom-klevuLandingTemplateTabResults'
+    render 'klevu_custom-klevuLandingTemplateTopFilters'
+    render 'klevu_custom-klevuNoResultsPopularProductsLanding'
+    render 'klevu_custom-kuFilterTagsTemplate'
+    render 'klevu_custom-kuNoResultsPopularSearchesLanding'
+    render 'klevu_custom-kuTemplateLandingResultsViewSwitch'
+    render 'klevu_custom-landingImageRollover'
+    render 'klevu_custom-landingPageProductAddToCart'
+    render 'klevu_custom-landingPageProductColorSwatches'
+    render 'klevu_custom-landingQuickViewImageRollover'
+    render 'klevu_custom-landingSearchResultProductStock'
+    render 'klevu_custom-quickViewProductColorSwatches'
+    render 'klevu_custom-searchResultProductBadge'
+    render 'klevu_custom-searchResultProductVATLabel'
+  endif
+-%}

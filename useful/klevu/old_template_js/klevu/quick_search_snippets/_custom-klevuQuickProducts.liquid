@@ -1,0 +1,95 @@
+{%- capture content -%}
+  <% if(data.query.productList) { %>
+    <% if(data.query.productList.result.length > 0 ) { %>
+      <div ku-container data-container-id="ku_quick_main_content_container" data-container-role="content" data-content="productList" >
+        <section ku-container data-container-id="ku_quick_main_content_left" data-container-position="left" data-container-role="left">
+          <div ku-block data-block-id="ku_quick_left_facets">
+            <% var isQuickFiltersOnLeft = klevu.search.modules.kmcInputs.base.isQuickFacetedLayoutFilterOnLeft(); %>
+            <% if(isQuickFiltersOnLeft === true && data.query.productList.filters && data.query.productList.filters.length > 0) { %>
+              <div data-section="productList" class="klevuMeta">
+                <%=helper.render('klevuQuickTemplateFilters',scope,data,"productList") %>
+              </div>
+            <% } %>
+          </div>
+          <div ku-block data-block-id="ku_quick_left_call_outs"></div>
+          <div ku-block data-block-id="ku_quick_left_banner"></div>
+        </section>
+        <section ku-container data-container-id="ku_quick_main_content_center" data-container-position="center" data-container-role="center">
+          <header ku-block data-block-id="ku_quick_result_header"></header>
+          <div ku-block data-block-id="ku_quick_result_items">
+            <div class="klevuResultsBlock">
+              <%=helper.render('klevuQuickProductBlockTitleHeader',scope,data) %>
+              <div class="klevuQuickSearchResults klevuMeta productList" data-section="productList" id="productList" data-result-view="list" >
+                <div class="kuQuickResultsListHeader">
+                  <%=helper.render('kuTemplateQuickResultsViewSwitch',scope,data,"productList") %>
+                  <%=helper.render('klevuQuickTemplateSortBy',scope,data,"productList") %>
+                </div>
+                <div class="kuClearBoth"></div>
+                <div class="kuQuickResultsListContainer">
+                  <ul>
+                    <% helper.each(data.query.productList.result,function(key,product){ %>
+                        <%=helper.render('klevuQuickProductBlock',scope,data,product) %>
+                    <% }); %>
+                    <%=helper.render('klevuQuickTemplateInfiniteScrollDown',scope,data) %>
+                  </ul>
+                </div>
+              </div>
+          </div>
+          </div>
+          <div ku-block data-block-id="ku_quick_other_items">
+            <div data-section="productList" class="klevuMeta">
+              <%=helper.render('klevuQuickTemplatePagination',scope,data,"productList") %>
+            </div>
+          </div>
+          <footer ku-block data-block-id="ku_quick_result_footer"></footer>
+        </section>
+        <section ku-container data-container-id="ku_quick_main_content_right" data-container-position="right" data-container-role="right">
+          <div ku-block data-block-id="ku_quick_right_facets">
+            <% var isQuickFiltersOnLeft = klevu.search.modules.kmcInputs.base.isQuickFacetedLayoutFilterOnLeft(); %>
+            <% if(isQuickFiltersOnLeft === false && data.query.productList.filters && data.query.productList.filters.length > 0) { %>
+              <div data-section="productList" class="klevuMeta">
+                <%=helper.render('klevuQuickTemplateFilters',scope,data,"productList") %>
+              </div>
+            <% } %>
+          </div>
+          <div ku-block data-block-id="ku_quick_right_call_outs"></div>
+          <div ku-block data-block-id="ku_quick_right_banner"></div>
+        </section>
+      </div>
+    <% } else { %>
+      <% var isCmsEnabled = klevu.search.modules.kmcInputs.base.getCmsEnabledValue(); %>
+      <% if(isCmsEnabled) { %>
+        <% if(data.query.cmsCompressed && data.query.cmsCompressed.result.length <= 0 ){ %>
+          <div ku-container data-container-id="ku_quick_main_content_container" data-container-role="content">
+            <section ku-container data-container-id="ku_quick_main_content_left" data-container-position="left" data-container-role="left">
+            </section>
+            <section ku-container data-container-id="ku_quick_main_content_center" data-container-position="center" data-container-role="center">
+              <div ku-block data-block-id="ku_quick_no_result_items">
+                <%=helper.render('noResultsFoundQuick',scope) %>
+              </div>
+            </section>
+            <section ku-container data-container-id="ku_quick_main_content_right" data-container-position="right" data-container-role="right">
+            </section>
+          </div>
+        <% } %>
+      <% } else { %>
+        <div ku-container data-container-id="ku_quick_main_content_container" data-container-role="content">
+          <section ku-container data-container-id="ku_quick_main_content_left" data-container-position="left" data-container-role="left">
+          </section>
+          <section ku-container data-container-id="ku_quick_main_content_center" data-container-position="center" data-container-role="center">
+            <div ku-block data-block-id="ku_quick_no_result_items">
+              <%=helper.render('noResultsFoundQuick',scope) %>
+            </div>
+          </section>
+          <section ku-container data-container-id="ku_quick_main_content_right" data-container-position="right" data-container-role="right">
+          </section>
+        </div>
+      <% } %>
+    <% } %>
+  <% } else { %>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickProducts">
+  {{- content -}}
+</script>

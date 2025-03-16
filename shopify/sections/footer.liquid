@@ -1,0 +1,101 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section, set_padding: 'contained'
+
+  capture section_header
+    render 'section_header', section: section
+  endcapture
+
+  # Footer Columns Grid (Desktop)
+  assign columns = section.blocks.size
+
+  if section_header != blank
+    assign columns = columns | minus: 1
+  endif
+-%}
+
+{% style %}
+  {% # Section %}
+  #shopify-section-{{ section.id }} {
+    --bg: {{ section.settings.background_color }};
+    padding-inline: var(--row-space);
+    background: var(--bg);
+  }
+
+  {% # Columns %}
+  @media (min-width: 1024px) {
+    .footer-columns {
+      grid-template-columns: repeat({{ columns }}, 1fr);
+    }
+  }
+{% endstyle %}
+
+<div class="flex flex-col py-10 footer gap-y-9 lg:gap-y-11 lg:pt-8 lg:pb-8">
+  {%- liquid
+    if section_header != blank
+      echo section_header
+    endif
+  -%}
+
+  <div class="flex flex-col justify-between border-solid footer-columns gap-x-auto lg:grid lg:flex-row border-border-light max-lg:border-b">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'link-column' -%}
+          {%- for link in linklists[block.settings.column_linklist].links -%}
+            <div class="border-t border-solid border-border-light lg:border-y-0 lg:last:border-y-0">
+              {%- capture content -%}
+                <ul class="flex flex-col gap-y-4">
+                  {%- for child_link in link.links -%}
+                    <li>
+                      <a class="lg:text-md hover:underline underline-offset-4" href="{{ child_link.url }}" >
+                        {{- child_link.title -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endcapture -%}
+
+              {%- render 'object_accordion',
+                title: link.title,
+                heading_class: 'font-semibold',
+                content_inner_class: 'max-lg:pb-6 lg:pt-4',
+                content: content,
+                mobile_only: true
+              -%}
+            </div>
+          {%- endfor -%}
+
+        {%- when 'social-column' -%}
+          {%- if shop.brand.metafields.social_links.size > 0 -%}
+            <div class="border-t border-solid border-border-light lg:border-y-0 lg:last:border-y-0">
+              {%- liquid
+                capture content
+                  render 'social_network-links', class: 'flex-col'
+                endcapture
+
+                assign social_title = 'sections.footer.socials.title' | t
+                render 'object_accordion', title: social_title, heading_class: 'font-semibold', content_inner_class: 'max-lg:pb-6 lg:pt-4', content: content, mobile_only: true
+              -%}
+            </div>
+          {%- endif -%}
+
+        {%- when 'newsletter-column' -%}
+          <div class="border-t border-solid border-border-light lg:border-y-0 lg:last:border-y-0 max-lg:-order-1 max-lg:pt-9 max-lg:pb-9 max-lg:text-center lg:min-w-[295px]">
+            {%- render 'form_newsletter', form_id: 'newsletter', title: block.settings.heading_newsletter -%}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- if settings.enable_markets -%}
+      <div class="py-6 border-t border-solid border-border-light lg:hidden">
+        <button
+          is="dialog-trigger"
+          dialog-selector="#ModalMarkets"
+          class="items-center o-button gap-x-2"
+        >
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- render 'footer_bottom', target: section -%}
+</div>

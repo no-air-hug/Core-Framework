@@ -1,0 +1,123 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Card - Product
+  -------------------------------------------------------------------------------
+  Accepts
+  - class: {String} adds an additional parent class (optional)
+  - class: {String} adds an additional class to the 'bottom' content (optional)
+  - aspect_ratio: {String} sets the aspect ratio for the image. (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'card_product',
+    class: class,
+    bottom_class: bottom_class,
+    aspect_ratio: '1 / 1',
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Renders an product card for a provided product object.
+{%- endcomment -%}
+
+{%- liquid
+  assign class = class
+  assign bottom_class = bottom_class
+  assign aspect_ratio = aspect_ratio | default: '1 / 1'
+-%}
+
+<div class="{{ class }} js-product-card group flex h-full w-full flex-col">
+  <div class="relative">
+    <div class="absolute left-4 top-4 z-1 flex flex-wrap gap-1">
+      {%- render 'product_stickers', product: product -%}
+    </div>
+
+    {%- if product.metafields.info.badge -%}
+      <div class="absolute right-4 top-4 z-1 h-7 w-7 md:h-[42px] md:w-[42px]">
+        {%- render 'object_image' with product.metafields.info.badge -%}
+      </div>
+    {%- endif -%}
+    {%- comment -%}This is here for Shopper testing - PLEASE REMOVE{%- endcomment -%}
+    <span
+      class="smartwishlist"
+      data-product="{{ product.id }}"
+      data-variant="{{ product.variants.first.id }}"
+    ></span>
+
+    <div class="js-product-card-media relative grid bg-cover bg-center bg-no-repeat [&>*]:col-end-1 [&>*]:row-end-1">
+      {%- liquid
+        if product.images.size > 0
+          for image in product.images limit: 2
+            capture class_name
+              cycle '', 'transition-opacity opacity-0 group-hover:opacity-100'
+            endcapture
+
+            render 'object_image' with image, class: class_name, aspect: aspect_ratio, visible_placeholder: false
+          endfor
+        else
+          assign placeholder_class = class_name | append: ' bg-grey-90 w-full h-full" style="aspect-ratio: ' | append: aspect_ratio
+          echo 'product-1' | placeholder_svg_tag: placeholder_class
+        endif
+      -%}
+    </div>
+
+    <a
+      class="absolute inset-0"
+      href="{{ product.url }}"
+      aria-hidden="true"
+      tabindex="-1"
+    ></a>
+
+    {%- if settings.enable_quick_shop -%}
+      <div class="pointer-events-none absolute bottom-0 w-full px-4 opacity-0 transition-all group-hover:pointer-events-auto group-hover:-translate-y-4 group-hover:opacity-100 max-lg:hidden">
+        <button
+          is="dialog-trigger"
+          dialog-selector="#ModalQuickshop"
+          class="o-button o-button--primary o-button--full"
+          data-product-handle="{{ product.url }}"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          {{- 'snippets.card.product.quick_shop.trigger' | t -}}
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="grid flex-grow gap-2 pt-4 md:grid-cols-[1fr_auto] {{ bottom_class }}">
+    <p class="font-bold">
+      <a href="{{ product.url }}">
+        {{- product.title -}}
+      </a>
+    </p>
+
+    {%- render 'product_price', product: product, is_card: true -%}
+    {%- render 'product_rating', product: product -%}
+
+    {% if settings.show_product_variants %}
+      {% assign variant_images = product.images | where: 'attached_to_variant?', true %}
+      {% if variant_images.size > 1 %}
+        {% assign placeholder = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 [w] [h]"/>'
+          | replace: '[w]', 60
+          | replace: '[h]', 60
+          | base64_encode
+          | prepend: 'src="data:image/svg+xml;base64,'
+          | append: '" data-src='
+        %}
+        <ul class="flex flex-wrap gap-1">
+          {% for img in variant_images %}
+            {% assign v = img.variants | where: 'available', true | first | default: img.variants.first %}
+            <li class="h-6 w-6">
+              <button type="button" class="js-product-card-variant" data-variant-id="{{ v.id }}">
+                {{
+                  v.featured_image
+                  | image_url: width: 60, height: 60
+                  | image_tag: width: 60, height: 60, loading: 'lazy', sizes: '60px', class: 'js-lazyload'
+                  | replace: 'src=', placeholder
+                  | replace: 'srcset=', 'data-srcset='
+                }}
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

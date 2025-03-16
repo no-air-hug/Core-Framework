@@ -1,0 +1,57 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  assign media_block = section.blocks | where: 'type', 'media' | first
+
+  capture height_class
+    echo 'min-h-screen-d-minus-header'
+  endcapture
+-%}
+
+<div class="grid lg:grid-cols-2 gap-y-9 {{ height_class }} text-section-primary">
+  {%- if media_block != blank -%}
+    <div class="-ml-row max-lg:-mr-row{%- if media_block.settings.mobile_hidden %} hidden lg:flex{%- endif -%}">
+      {%- render 'object_image' with media_block.settings.image,
+        mobile_image: media_block.settings.image_mobile,
+        class: 'o-picture--fill',
+        aspect: '840 / 745',
+        aspect_mobile: '1 / 1',
+        preload: true,
+        img_class: 'o-picture--fill'
+      -%}
+    </div>
+  {%- endif -%}
+
+  <div class="flex justify-center px-6 py-9 md:px-13 md:py-13 only:col-span-2">
+    <div class="max-w-[512px] w-full self-center max-md:items-center">
+      <h1 class="text-5xl font-bold mb-9 font-heading">
+        {{- 'sections.main_account_form_register.title' | t -}}
+      </h1>
+
+      {%- render 'form_account-register',
+        class: 'mb-11',
+        title: 'sections.main_account_form_register.subtitle | t',
+        text: 'sections.main_account_form_register.subtext | t',
+        submit_button_style: section.settings.submit_button_style
+      -%}
+
+      <div class="flex flex-col gap-[32px]">
+        <div>
+          <h2 class="mb-2 text-2xl font-bold font-heading">
+            {{- 'sections.main_account_form_register.login_subtitle' | t -}}
+          </h2>
+          <p>
+            {{- 'sections.main_account_form_register.login_subtext' | t -}}
+          </p>
+        </div>
+
+        <a
+          class="o-button o-button--{{ section.settings.login_button_style }} o-button--full justify-center text-md"
+          href="{{ routes.account_login_url }}"
+        >
+          {{- 'sections.main_account_form_register.login_cta_text' | t -}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

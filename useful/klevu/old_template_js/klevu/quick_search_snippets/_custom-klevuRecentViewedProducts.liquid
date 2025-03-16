@@ -1,0 +1,38 @@
+{%- capture content -%}
+  <%
+    var recentlyViewedProductsTitle = klevu.getObjectPath(data,"modules.recentlyViewedProducts.title");
+    recentlyViewedProductsTitle = (recentlyViewedProductsTitle) ? recentlyViewedProductsTitle : "";
+  %>
+  <% if(data.query.recentViewedProductList) { %>
+    <% if(data.query.recentViewedProductList.result.length > 0 ) { %>
+      <div class="klevuResultsBlock kuPreventDocumentClick kuRecommendationSlider">
+        <div class="klevuSuggestionHeading">
+          <span class="klevuHeadingText">
+            <%= helper.translate(recentlyViewedProductsTitle) %>
+          </span>
+        </div>
+        <div class="klevuQuickSearchResults klevuQuickSearchRecentResults" data-section="recentViewedProductList" data-source="recentlyClickedProducts" id="recentViewedProductList">
+          <div class="kuCarousel kuRecentlyViewedProductsCarousel">
+            <div class="nav nav-left">
+              <div class="ion-chevron-left kuCarousel-arrow-icon-left"></div>
+            </div>
+            <div class="kuCarousel-content">
+              <% helper.each(data.query.recentViewedProductList.result,function(key,product){ %>
+                <div class="klevuProduct kuQSMenuItem kuSlide" id="<%= (key + 1) %>" ku-product-block data-id="<%=dataLocal.id%>">
+                  <%=helper.render('klevuQuickRecentViewedProductBlock',scope,data,product) %>
+                </div>
+              <% }); %>
+            </div>
+            <div class="nav nav-right">
+              <div class="ion-chevron-right kuCarousel-arrow-icon-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuRecentViewedProducts">
+  {{- content -}}
+</script>

@@ -1,0 +1,70 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Facets - Sort By (Text Appearance)
+  -------------------------------------------------------------------------------
+  Accepts
+  - form_id: {String} refer a form id to associate the sort by with (optional)
+  - input_scope: {String} used with the Facets.js file, this declares whether
+    the input should be active on mobile or on desktop, possible values are
+    limited to 'desktop' or 'mobile' (required).
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'facets_sort-by-text',
+    form_id: 'Facets',
+    input_scope: 'input_scope'
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays a sort by select element as text only.
+{%- endcomment -%}
+
+{%- liquid
+  assign form_id = form_id
+  assign input_scope = input_scope | default: 'desktop'
+  assign input_js_class = input_js_class | default: 'js-facet-input-' | append: input_scope
+
+  if template.name == 'search'
+    assign sortby = search
+  else
+    assign sortby = collection
+  endif
+
+  assign sort_by = sortby.sort_by | default: sortby.default_sort_by
+-%}
+
+<label class="grid gap-3 o-input after:invisible auto-cols-auto after:-translate-x-3">
+  <span class="absolute flex items-center justify-center w-full gap-2 -ml-10 font-bold pointer-events-none left-10">
+    {{- 'snippets.facets.sort_by_text.sort_by_label_text' | t -}}
+    {%- render 'theme_icons' with 'chevron-down', width: 16, height: 16 -%}
+  </span>
+
+  <select
+    class="row-start-1 text-transparent border-0 o-input__field {{ input_js_class }}"
+    name="sort_by"
+    id="SortByText{{ form_id }}"
+    data-facets-identifier="sort_by"
+    {% if form_id != blank %}
+      form="{{ form_id }}"
+    {% endif %}
+    aria-describedby="a11y-refresh-page-message"
+  >
+    {%- for option in sortby.sort_options -%}
+      {%- liquid
+        # Relates to the global theme setting where client can enable/disable certain sort settings
+        assign sort_identifier = 'sort_' | append: option.value | remove: '-ascending' | remove: '-descending' | replace: '-', '_'
+        assign enabled = section.settings[sort_identifier]
+      -%}
+
+      {%- if enabled -%}
+        <option
+          value="{{ option.value | escape }}"
+          {% if option.value == sort_by %}
+            selected
+          {% endif %}
+        >
+          {{- option.name | escape -}}
+        </option>
+      {%- endif -%}
+    {%- endfor -%}
+  </select>
+</label>

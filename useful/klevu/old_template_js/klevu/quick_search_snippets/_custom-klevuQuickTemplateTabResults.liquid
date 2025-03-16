@@ -1,0 +1,38 @@
+{%- capture content -%}
+  <%
+    var isCmsEnabled = klevu.search.modules.kmcInputs.base.getCmsEnabledValue();
+    var hasAnyResultFound = false;
+    helper.each(data.query,function(key,query) {
+      if(query.tab == true) {
+        if(helper.hasResults(data,query.id)) {
+          var results = data.query[query.id].meta.totalResultsFound;
+          if(results > 0){
+            hasAnyResultFound = true;
+          }
+        }
+      }
+    });
+  %>
+  <div class="kuContainer">
+    <div class="kuTabs" role="tablist" style="display:<%= isCmsEnabled && hasAnyResultFound ? 'block' : 'none'  %>">
+      <% var selectedTab = false; %>
+      <% helper.each(data.query,function(key,query){ %>
+        <% if(query.tab == true) { %>
+          <% if(helper.hasResults(data,query.id)) { %>
+            <a target="_self" class="kuTab<% if(!selectedTab){ selectedTab = true; %> kuTabSelected<% } %>" data-section="<%=query.id%>" role="tab" tabindex="0" aria-selected="" area-label="Products tab">
+              <%=helper.translate(query.tabText,data.query[query.id].meta.totalResultsFound)%>
+            </a>
+          <% } else { %>
+            <a target="_self" class="kuTabDeactive" data-section="<%=query.id%>" role="tab" tabindex="0" aria-selected="" area-label="Products tab">
+              <%=helper.translate(query.tabText,0)%>
+            </a>
+          <% } %>
+        <% } %>
+      <% }); %>
+    </div>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuQuickTemplateTabResults">
+  {{- content -}}
+</script>

@@ -1,0 +1,24 @@
+
+{%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+  | where: 'pick_up_enabled', true
+-%}
+
+<pickup-availability
+  data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+  {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+    available
+  {% endif %}
+>
+  <template>
+    <div class="flex items-start gap-1 pr-5 js-availability-preview">
+      {%- render 'theme_icons' with 'error', width: 16, height: 16 -%}
+      <div>
+        <p class="leading-none">{{- 'global.products.pickup_availability.unavailable' | t -}}</p>
+        <button class="mt-4 o-button o-button--underline text-md">
+          {{- 'global.products.pickup_availability.refresh' | t -}}
+        </button>
+      </div>
+    </div>
+  </template>
+</pickup-availability>
+

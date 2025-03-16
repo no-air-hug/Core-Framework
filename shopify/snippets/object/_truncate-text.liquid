@@ -1,0 +1,114 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Object - Truncate Text
+  -------------------------------------------------------------------------------
+  Accepts
+  - text: {Object/String} the text string (required)
+  - max_words: {Number} the amount of words to show before the trigger is clicked,
+    by default this is 50. (optional)
+  - trigger_more_text: {String} by default this is 'read more' (optional)
+  - trigger_less_text: {String} by default this is 'read less' (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'object_truncate-text',
+    text: text,
+    max_words: max_words,
+    trigger_more_text: trigger_more_text,
+    trigger_less_text: trigger_less_text
+  -%}
+  -------------------------------------------------------------------------------
+  Description
+  A basic read more/less snippet. On load, an ingested text object will be
+  truncated by a provided amount, but when it's trigger is clicked, the rest
+  of the text will be revealed.
+{%- endcomment -%}
+
+{%- liquid
+  # Definitions
+  assign text = text
+  assign max_words = max_words | default: 50
+  assign trigger_more_text = trigger_more_text | default: 'Read more'
+  assign trigger_less_text = trigger_less_text | default: 'Read less'
+  assign line_clamp_mob = line_clamp_mob | default: 4
+  assign line_clamp_dsk = line_clamp_dsk | default: 8
+
+  capture line_clamp_classes
+    case line_clamp_mob
+      when 1
+        echo 'line-clamp-1'
+      when 2
+        echo 'line-clamp-2'
+      when 3
+        echo 'line-clamp-3'
+      when 4
+        echo 'line-clamp-4'
+      when 5
+        echo 'line-clamp-5'
+      when 6
+        echo 'line-clamp-6'
+      when 7
+        echo 'line-clamp-7'
+      when 8
+        echo 'line-clamp-8'
+      when 9
+        echo 'line-clamp-9'
+      when 10
+        echo 'line-clamp-10'
+      when 11
+        echo 'line-clamp-11'
+      when 12
+        echo 'line-clamp-12'
+    endcase
+
+    case line_clamp_dsk
+      when 1
+        echo ' lg:line-clamp-1'
+      when 2
+        echo ' lg:line-clamp-2'
+      when 3
+        echo ' lg:line-clamp-3'
+      when 4
+        echo ' lg:line-clamp-4'
+      when 5
+        echo ' lg:line-clamp-5'
+      when 6
+        echo ' lg:line-clamp-6'
+      when 7
+        echo ' lg:line-clamp-7'
+      when 8
+        echo ' lg:line-clamp-8'
+      when 9
+        echo ' lg:line-clamp-9'
+      when 10
+        echo ' lg:line-clamp-10'
+      when 11
+        echo ' lg:line-clamp-11'
+      when 12
+        echo ' lg:line-clamp-12'
+    endcase
+  endcapture
+-%}
+
+{%- if text != blank and text.size > max_words %}
+  <div class="js-truncate">
+    <div class="{{ line_clamp_classes }} js-truncate-trun-text">
+      {{- text | truncatewords: max_words, '...' -}}
+    </div>
+
+    <div class="!hidden js-truncate-full-text">
+      {{- text -}}
+    </div>
+
+    <p
+      class="my-4 underline transition-opacity cursor-pointer hover:opacity-50 w-fit js-truncate-trigger"
+      data-trigger-more-text="{{ trigger_more_text }}"
+      data-trigger-less-text="{{ trigger_less_text }}"
+    >
+      {{- trigger_more_text -}}
+    </p>
+  </div>
+{% elsif text != blank %}
+  <div>
+    {{- text -}}
+  </div>
+{%- endif -%}

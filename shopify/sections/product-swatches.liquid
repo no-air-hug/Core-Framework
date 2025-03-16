@@ -1,0 +1,73 @@
+<!-- | -->
+<style>
+  [data-swatch] {
+    --_fallback: url({{ 'swatch.png' | asset_url }});
+    background-image: var(--_bg, var(--_fallback));
+    box-shadow: inset 0 0 0 1px var(--_border, rgb(0 0 0 / 10%));
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  {%- for block in section.blocks -%}
+    [data-swatch="{{ block.settings.title | handleize | replace: '-', '_' }}"] {
+      --_border: {{ block.settings.border_color }};
+      {%- if block.settings.image -%}
+        --_bg: url({{ block.settings.image | image_url: width: 40, height: 40 }});
+      {%- elsif block.settings.plain_color != blank and block.settings.plain_color != 'rgba(0,0,0,0)' -%}
+        --_bg: linear-gradient({{ block.settings.plain_color }},{{ block.settings.plain_color }});
+      {%- elsif block.settings.gradient != blank  -%}
+        {% if block.settings.gradient contains 'linear-gradient' %}
+          --_bg: {{ block.settings.gradient }};
+        {% else %}
+          --_bg: linear-gradient({{ block.settings.gradient }},{{ block.settings.gradient }});
+        {% endif %}
+      {%- endif -%}
+    }
+  {%- endfor -%}
+</style>
+<!-- | -->
+
+{% schema %}
+{
+  "name": "Product Swatches",
+  "blocks": [
+    {
+      "type": "swatch",
+      "name": "Swatch",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Swatch color/image",
+          "info": "Choose a color OR image to associate with a product option that utilises swatches"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Option name",
+          "info": "Match this text to the name of the product option that is utilising a product swatch. If you currently have a swatch with no image or color in it, and that option is titled 'Red', then simply match the text in the box above to 'Red'"
+        },
+        {
+          "type": "color",
+          "id": "plain_color",
+          "label": "Plain color"
+        },
+        {
+          "type": "color_background",
+          "id": "gradient",
+          "label": "Gradient color"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "or Image"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border color"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,85 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Footer - Bottom
+  -------------------------------------------------------------------------------
+  Accepts
+  - target: {Object} the section object (required)
+  - class: {String} additional classes (optional)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'footer_bottom', target: section -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays the baseline area of the footer.
+{%- endcomment -%}
+
+{%- liquid
+  assign target = target | default: section
+  assign class = class
+-%}
+
+<div class="{{ class }} flex flex-col items-center gap-y-4 justify-between lg:flex-row lg:border-t border-solid border-border-light pt-6 pb-10">
+  <div class="flex items-center gap-x-6">
+    {% # Markets %}
+    {%- if settings.enable_markets -%}
+      <button
+        is="dialog-trigger"
+        dialog-selector="#ModalMarkets"
+        class="items-center o-button gap-x-2 min-w-8 max-lg:hidden"
+      >
+      </button>
+    {%- endif -%}
+
+    {% # Copyright %}
+    <small class="text-sm font-semibold">
+      {%- liquid
+        assign year = 'now' | date: '%Y'
+        echo 'snippets.footer.bottom.copyright' | t: date: year
+      -%}
+    </small>
+  </div>
+
+  {% # Baseline Links %}
+  {%- if linklists[target.settings.footer_link_bottom].links.size > 0 -%}
+    <ul class="flex items-center justify-center gap-x-4 xs:gap-x-8">
+      {%- for link in linklists[target.settings.footer_link_bottom].links -%}
+        <li class="flex h-fit">
+          <a class="text-sm" href="{{ link.url }}">
+            {{- link.title -}}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+  {% # Payment Logos %}
+  {%- if target.settings.payment_logos != blank -%}
+    {%- liquid
+      if target.settings.payment_logos_width > 0
+        assign payment_logos_styling = 'style="width:#px"' | replace: '#', target.settings.payment_logos_width
+      endif
+    -%}
+    <div {{ payment_logos_styling }}>
+      {%- render 'object_image' with target.settings.payment_logos -%}
+    </div>
+  {%- else -%}
+    {%- liquid
+      assign payment_types = shop.enabled_payment_types
+      if payment_types.size == 0
+        assign payment_types = 'visa,master,american_express,paypal,apple_pay,gpay' | split: ','
+      endif
+    -%}
+
+    <ul
+      class="flex flex-wrap items-center justify-center gap-2"
+      role="list"
+      aria-label="{{- 'snippets.footer.bottom.accessibility.supported_payments' | t -}}"
+    >
+      {%- for type in payment_types -%}
+        <li class="flex h-fit">
+          {{ type | payment_type_svg_tag: class: 'w-[27px] h-[18px]' }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {% endif %}
+</div>

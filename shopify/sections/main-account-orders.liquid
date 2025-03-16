@@ -1,0 +1,122 @@
+{%- liquid
+  render 'section_spacing-and-color', section: section
+
+  render 'section_header', section: section
+
+  # Orders
+  assign orders = section.blocks | where: 'type', 'orders' | first
+-%}
+
+{%- if orders != blank -%}
+  {%- paginate customer.orders by orders.settings.pagination_amount -%}
+    <div class="flex flex-col justify-center js-paginatable">
+      {%- if customer.orders.size > 0 -%}
+        <ul class="grid items-start justify-start w-full grid-cols-1 4xl:grid-cols-2 gap-x-4 js-paginatable-list">
+          {%- for order in customer.orders -%}
+            <li class="flex flex-col items-stretch justify-start w-full mb-4 border border-solid rounded-2 border-border-light lg:mb-6 last:mb-0 lg:last:mb-0 js-paginatable-item">
+              {%- # Top -%}
+              <div class="flex justify-between p-5 lg:p-4">
+                {%- # Order No. -%}
+                <p class="font-bold">{{- 'sections.main_account_orders.order_number' | t: name: order.order_number -}}</p>
+
+                {%- # Fulfillment Status -%}
+                {%- liquid
+                  capture label_color
+                    if order.fulfillment_status == 'fulfilled'
+                      echo 'bg-validation-success'
+                    elsif order.fulfillment_status == 'cancelled'
+                      echo 'bg-validation-error'
+                    else
+                      echo 'bg-validation-processing'
+                    endif
+                  endcapture
+                -%}
+
+                <p class="{{ label_color }} self-center px-3 py-px text-sm font-bold text-center text-white rounded-1">
+                  {{- order.fulfillment_status | capitalize -}}
+                </p>
+              </div>
+
+              {%- # Bottom -%}
+              <hr class="o-hr">
+              <div class="flex flex-col justify-between gap-3 p-5 lg:flex-row lg:p-4">
+                <div class="grid w-full grid-cols-2 gap-x-3">
+                  {%- # Order Date -%}
+                  <p class="max-w-3">
+                    <span class="block font-bold text-md">
+                      {{- 'sections.main_account_orders.date' | t -}}
+                    </span>
+                    <span class="text-sm">{{- order.created_at | date: '%b %d, %Y' -}}</span>
+                  </p>
+
+                  {%- # Items -%}
+                  <p class="max-w-5">
+                    <span class="block font-bold text-md">
+                      {{- 'sections.main_account_orders.items' | t -}}
+                    </span>
+                    <span class="text-sm">{{- order.line_items.size -}}</span>
+                  </p>
+                </div>
+
+                <hr class="my-3 o-hr lg:hidden">
+
+                {%- # Tracking Number -%}
+                {%- liquid
+                  assign tracking_number = ''
+                  assign tracking_link = ''
+
+                  for line_item in order.line_items
+                    if forloop.first
+                      if line_item.fulfillment.tracking_number
+                        assign tracking_number = line_item.fulfillment.tracking_number
+                        assign tracking_link = line_item.fulfillment.tracking_number
+                      endif
+                    endif
+                  endfor
+                -%}
+
+                <a
+                  class="o-button o-button--{{ orders.settings.track_button_style }} o-button--full lg:o-button--medium xl:o-button--large"
+                  href="{{ tracking_link }}"
+                  {%- if tracking_number == blank -%}
+                    {%- if order.fulfillment_status == 'fulfilled' -%}
+                      title="{{- 'sections.main_account_orders.tracking_not_available' | t }}"
+                    {%- else -%}
+                      title="{{- 'sections.main_account_orders.tracking_not_available_yet' | t }}"
+                    {%- endif -%}
+                    disabled
+                  {%- endif -%}
+                >
+                  {{- 'sections.main_account_orders.track_order' | t -}}
+                </a>
+
+                <a
+                  class="o-button o-button--{{ orders.settings.view_button_style }} o-button--full lg:o-button--medium xl:o-button--large"
+                  href="{{ order.customer_url }}"
+                >
+                  {{- 'sections.main_account_orders.view_order' | t -}}
+                </a>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <small class="pt-2">{{- "sections.main_account_orders.none" | t -}}</small>
+      {%- endif -%}
+
+      {%- liquid
+        # Converts string to integer
+        assign pagination_visibility = settings.pagination_visibility | plus: 0
+
+        if paginate.pages > pagination_visibility
+          case orders.settings.pagination_style
+            when 'text'
+              render 'pagination_text', paginate: paginate
+            when 'dynamic'
+              render 'pagination_dynamic', paginate: paginate
+          endcase
+        endif
+      -%}
+    </div>
+  {%- endpaginate -%}
+{%- endif -%}

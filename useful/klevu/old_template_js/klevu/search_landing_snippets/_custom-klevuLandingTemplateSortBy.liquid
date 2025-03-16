@@ -1,0 +1,24 @@
+{%- capture content -%}
+  <div class="kuDropdown kuDropSortBy" role="listbox">
+    <div class="kuDropdownLabel">
+      <%=helper.translate("Sort by : ")%>
+      <%=helper.translate(helper.getSortBy(dataLocal))%>
+    </div>
+    <div class="kuDropdownOptions">
+      <div class="kuDropOption kuSort" data-value="RELEVANCE" role="option">
+        <%=helper.translate("Relevance")%>
+      </div>
+      <div class="kuDropOption kuSort" data-value="PRICE_ASC" role="option">
+        <%=helper.translate("Price: Low to high")%>
+      </div>
+      <div class="kuDropOption kuSort" data-value="PRICE_DESC" role="option">
+        <%=helper.translate("Price: High to low")%>
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingTemplateSortBy">
+  {{- content -}}
+</script>
+

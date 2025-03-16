@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "activate": {
+      "type": "main-account-form-activate-account",
+      "blocks": {
+        "afcae7b5-6789-4472-a822-ebeb0ea3caa9": {
+          "type": "media",
+          "settings": {
+            "mobile_hidden": true,
+            "image_fit": "cover"
+          }
+        }
+      },
+      "block_order": [
+        "afcae7b5-6789-4472-a822-ebeb0ea3caa9"
+      ],
+      "settings": {
+        "spacing": "0",
+        "padding": "contained",
+        "width": 0,
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "dark"
+      }
+    }
+  },
+  "order": [
+    "activate"
+  ]
+}

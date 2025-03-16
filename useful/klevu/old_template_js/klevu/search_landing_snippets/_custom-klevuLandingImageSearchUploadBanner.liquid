@@ -1,0 +1,24 @@
+{%- capture content -%}
+  <% if(data.kuResultsPageImageUploadEnabled == true) { %>
+    <div class="klevuLandingImageSearchUploadBannerContainer">
+      <div class="kuSearchedImageLeft">
+        <div class="kuSearchedImageLeftContent">
+          <div class="kuImgBannerTotalResultUploadImgContainer"> <img class="kuImgBannerTotalResultUploadImg" src="<%= data.kuResultsPageImageUploadPath %>" /> </div>
+          <div class="kuImgBannerTotalResultLabelContainer">
+            <% var totalImageUploadResultFound = klevu.getObjectPath(data,"query."+data.productQueryId+".meta.totalResultsFound"); %>
+            <p class="kuImgBannerTotalResultLabel">
+              <%= helper.translate("We found %s matches to your uploaded photo.", totalImageUploadResultFound) %>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="kuSearchedImageRight">
+        <div class="kuSearchedImageRightContent"> <button class="kuTryAnotherPhotoBtn"> <span class="kuUploadText upload"><%= helper.translate("Try another photo")%></span> </button> </div>
+      </div>
+    </div>
+  <% } %>
+{%- endcapture -%}
+
+<script type="template/klevu" id="custom_klevuLandingImageSearchUploadBanner">
+  {{- content -}}
+</script>

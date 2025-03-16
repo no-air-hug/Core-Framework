@@ -1,0 +1,25 @@
+{%- comment -%}
+  -------------------------------------------------------------------------------
+  Klevu - Quick Search - Trigger (Desktop)
+  -------------------------------------------------------------------------------
+  Usage
+  {%- render 'klevu_quick-search-trigger-desktop' -%}
+  -------------------------------------------------------------------------------
+  Description
+  Displays the site's quick search trigger, intended for usage on desktop.
+{%- endcomment -%}
+
+<button
+  type="button"
+  class="items-center justify-between w-full hidden h-[40px] py-2 pl-4 pr-2 max-w-[223px] bg-white border border-solid cursor-pointer select-none lg:flex gap-x-3 rounded-2 border-border-light"
+  aria-label="{{- 'klevu.quick_search.triggers.open.accessibility' | t -}}"
+  id="klevu-quick-search-trigger-desktop"
+>
+  <span class="text-sm font-medium select-none leading-1 tracking-1 text-grey-50">
+    {{- 'klevu.quick_search.triggers.open.title' | t -}}
+  </span>
+
+  {%- render 'theme_icons' with 'search', class: 'stroke-black w-[18px] h-[18px]' -%}
+
+  <p class="sr-only">{{- 'klevu.quick_search.triggers.open.accessibility' | t -}}</p>
+</button>

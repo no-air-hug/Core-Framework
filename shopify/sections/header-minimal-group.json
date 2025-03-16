@@ -1,0 +1,43 @@
+{
+  "type": "custom.header_minimal",
+  "name": "Header",
+  "sections": {
+    "promo-bar": {
+      "type": "promo-bar",
+      "blocks": {
+        "1e1cc9d0-c3cf-4583-a9cc-8dacc6a7bcd4": {
+          "type": "promo_text",
+          "settings": {
+            "icon": "arrow-right",
+            "text": "Our story will open in // text //"
+          }
+        }
+      },
+      "block_order": ["1e1cc9d0-c3cf-4583-a9cc-8dacc6a7bcd4"],
+      "settings": {
+        "background_color": "#109AD6",
+        "text_color": "light"
+      }
+    },
+    "header-minimal": {
+      "type": "header-minimal",
+      "settings": {
+        "brand_logo": "standard-logo",
+        "logo_colour": "#161616",
+        "cta_1_text": "Contact us",
+        "cta_1_icon": "phone",
+        "cta_1_icon-position": "right",
+        "cta_1_link": "",
+        "cta_1_link_style": "primary",
+        "cta_1_target": false,
+        "cta_2_text": "",
+        "cta_2_icon": "arrow-right",
+        "cta_2_icon-position": "right",
+        "cta_2_link": "",
+        "cta_2_link_style": "secondary",
+        "cta_2_target": false
+      }
+    }
+  },
+  "order": ["promo-bar", "header-minimal"]
+}

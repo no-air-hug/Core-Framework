@@ -1,0 +1,271 @@
+{%- if predictive_search.performed -%}
+  {% assign total_results = predictive_search.resources.queries.size
+    | plus: predictive_search.resources.collections.size
+    | plus: predictive_search.resources.pages.size
+    | plus: predictive_search.resources.articles.size
+    | plus: predictive_search.resources.products.size
+  %}
+  <div
+    class="max-lg:pt-3 max-lg:pb-6"
+    id="predictive-search-results"
+    role="listbox"
+  >
+    <div
+      id="predictive-search-results-groups-wrapper"
+      class="text-primary predictive-search__results-groups-wrapper grid-cols-1 {% if predictive_search.resources.queries.size > 0 %} lg:grid-cols-2{% else %} lg:grid-cols-1{% endif %}"
+    >
+      {%- if predictive_search.resources.queries.size > 0 -%}
+        <div class="predictive-search__suggestions-wrapper">
+          <h2 id="predictive-search-queries" class="font-extrabold text-md lg:text-lg -tracking-2 leading-1 font-heading">
+            {{- 'sections.predictive_search.suggestions' | t -}}
+          </h2>
+          <hr role="presentation" class="mt-3 mb-6 o-hr">
+          <ul
+            id="predictive-search-results-queries-list"
+            class="space-y-3 md:space-y-6"
+            role="group"
+            aria-labelledby="predictive-search-queries"
+          >
+            {%- for query in predictive_search.resources.queries -%}
+              <li
+                id="predictive-search-option-query-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a href="{{ query.url }}" class="flex predictive-search__item gap-x-4" tabindex="-1">
+                  <div class="flex flex-col justify-center">
+                    <p
+                      class="font-bold predictive-search__item-heading predictive-search__item-query-result text-md"
+                      aria-label="{{ query.text }}"
+                    >
+                      {{ query.styled_text }}
+                    </p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if predictive_search.resources.products.size > 0 -%}
+        <div class="predictive-search__products-wrapper">
+          <h2 id="predictive-search-products" class="font-extrabold text-md lg:text-lg -tracking-2 leading-1 font-heading">
+            {{- 'sections.predictive_search.products' | t -}}
+          </h2>
+          <hr role="presentation" class="mt-3 mb-6 o-hr">
+          <ul
+            id="predictive-search-results-products-list"
+            class="space-y-6"
+            role="group"
+            aria-labelledby="predictive-search-products"
+          >
+            {%- for product in predictive_search.resources.products -%}
+              <li
+                id="predictive-search-option-product-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a
+                  href="{{ product.url }}"
+                  class="flex predictive-search__item gap-x-4"
+                  tabindex="-1"
+                >
+                  {%- if product.featured_media != blank -%}
+                    <img
+                      class="object-contain"
+                      src="{{ product.featured_media | image_url: width: 150 }}"
+                      alt="{{ product.featured_media.alt }}"
+                      width="40"
+                      height="40"
+                      loading="eager"
+                    >
+                  {%- endif -%}
+                  <div class="flex flex-col justify-center">
+                    <p class="font-bold predictive-search__item-heading text-md">{{ product.title }}</p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if predictive_search.resources.collections.size > 0 -%}
+        <div class="predictive-search__collections-wrapper">
+          <h2 id="predictive-search-collections" class="font-extrabold text-md lg:text-lg -tracking-2 leading-1 font-heading">
+            {{- 'sections.predictive_search.collections' | t -}}
+          </h2>
+          <hr role="presentation" class="mt-3 mb-6 o-hr">
+          <ul
+            id="predictive-search-results-collections-list"
+            class="space-y-6"
+            role="group"
+            aria-labelledby="predictive-search-collections"
+          >
+            {%- for collection in predictive_search.resources.collections -%}
+              <li
+                id="predictive-search-option-collection-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a
+                  href="{{ collection.url }}"
+                  class="flex predictive-search__item gap-x-4"
+                  tabindex="-1"
+                >
+                  {%- if collection.image != blank -%}
+                    <img
+                      class="object-contain"
+                      src="{{ collection.image | image_url: width: 150 }}"
+                      alt="{{ collection.image.alt }}"
+                      width="40"
+                      height="40"
+                      loading="eager"
+                    >
+                  {%- endif -%}
+                  <div class="flex flex-col justify-center">
+                    <p class="font-bold predictive-search__item-heading text-md">{{ collection.title }}</p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
+        <div class="predictive-search__pages-wrapper">
+          <h2
+            id="predictive-search-pages-desktop"
+            class="font-extrabold text-md lg:text-lg -tracking-2 leading-1 font-heading"
+          >
+            {{- 'sections.predictive_search.page' | t -}}
+          </h2>
+          <hr role="presentation" class="mt-3 mb-6 o-hr">
+          <ul
+            id="predictive-search-results-pages-list-desktop"
+            class="space-y-6"
+            role="group"
+            aria-labelledby="predictive-search-pages-desktop"
+          >
+            {%- for page in predictive_search.resources.pages -%}
+              <li
+                id="predictive-search-option-page-desktop-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a href="{{ page.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                  <div class="flex flex-col justify-center">
+                    <p class="font-bold predictive-search__item-heading text-md">{{ page.title }}</p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+            {%- for article in predictive_search.resources.articles -%}
+              <li
+                id="predictive-search-option-article-desktop-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a href="{{ article.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                  <div class="flex flex-col justify-center">
+                    <p class="font-bold predictive-search__item-heading text-md">{{ article.title }}</p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {% # No results %}
+      {%- if total_results == 0 -%}
+        <div class="predictive-search__empty-wrapper">
+          <h2 class="font-bold text-md font-heading">
+            {{- 'sections.predictive_search.no_results' | t: terms: predictive_search.terms -}}
+          </h2>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="predictive-search__loading-state" aria-hidden="true">
+      <div class="loading-overlay__spinner">
+        {%- render 'theme_icons' with 'loading' -%}
+      </div>
+    </div>
+
+    <div
+      id="predictive-search-option-search-keywords"
+      class="predictive-search__search-for-button text-primary"
+    >
+      <hr role="presentation" class="mt-3 mb-6 o-hr">
+      <button
+        class="flex items-center justify-between w-full font-bold text-md animate-arrow"
+        tabindex="-1"
+        role="option"
+        aria-selected="false"
+      >
+        <span data-predictive-search-search-for-text>
+          {{- 'sections.predictive_search.search_for' | t: terms: predictive_search.terms -}}
+        </span>
+        <svg viewBox="0 0 14 10" fill="none" focusable="false" role="presentation" width="18" class="icon-arrow">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
+          </path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <span
+    class="hidden"
+    data-predictive-search-live-region-count-value
+  >
+    {%- liquid
+      if total_results == 0
+        echo 'sections.predictive_search.results.none' | t: terms: predictive_search.terms
+      else
+        if total_results == 1
+          echo 'sections.predictive_search.results.one' | t: count: total_results | append: ': '
+        else
+          echo 'sections.predictive_search.results.other' | t: count: total_results | append: ': '
+        endif
+
+        if predictive_search.resources.queries.size > 0
+          assign count = predictive_search.resources.queries.size | plus: predictive_search.resources.collections.size
+
+          if total_results == 1
+            echo 'sections.predictive_search.results_suggestions_with_count.one' | t: count: count | append: ': '
+          else
+            echo 'sections.predictive_search.results_suggestions_with_count.other' | t: count: count | append: ': '
+          endif
+        endif
+
+        if predictive_search.resources.pages.size > 0
+          assign count = predictive_search.resources.pages.size | plus: predictive_search.resources.articles.size
+
+          if total_results == 1
+            echo 'sections.predictive_search.results_pages_with_count.one' | t: count: count | append: ': '
+          else
+            echo 'sections.predictive_search.results_pages_with_count.other' | t: count: count | append: ': '
+          endif
+        endif
+
+        if predictive_search.resources.products.size > 0
+          assign count = predictive_search.resources.products.size
+
+          if total_results == 1
+            echo 'sections.predictive_search.results_products_with_count.one' | t: count: count | append: ': '
+          else
+            echo 'sections.predictive_search.results_products_with_count.other' | t: count: count | append: ': '
+          endif
+        endif
+      endif
+    -%}
+  </span>
+{%- endif -%}
