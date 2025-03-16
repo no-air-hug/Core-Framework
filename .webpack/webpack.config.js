@@ -8,6 +8,7 @@ const DoNotEditNoticePlugin = require("./plugins/DoNotEditNotice");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 
 const devSetup = require("./webpack.dev");
+const prodSetup = require("./webpack.prod");
 
 const WORK_DIR = process.env.GITHUB_WORKSPACE || path.resolve(__dirname, "../");
 const themeRoot = process.env.SHOPIFY_FLAG_PATH || path.join(WORK_DIR, "dist");
@@ -26,7 +27,9 @@ const baseConfig = () => ({
   entry: {
     main: ["./src/js/index.ts", "./src/scss/main.scss"],
     ...globSync(`${WORK_DIR}/src/scss/sections/*.scss`).reduce((acc, curr) => {
-      acc[`section-${path.basename(curr, ".scss")}`] = curr;
+      // Convert absolute path to relative path starting with ./
+      const relativePath = `./${path.relative(WORK_DIR, curr).replace(/\\/g, "/")}`;
+      acc[`section-${path.basename(curr, ".scss")}`] = relativePath;
       return acc;
     }, {}),
   },
@@ -177,5 +180,6 @@ const baseConfig = () => ({
 });
 
 module.exports = (env = {}) => {
-  return devSetup(baseConfig());
+  const isProd = !!env.production;
+  return isProd ? prodSetup(baseConfig()) : devSetup(baseConfig());
 };
