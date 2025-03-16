@@ -27,7 +27,9 @@ const baseConfig = () => ({
   entry: {
     main: ["./src/js/index.ts", "./src/scss/main.scss"],
     ...globSync(`${WORK_DIR}/src/scss/sections/*.scss`).reduce((acc, curr) => {
-      acc[`section-${path.basename(curr, ".scss")}`] = curr;
+      // Convert absolute path to relative path starting with ./
+      const relativePath = `./${path.relative(WORK_DIR, curr).replace(/\\/g, "/")}`;
+      acc[`section-${path.basename(curr, ".scss")}`] = relativePath;
       return acc;
     }, {}),
   },
