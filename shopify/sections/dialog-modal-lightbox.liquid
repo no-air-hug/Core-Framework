@@ -14,7 +14,9 @@
     class="dialog dialog--modal"
     modal-style="lightbox"
     hidden
-  {% if section.settings.testing %}data-testing{% endif %}
+    {% if section.settings.testing %}
+      data-testing
+    {% endif %}
   >
     <div
       class="dialog-overlay"
@@ -38,8 +40,7 @@
         <div class="lightbox js-product-lightbox">
           <div class="lightbox__thumbnails">
             <div class="lightbox__thumbnails-viewport scrollbar-hide">
-              <ul class="lightbox__thumbnails-track">
-              </ul>
+              <ul class="lightbox__thumbnails-track"></ul>
             </div>
           </div>
 
@@ -61,7 +62,11 @@
                       -%}
 
                     {%- when 'video', 'external_video' -%}
-                      {%- render 'object_video' with featured_media, class: 'h-full', aspect: '1 / 1', fit: 'contain' -%}
+                      {%- render 'object_video' with featured_media,
+                        class: 'h-full',
+                        aspect: '1 / 1',
+                        fit: 'contain'
+                      -%}
                   {%- endcase -%}
                 </li>
               {%- endif -%}
@@ -80,10 +85,9 @@
 
                     # Hide images by alt tag
                     if section.settings.hide_variants_by_alt
-                      # TODO: This currently assumes that alt tag contains only ONE option value e.g. color
                       assign alt = media.alt | downcase
-                      assign options = target.selected_or_first_available_variant.options | downcase
-                      unless options contains alt
+                      assign options_string = product.selected_or_first_available_variant.options | join: ' ' | downcase
+                      unless options_string contains alt
                         continue
                       endunless
                     endif
@@ -91,7 +95,7 @@
                 -%}
 
                 <li
-                  class="flex justify-center lightbox__item"
+                  class="lightbox__item flex justify-center"
                   data-thumbnail="{{ media | image_url: width: 120, height: 120 }}"
                   data-zoom="{{ media | image_url: width: 1, height: 1 }}"
                 >
