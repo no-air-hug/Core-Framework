@@ -8,6 +8,7 @@ const DoNotEditNoticePlugin = require("./plugins/DoNotEditNotice");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 
 const devSetup = require("./webpack.dev");
+const prodSetup = require("./webpack.prod");
 
 const WORK_DIR = process.env.GITHUB_WORKSPACE || path.resolve(__dirname, "../");
 const themeRoot = process.env.SHOPIFY_FLAG_PATH || path.join(WORK_DIR, "dist");
@@ -177,5 +178,6 @@ const baseConfig = () => ({
 });
 
 module.exports = (env = {}) => {
-  return devSetup(baseConfig());
+  const isProd = !!env.production;
+  return isProd ? prodSetup(baseConfig()) : devSetup(baseConfig());
 };
