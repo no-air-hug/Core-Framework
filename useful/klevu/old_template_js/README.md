@@ -9,7 +9,7 @@ To add the Klevu app embed to your chosen theme, go to the theme's customiser, c
 and check the slider next to the 'Klevu Javascript'. Inside that block, enable the relevant javascript modules (quick search, landing page,
 and smart recommendations), and set the search results landing page to the pathname for your Klevu managed search results landing page.
 
-This will add all the relevent Klevu JS files and the default Klevu settings into the document head, the default Klevu settings are:
+This will add all the relevant Klevu JS files and the default Klevu settings into the document head, the default Klevu settings are:
 
 ```
 let defaultKlevuSettings = {
