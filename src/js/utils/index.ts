@@ -7,6 +7,7 @@ export { get, getAll, getSiblings, createElement } from "./element";
 export { debounce } from "./debounce";
 export { throttle } from "./throttle";
 export { lock, release } from "./body-scroll-lock";
+export { observer } from "./observer";
 
 export const rIC =
   "requestIdleCallback" in window
