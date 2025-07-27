@@ -3,7 +3,7 @@
 
   height: var(--dot-size);
 
-  @apply absolute bottom-0 z-1 flex gap-3 justify-end items-center self-end justify-self-end w-full m-6;
+  @apply absolute bottom-0 z-1 m-6 flex w-full items-center justify-center gap-3 self-end justify-self-end;
 
   > button {
     width: var(--dot-size);

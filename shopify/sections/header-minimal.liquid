@@ -1,8 +1,8 @@
-<div class="px-0 border-b border-solid header__main border-border-light mx-row">
+<div class="header__main mx-row border-b border-solid border-border-light px-0">
   <a class="header__logo" href="{{ routes.root_url }}">
     {%- liquid
       if section.settings.brand_image != blank or section.settings.brand_logo != blank
-        render 'theme_brand-logos', target: section, preload: true, height: 19
+        render 'theme_brand-logos', target: section, preload: true, height: 100
       endif
     -%}
 

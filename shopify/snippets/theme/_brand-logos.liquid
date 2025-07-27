@@ -27,7 +27,7 @@
   assign styling = styling
   assign preload = preload | default: false
   assign class = class | default: 'w-fit'
-  assign img_class = img_class | default: 'o-img--contain w-fit'
+  assign img_class = img_class | default: 'o-img--contain w-fit rounded-[20%]'
   assign logo_colour = logo_colour | default: target.settings.logo_colour
 
   # Default Colour #
@@ -35,7 +35,12 @@
 -%}
 
 {%- if section.settings.brand_image != blank -%}
-  {%- render 'object_image' with section.settings.brand_image, height: 19, img_class: img_class, preload: preload -%}
+  {%- render 'object_image' with section.settings.brand_image,
+    height: 50,
+    width: 50,
+    img_class: img_class,
+    preload: preload
+  -%}
 {%- else -%}
   {%- case section.settings.brand_logo -%}
     {%- when 'standard-logo' -%}
@@ -43,15 +48,17 @@
         class="{{ class }}"
         style="{{ styling }}"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 84 19"
+        viewBox="0 0 200 200"
         fill="none"
-        width="{{ width | default: 84 }}"
-        height="{{ height | default: 19 }}"
+        width="{{ width | default: 200 }}"
+        height="{{ height | default: 200 }}"
       >
-        <path
-          d="M8.80752 13.0374C8.80752 14.5488 7.89895 15.8993 5.98448 15.8993C4.55674 15.8993 3.64817 15.1919 2.83695 13.9699L0.597992 15.8029C1.47411 17.2178 3.09654 18.7291 5.98448 18.7291C9.42404 18.7291 11.8252 16.6068 11.8252 12.9088V0.882183H8.77507V13.0374H8.80752ZM31.262 11.6868C31.262 14.195 29.9965 15.8672 27.4655 15.8672C24.9345 15.8672 23.669 14.195 23.669 11.6868V0.882183H20.6188V12.0727C20.6188 15.9315 23.2796 18.7291 27.4655 18.7291C31.6514 18.7291 34.3122 15.9315 34.3122 12.0727V0.882183H31.262V11.6868ZM54.69 12.9731L45.8639 0.882183H43.1058V18.4397H46.156V6.38097L55.0145 18.4397H57.7402V0.882183H54.69V12.9731ZM74.4837 0.592773C69.3244 0.592773 65.5279 4.48373 65.5279 9.66095C65.5279 14.8382 69.3244 18.7291 74.4837 18.7291C79.6431 18.7291 83.4396 14.8382 83.4396 9.66095C83.4396 4.48373 79.6431 0.592773 74.4837 0.592773ZM74.4837 15.8993C70.9144 15.8993 68.6105 13.0696 68.6105 9.69311C68.6105 6.31666 70.9144 3.48687 74.4837 3.48687C78.0531 3.48687 80.3569 6.31666 80.3569 9.69311C80.3569 13.0696 78.0531 15.8993 74.4837 15.8993Z"
-          fill="{{ logo_colour }}"
-        ></path>
+        <circle cx="100" cy="100" r="95" stroke="#FF4500" stroke-width="5" fill="none"/>
+        <rect x="60" y="60" width="80" height="50" fill="{{ logo_colour }}" rx="5"/>
+        <rect x="75" y="120" width="50" height="10" fill="{{ logo_colour }}" rx="2"/>
+        <circle cx="100" cy="145" r="5" fill="{{ logo_colour }}"/>
+        <rect x="70" y="70" width="60" height="30" fill="#FFFFFF" rx="3"/>
+        <circle cx="130" cy="85" r="3" fill="{{ logo_colour }}"/>
       </svg>
   {%- endcase -%}
 {%- endif -%}

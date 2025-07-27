@@ -83,28 +83,28 @@
 
       {%- for media in product.media -%}
         {% liquid
-          if media.id == product.selected_or_first_available_variant.featured_media.id
-            continue
-          endif
-
-          # Hide other variant images
-          if section.settings.hide_variants
-            if variant_images contains media.src
+          if product.variants.size > 1
+            if media.id == product.selected_or_first_available_variant.featured_media.id
               continue
             endif
 
-            # Hide images by alt tag
-            if section.settings.hide_variants_by_alt
-              # TODO: This currently assumes that alt tag contains only ONE option value e.g. color
-              assign alt = media.alt | downcase
-              assign options = product.selected_or_first_available_variant.options | downcase
-              unless options contains alt
+            # Hide other variant images
+            if section.settings.hide_variants
+              if variant_images contains media.src
                 continue
-              endunless
+              endif
+
+              # Hide images by alt tag
+              if section.settings.hide_variants_by_alt
+                assign alt = media.alt | downcase
+                assign options_string = product.selected_or_first_available_variant.options | join: ' ' | downcase
+                unless options_string contains alt
+                  continue
+                endunless
+              endif
             endif
           endif
         %}
-
         <li
           class="{{ slider_item_class }}"
           {% if settings.enable_lightbox == 'true' %}
