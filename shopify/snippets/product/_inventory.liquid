@@ -29,7 +29,7 @@
     hidden
   {% endif %}
 >
-  <div class="flex items-center gap-2 transition-opacity text-md js-inventory-content">
+  <div class="js-inventory-content flex items-center gap-2 text-md transition-opacity">
     {%- capture status_icon -%}
       <svg width="15" height="15" aria-hidden="true">
         <circle cx="7.5" cy="7.5" r="7.5" fill="[[color_faded]]"/>
@@ -57,7 +57,8 @@
           echo status_icon | replace: '[[color]]', color_warning | replace: '[[color_faded]]', color_warning_faded
 
           if block.settings.show_inventory_quantity
-            echo 'global.products.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+            assign inventory_text = 'global.products.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+            echo inventory_text
           else
             echo 'global.products.inventory_low_stock' | t
           endif
@@ -65,7 +66,8 @@
           echo status_icon | replace: '[[color]]', color_safe | replace: '[[color_faded]]', color_safe_faded
 
           if block.settings.show_inventory_quantity
-            echo 'global.products.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+            assign inventory_text = 'global.products.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+            echo inventory_text
           else
             echo 'global.products.inventory_in_stock' | t
           endif
