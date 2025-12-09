@@ -35,12 +35,6 @@
         {%- render 'object_image' with product.metafields.info.badge -%}
       </div>
     {%- endif -%}
-    {%- comment -%}This is here for Shopper testing - PLEASE REMOVE{%- endcomment -%}
-    <span
-      class="smartwishlist"
-      data-product="{{ product.id }}"
-      data-variant="{{ product.variants.first.id }}"
-    ></span>
 
     <div class="js-product-card-media relative grid bg-cover bg-center bg-no-repeat [&>*]:col-end-1 [&>*]:row-end-1">
       {%- liquid

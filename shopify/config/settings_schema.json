@@ -748,16 +748,5 @@
         "label": "Star rating instance ID"
       }
     ]
-  },
-  {
-    "name": "Shopper app",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "shopper_enabled",
-        "label": "Enable Shopper App?",
-        "default": false
-      }
-    ]
-  },
+  }
 ]

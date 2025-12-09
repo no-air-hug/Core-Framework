@@ -64,13 +64,6 @@
   >
     <a class="sr-only" href="#MainContent">{{ 'global.accessibility.skip_to_text' | t }}</a>
 
-    {%- liquid
-      # Shopper app utils
-      if settings.shopper_enabled
-        section 'shopper-settings'
-      endif
-    -%}
-
     <header class="header-group js-header-group">
       {%- sections 'header-group' -%}
     </header>
