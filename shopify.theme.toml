@@ -1,5 +1,5 @@
 [environments.local]
-store = "miguels-development-portfolio"
+store = "tech-test-fostr"
 path = "./dist"
 host = "localhost"
 port = 3000

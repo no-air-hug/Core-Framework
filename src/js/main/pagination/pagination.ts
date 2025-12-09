@@ -111,7 +111,10 @@ class Pagination {
 
     if (currentTotal === totalItems) {
       this.trigger.disabled = true;
-      this.trigger.textContent = this.initialState.buttonTextTemplate;
+      this.trigger.textContent = this.initialState.buttonTextTemplate.replace(
+        `{{ items_word }}`,
+        itemsWord,
+      );
     } else {
       this.trigger.disabled = false;
       this.trigger.textContent = this.initialState.initialButtonTextTemplate;
