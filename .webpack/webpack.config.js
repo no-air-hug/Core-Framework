@@ -152,9 +152,14 @@ const baseConfig = () => ({
         {
           from: "./shopify",
           to({ context, absoluteFilename }) {
-            if (absoluteFilename.includes("snippets")) {
+            // Normalize paths for cross-platform compatibility
+            const normalizedFilename = absoluteFilename.replace(/\\/g, "/");
+            const normalizedContext = context.replace(/\\/g, "/");
+
+            if (normalizedFilename.includes("/snippets/")) {
+              // Extract just the filename, flattening nested directories
               return `snippets/${path
-                .relative(context + "/snippets", absoluteFilename)
+                .relative(normalizedContext + "/snippets", absoluteFilename)
                 .replace(/[\\\/]/g, "")}`;
             }
             return "./";

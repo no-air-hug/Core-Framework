@@ -220,9 +220,6 @@ export class Dialog extends HTMLElement {
       );
     }
 
-    //Shopper menu view
-    if (this.shopper) this.show();
-
     // On Load Dialog Display
     const urlParams = new URLSearchParams(window.location.search);
     const dialogParam = urlParams.get("dialog");
@@ -254,8 +251,9 @@ customElements.define(
       this.addEventListener("click", () => {
         const selector = this.getAttribute("dialog-selector");
 
-        const dialog = selector
-          ? (get(selector) as Dialog | null)
+        const dialog =
+          selector ?
+            (get(selector) as Dialog | null)
           : (this.closest(".dialog") as Dialog);
 
         if (!dialog) {

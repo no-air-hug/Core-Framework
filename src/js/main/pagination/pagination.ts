@@ -101,7 +101,9 @@ class Pagination {
 
   setCurrentAmountViewed() {
     const currentTotal = getAll(".js-paginatable-item").length;
-    const totalItems = Number.parseInt(get(".js-pagination")?.dataset.totalItems);
+    const totalItems = Number.parseInt(
+      get(".js-pagination")?.dataset.totalItems,
+    );
     const itemsWord = get(".js-pagination")?.dataset.itemsWord;
 
     this.text.innerText = this.initialState.textTemplate
