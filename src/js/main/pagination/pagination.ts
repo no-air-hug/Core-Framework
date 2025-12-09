@@ -101,7 +101,9 @@ class Pagination {
 
   setCurrentAmountViewed() {
     const currentTotal = getAll(".js-paginatable-item").length;
-    const totalItems = Number.parseInt(get(".js-pagination")?.dataset.totalItems);
+    const totalItems = Number.parseInt(
+      get(".js-pagination")?.dataset.totalItems,
+    );
     const itemsWord = get(".js-pagination")?.dataset.itemsWord;
 
     this.text.innerText = this.initialState.textTemplate
@@ -111,10 +113,7 @@ class Pagination {
 
     if (currentTotal === totalItems) {
       this.trigger.disabled = true;
-      this.trigger.textContent = this.initialState.buttonTextTemplate.replace(
-        `{{ items_word }}`,
-        itemsWord,
-      );
+      this.trigger.textContent = this.initialState.buttonTextTemplate;
     } else {
       this.trigger.disabled = false;
       this.trigger.textContent = this.initialState.initialButtonTextTemplate;
