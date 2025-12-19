@@ -1,5 +1,3 @@
-
-
 const { merge } = require("webpack-merge");
 
 module.exports = (baseConfig) => {
@@ -13,7 +11,7 @@ module.exports = (baseConfig) => {
       loggingDebug: ["sass-loader"],
     },
     watchOptions: {
-      ignored: ["**/dist", "**/node_modules"],
+      ignored: ["**/dist", "**/node_modules"], // Ignore output and dependencies for faster rebuilds
     },
   };
 

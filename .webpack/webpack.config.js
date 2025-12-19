@@ -10,7 +10,9 @@ const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const devSetup = require("./webpack.dev");
 const prodSetup = require("./webpack.prod");
 
+// GitHub Actions: GITHUB_WORKSPACE is set in CI, falls back to project root locally
 const WORK_DIR = process.env.GITHUB_WORKSPACE || path.resolve(__dirname, "../");
+// Shopify CLI/CI: SHOPIFY_FLAG_PATH can override output directory, defaults to dist/
 const themeRoot = process.env.SHOPIFY_FLAG_PATH || path.join(WORK_DIR, "dist");
 
 /**  @type {import('webpack/types').Configuration} */
@@ -26,6 +28,7 @@ const baseConfig = () => ({
   context: WORK_DIR,
   entry: {
     main: ["./src/js/index.ts", "./src/scss/main.scss"],
+    // Auto-discover section SCSS files as separate entry points
     ...globSync(`${WORK_DIR}/src/scss/sections/*.scss`).reduce((acc, curr) => {
       // Convert absolute path to relative path starting with ./
       const relativePath = `./${path.relative(WORK_DIR, curr).replace(/\\/g, "/")}`;
@@ -109,6 +112,7 @@ const baseConfig = () => ({
       minChunks: 2,
       cacheGroups: {
         vendors: false,
+        // Separate React framework into its own chunk
         framework: {
           test: /(?<!node_modules.)[\\\/]node_modules[\\\/](react|react-dom|scheduler)[\\\/]/,
           name: "framework",
@@ -116,6 +120,7 @@ const baseConfig = () => ({
           priority: 40,
           enforce: true,
         },
+        // All other node_modules dependencies
         lib: {
           test: /[\\\/]node_modules[\\\/]/,
           name: "lib",
@@ -126,9 +131,9 @@ const baseConfig = () => ({
   },
   output: {
     filename: "assets/[name].min.js",
-    module: true,
+    module: true, // ES Modules output
     path: themeRoot,
-    publicPath: "",
+    publicPath: "", // Relative paths (handled by public-path.ts at runtime)
   },
   resolve: {
     extensions: [".js", ".json", ".ts", ".tsx"],
@@ -139,7 +144,7 @@ const baseConfig = () => ({
   plugins: [
     new MiniCssExtractPlugin({ filename: "assets/[name].min.css" }),
     new AssetsSnippetPlugin({
-      manifestFileName: process.env.BUILD_MANIFEST,
+      manifestFileName: process.env.BUILD_MANIFEST, //-> Not using gihub actions for now. Add pipeline later.
     }),
     new DoNotEditNoticePlugin(),
     new SectionsSchemaPlugin({
@@ -157,7 +162,7 @@ const baseConfig = () => ({
             const normalizedContext = context.replace(/\\/g, "/");
 
             if (normalizedFilename.includes("/snippets/")) {
-              // Extract just the filename, flattening nested directories
+              // Flatten nested snippet directories (e.g., theme/_assets.liquid → theme_assets.liquid)
               return `snippets/${path
                 .relative(normalizedContext + "/snippets", absoluteFilename)
                 .replace(/[\\\/]/g, "")}`;
@@ -172,6 +177,7 @@ const baseConfig = () => ({
           },
         },
         {
+          // Concatenate jQuery files into single bundle
           from: "./src/js/jquery",
           to: "assets/jquery.js",
           transformAll: (assets) => Buffer.concat(assets.map((a) => a.data)),
