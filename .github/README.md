@@ -7,7 +7,7 @@ A modern, modular Shopify theme framework built with React, TypeScript, and Tail
 - **Frontend**: React 18, TypeScript 5.5
 - **Styling**: Tailwind CSS 3.4, SCSS/SASS
 - **Build System**: Webpack 5 with custom plugins
-- **Search**: Klevu AI Search integration
+- **Search**: Shopify Search & Discovery
 - **UI Libraries**: Radix UI, a11y-dialog
 - **Carousel**: Embla Carousel
 - **Package Manager**: pnpm
