@@ -1,6 +1,6 @@
 # Miguel's Shopify Theme Framework
 
-A modern, modular Shopify theme framework built with React, TypeScript, and Tailwind CSS. Features custom sections, advanced product functionality, and integrated Klevu AI-powered search.
+A modern, modular Shopify theme framework built with React, TypeScript, and Tailwind CSS. Features custom sections, and advanced product functionality.
 
 ## Tech Stack
 
@@ -141,30 +141,6 @@ framework/
 
 ### Integrations
 
-#### Klevu AI Search
-
-React-based search integration with advanced filtering and personalization.
-
-**Features:**
-
-- Quick search with instant results
-- Dedicated search landing page
-- Product filters and facets
-- Sort by relevance, price, etc.
-- Trending and recent searches
-- Product recommendations
-- Custom product cards with swatches
-- Mobile-optimized drawer interface
-
-**Components:**
-
-- Quick search input and results
-- Search results page with tabs
-- Filter interactions
-- Pagination
-- Grid view options
-- Product cards with pricing and variants
-
 ## Development Tools
 
 ### Snippets
@@ -189,7 +165,6 @@ React-based search integration with advanced filtering and personalization.
 - `form/*` - Form field components
 - `header/*` - Header components
 - `footer/*` - Footer components
-- `klevu/*` - Klevu search components
 - `object/*` - Object templates (price, rating, media, etc.)
 - `pagination/*` - Pagination components
 - `product/*` - Product-specific snippets
@@ -231,10 +206,7 @@ The framework provides extensive customization options through Shopify's theme e
 
 **Search Configuration**
 
-- **Search Method** - Switch between Standard Shopify search or Klevu AI
-- **Klevu Settings**
-  - Swatch source (variant images vs. section blocks)
-  - Swatch display limits
+- **Search Method** - Switch between Standard Shopify
 - **Predictive Search** - Result count configuration (2-10 items)
 
 **Integrations**
