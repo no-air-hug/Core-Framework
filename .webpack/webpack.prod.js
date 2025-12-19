@@ -1,5 +1,3 @@
-
-
 const { merge } = require("webpack-merge");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -9,7 +7,7 @@ module.exports = (baseConfig) => {
   const prodConfig = {
     mode: "production",
     output: {
-      clean: true,
+      clean: true, // Remove old files before build
     },
     optimization: {
       minimizer: [
