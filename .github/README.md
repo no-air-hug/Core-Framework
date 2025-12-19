@@ -16,8 +16,8 @@ A modern, modular Shopify theme framework built with React, TypeScript, and Tail
 
 ```
 framework/
-├── .webpack/              # Webpack configuration & custom plugins
-├── dist/                  # Compiled theme output (Shopify-ready)
+├── .webpack/             # Webpack configuration & custom plugins
+├── dist/                 # Compiled theme output (Shopify-ready)
 ├── shopify/              # Shopify theme files
 │   ├── sections/         # Liquid section files
 │   ├── snippets/         # Reusable Liquid snippets
