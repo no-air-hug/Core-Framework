@@ -165,7 +165,18 @@ export class Dialog extends HTMLElement {
   show(animate: boolean = true) {
     if (!animate) this.classList.add("no-animation");
     this.classList.remove("has-error");
+
+    if (animate) {
+      this.elDocument.style.opacity = "0";
+    }
+
     this.dialog?.show();
+
+    if (animate) {
+      requestAnimationFrame(() => {
+        this.elDocument.style.opacity = "";
+      });
+    }
 
     (
       (get("[autofocus], button, input", this) ?? get("button", this)) as
