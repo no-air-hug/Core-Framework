@@ -1,0 +1,22 @@
+api_version = "2025-10"
+
+[[extensions]]
+name = "[OneStock] Delivery Options Filter"
+handle = "delivery-promise-function"
+uid = "58559365-66d2-c7e0-6603-a1456f27b460d53850bd"
+type = "function"
+
+description = "Filters delivery options based on OneStock delivery promise"
+
+[[extensions.targeting]]
+target = "cart.delivery-options.transform.run"
+input_query = "src/cart-delivery-options-transform-run.graphql"
+export = "cart-delivery-options-transform-run"
+
+[extensions.build]
+command = ""
+path = "dist/function.wasm"
+
+[extensions.ui.paths]
+create = "/"
+details = "/"

@@ -1,0 +1,25 @@
+api_version = "unstable"
+
+[[extensions]]
+name = "[OneStock] Pickup Point Generator"
+handle = "pickup-point-delivery-option-generators"
+uid = "cad5a2f6-bb36-9338-07db-76aacec571fc849ab095"
+type = "function"
+
+  [[extensions.targeting]]
+  target = "purchase.pickup-point-delivery-option-generator.fetch"
+  input_query = "src/fetch.graphql"
+  export = "fetch"
+
+  [[extensions.targeting]]
+  target = "purchase.pickup-point-delivery-option-generator.run"
+  input_query = "src/run.graphql"
+  export = "run"
+
+  [extensions.build]
+  command = ""
+  path = "dist/function.wasm"
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"

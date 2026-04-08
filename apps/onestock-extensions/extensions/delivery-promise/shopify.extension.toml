@@ -1,0 +1,19 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/api/checkout-extensions/checkout/configuration
+
+api_version = "2025-10"
+
+[[extensions]]
+name = "[OneStock] Delivery Promise"
+handle = "delivery-promise"
+uid = "80107032-7853-d7fc-c43b-d142bd0863d77c1eb214"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/delivery-promise.tsx"
+target = "purchase.checkout.delivery-address.render-after"
+
+[extensions.capabilities]
+api_access = true
+network_access = true
+block_progress = true

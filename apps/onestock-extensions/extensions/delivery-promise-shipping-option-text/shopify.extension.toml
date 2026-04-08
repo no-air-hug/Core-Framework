@@ -1,0 +1,21 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/api/checkout-extensions/checkout/configuration
+
+api_version = "2025-10"
+
+[[extensions]]
+name = "[OneStock] Shipping Option Information"
+handle = "delivery-promise-shipping-option-text"
+uid = "20d7537f-dc8d-0792-cdd2-5a1aafecf2ed5cab5e49"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/delivery-promise-shipping-option-text.tsx"
+target = "purchase.checkout.shipping-option-item.render-after"
+
+[extensions.capabilities]
+api_access = true
+
+[[extensions.metafields]]
+namespace = "onestock"
+key = "delivery-promise"

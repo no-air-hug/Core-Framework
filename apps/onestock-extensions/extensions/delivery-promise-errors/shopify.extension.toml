@@ -1,0 +1,25 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/api/checkout-extensions/checkout/configuration
+
+api_version = "2025-10"
+
+[[extensions]]
+name = "[OneStock] Errors"
+handle = "delivery-promise-errors"
+uid = "7643d277-71ac-8708-3e12-ec79e347a1e33ea6b408"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/delivery-promise-errors.tsx"
+target = "purchase.checkout.shipping-option-list.render-after"
+
+[[extensions.targeting]]
+module = "./src/delivery-promise-errors.tsx"
+target = "purchase.checkout.pickup-point-list.render-after"
+
+[extensions.capabilities]
+api_access = true
+
+[[extensions.metafields]]
+namespace = "onestock"
+key = "delivery-promise"

@@ -1,0 +1,41 @@
+query FetchInput {
+  deliveryAddress {
+    countryCode
+    longitude
+    latitude
+  }
+  cart {
+    cost {
+      subtotalAmount {
+        amount
+      }
+    }
+    lines {
+      merchandise {
+        ... on ProductVariant {
+          __typename
+          id
+          sku
+        }
+      }
+      quantity
+    }
+  }
+  shop {
+    apiUrl: metafield(namespace: "integrations", key: "onestock_proxy_url") {
+      value
+    }
+    osSalesChannel: metafield(
+      namespace: "integrations"
+      key: "onestock_sales_channel"
+    ) {
+      value
+    }
+    osDeliveryMapping: metafield(
+      namespace: "integrations"
+      key: "onestock_delivery_mapping"
+    ) {
+      value
+    }
+  }
+}

@@ -1,0 +1,17 @@
+query CartDeliveryOptionsTransformRunInput {
+  cart {
+    deliveryGroups {
+      deliveryOptions {
+        title
+        handle
+        deliveryMethodType
+      }
+    }
+    deliveryType: attribute(key: "delivery-type") {
+      value
+    }
+    deliveryPromise: metafield(namespace: "onestock", key: "delivery-promise") {
+      jsonValue
+    }
+  }
+}
